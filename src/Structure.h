@@ -4,16 +4,12 @@
 
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
-using namespace std;
-#include <vector>;
-#inlude <"Player.h";
-
+#include <vector>
 
 
 class Structure {
-    //The player that owns the structure
-    Player* player;
-    enum necessaryResources : int = {wood = 0, stone = 0, brick = 0, sheep = 0, wheat = 0};
+    //Create Player pointer to the player that owns the structure
+    enum necessaryResources : int {wood = 0, stone = 0, brick = 0, sheep = 0, wheat = 0};
     int victoryPoint;
 
     public:

@@ -10,6 +10,8 @@
 //Necessary Resources = wood = 1, brick = 1
 class Road : Structure {
 
+public:
+    Road();
 };
 
 

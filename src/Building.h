@@ -7,11 +7,11 @@
 
 #include <vector>
 
-#include "Resource.h"
 #include "Structure.h"
+#include "Vertex.h"
 using namespace std;
 
-class Building : Structure{
+class Building : Structure {
     //1 for a settlement or 2 for a city
     //Multiply the resources you recieve by this modifier (if that makes sense)
     int modifier;
@@ -23,7 +23,7 @@ class Building : Structure{
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier
     //calls the getResources() function of the player that owns the building
-    void giveResources(vector<Resource> resources);
+    void giveResources(vector<int> resources);
 
     bool place(Vertex vertex);
     bool buy();

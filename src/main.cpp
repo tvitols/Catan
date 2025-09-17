@@ -55,7 +55,7 @@ int main() {
         }
         players.emplace_back(name);
     }
-    Board board = generateBoard();
+    //Board board = Board::generateBoard();
     bool gameWon = false;
     while (!gameWon) {
         for (auto &player : players) {

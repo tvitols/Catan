@@ -18,7 +18,7 @@ public:
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier
     //calls the getResources() function of the player that owns the building
-    void giveResources(vector<Resource> resources);
+    void giveResources(vector<int> resources);
 
     //yeah don't worry about this right now it's a mess
     bool place(Vertex vertex);
