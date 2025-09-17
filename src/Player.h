@@ -26,7 +26,7 @@ class Player {
 
     public:
 
-    explicit Player(std::string name);
+    explicit Player(const std::string *pname);
 
     //add resource to player
     void getResource(resourceType r, int num);
