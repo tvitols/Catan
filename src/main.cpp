@@ -53,15 +53,17 @@ int main() {
             cout << "Invalid name." << endl;
             i --; break;
         }
-        players.emplace_back(name);
+        players.emplace_back(&name);
     }
     //Board board = Board::generateBoard();
     bool gameWon = false;
+    int p = 10;
     while (!gameWon) {
         for (auto &player : players) {
-            cout << "Player " << player.getName() << " your turn!" << endl;
-            player.takeTurn();
-            gameWon = player.hasWon();
+            cout << player.getName() << ", your turn!" << endl;
+            // player.takeTurn();
+            // gameWon = player.hasWon();
+            gameWon = !(--p);
         }
     }
 
