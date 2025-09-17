@@ -5,9 +5,10 @@
 #ifndef PORT_H
 #define PORT_H
 
-#include "Tile.h"
+#include "Vertex.h"
 
-class Port : Tile {
+
+class Port : Vertex {
 
 };
 

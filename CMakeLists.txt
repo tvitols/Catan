@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(Catan)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 ADD_EXECUTABLE(Catan src/main.cpp
         src/Player.cpp
@@ -16,8 +16,6 @@ ADD_EXECUTABLE(Catan src/main.cpp
         src/Edge.h
         src/Card.cpp
         src/Card.h
-        src/Resource.cpp
-        src/Resource.h
         src/Robber.cpp
         src/Robber.h
         src/Deck.cpp
@@ -34,5 +32,15 @@ ADD_EXECUTABLE(Catan src/main.cpp
         src/City.h
         src/Port.cpp
         src/Port.h
+        src/CustomUtils.h
+        src/Info.h
+        src/Info.cpp
+        src/Board.cpp
+        src/Board.h
 )
 add_executable(Tests test/testing.cpp)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/rules.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/info.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

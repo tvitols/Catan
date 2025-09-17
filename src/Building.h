@@ -7,7 +7,6 @@
 
 #include <vector>
 
-#include "Resource.h"
 #include "Structure.h"
 
 class Building : Structure{
@@ -16,7 +15,6 @@ class Building : Structure{
     Building();
     ~Building();
 
-    std::vector<Resource> collectResources();
 
 };
 

@@ -4,10 +4,19 @@
 
 #ifndef ROBBER_H
 #define ROBBER_H
-
+#include "Tile.h"
 
 
 class Robber {
+
+    Tile*currentTile;
+
+    public:
+
+    Robber();
+    ~Robber();
+
+    void move(Tile* currentTile);
 
 };
 
