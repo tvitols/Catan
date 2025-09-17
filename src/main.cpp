@@ -9,6 +9,7 @@
 #include "Info.h"
 #include "Player.h"
 #include "Board.h"
+
 using namespace std;
 
 int main() {
@@ -21,7 +22,7 @@ int main() {
         cin >> choice;
         checkCin(&choice);
         switch (choice){
-            case 'p': case 'P':  break;
+            case 'p': case 'P': break;
 
             case 'i': case 'I': choice = 0; Info::print_info(); break;
 
@@ -32,6 +33,7 @@ int main() {
             default: choice = 0; cout << "Invalid choice" << endl; break;
         }
     }
+
     int numPlayers;
     cout << "Select number of players (2-4): ";
     cin >> numPlayers;
@@ -53,15 +55,17 @@ int main() {
             cout << "Invalid name." << endl;
             i --; break;
         }
-        players.emplace_back(name);
+        players.emplace_back(&name);
     }
-    Board board = generateBoard();
+    Board board = Board::generateBoard();
     bool gameWon = false;
+    int p = 10;
     while (!gameWon) {
         for (auto &player : players) {
-            cout << "Player " << player.getName() << " your turn!" << endl;
-            player.takeTurn();
-            gameWon = player.hasWon();
+            cout << player.getName() << ", your turn!" << endl;
+            // player.takeTurn();
+            // gameWon = player.hasWon();
+            gameWon = !(--p);
         }
     }
 

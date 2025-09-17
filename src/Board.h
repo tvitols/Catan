@@ -10,12 +10,12 @@
 class Board {
 
     Board();
-    ~Board();
 
 public:
+    ~Board();
 
-    Board generateBoard();
-    Board generateBoard(int seed);
+    static Board generateBoard();
+    static Board generateBoard(int seed);
 
 };
 

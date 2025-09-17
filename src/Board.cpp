@@ -3,3 +3,16 @@
 //
 
 #include "Board.h"
+
+Board::Board() = default;
+
+Board::~Board() = default;
+
+
+Board Board::generateBoard() {
+    return {};
+}
+
+Board Board::generateBoard(int seed) {
+    return {};
+}
