@@ -35,7 +35,7 @@ void Player::showResources() {
 }
 
 void Player::takeTurn() {
-    int roll = dice() + dice();
+    const int roll = dice() + dice();
     cout << "You rolled a " << roll << endl;
     cout << "Collecting Resources" << endl;
     cout << "You got " << endl;

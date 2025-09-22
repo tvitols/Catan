@@ -20,8 +20,8 @@ class Building : Structure {
     int modifier;
 
     public:
-    Building();
-    ~Building();
+    Building() = default;
+    ~Building() = default;
 
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier

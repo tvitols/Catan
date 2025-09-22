@@ -3,3 +3,7 @@
 //
 
 #include "Settlement.h"
+
+bool Settlement::buy() {
+    return true;
+}

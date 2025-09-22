@@ -3,3 +3,7 @@
 //
 
 #include "City.h"
+
+void City::buy() {
+    return;
+}

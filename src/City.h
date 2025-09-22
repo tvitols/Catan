@@ -12,8 +12,8 @@ class City : Building{
 
 
 public:
-    City();
-    ~City();
+    City() = default;
+    ~City() = default;
 
     //Depends on where we want to have the vertex
     //If they have the vertex, then make sure that the vertex used to be a house

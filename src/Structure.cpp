@@ -3,3 +3,7 @@
 //
 
 #include "Structure.h"
+
+bool Structure::buy() {
+    return true;
+}

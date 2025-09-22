@@ -13,8 +13,8 @@ class Structure {
     int victoryPoint;
 
     public:
-    Structure();
-    ~Structure();
+    Structure() = default;
+    ~Structure() = default;
 
     bool place();
     bool buy();

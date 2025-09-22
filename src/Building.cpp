@@ -3,3 +3,7 @@
 //
 
 #include "Building.h"
+
+std::tuple<resourceType, int> Building::giveResources(int roll) {
+    return std::make_tuple(resourceType::wood, 1);
+}

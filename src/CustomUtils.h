@@ -6,8 +6,8 @@
 #define CUSTOMUTILS_H
 
 #include <chrono>
-#include <functional>
 #include <random>
+#include <iostream>
 
 static int start_time = static_cast<int>(std::chrono::duration_cast<std::chrono::milliseconds>(
     std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()).

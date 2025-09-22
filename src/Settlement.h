@@ -12,8 +12,8 @@ class Settlement : Building {
 public:
     //Sets modifier to 1
     //Sets enumerated variables to the correct amount (wood = 1, wheat = 1, brick = 1, sheep = 1)
-    Settlement();
-    ~Settlement();
+    Settlement() = default;
+    ~Settlement() = default;
 
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier

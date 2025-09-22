@@ -11,7 +11,8 @@
 class Road : public Structure {
 
 public:
-    Road();
+    Road() = default;
+    ~Road() = default;
 };
 
 
