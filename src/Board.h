@@ -22,6 +22,8 @@ public:
 
     void printBoard();
 
+    void collectResources(int roll);
+
 };
 
 

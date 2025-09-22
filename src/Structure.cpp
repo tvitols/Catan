@@ -7,3 +7,11 @@
 bool Structure::buy() {
     return true;
 }
+
+bool Structure::addsVictoryPoint() {
+    return owner->addVP(1);
+}
+
+Player* Structure::getOwner() {
+    return owner;
+}

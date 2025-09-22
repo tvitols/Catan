@@ -7,8 +7,10 @@
 #include "Player.h"
 #include <iostream>
 
-#include "City.h"
+#include "Road.h"
 #include "Settlement.h"
+#include "City.h"
+#include "Board.h"
 
 Player::Player(const std::string *pname) {
     name = *pname;
@@ -46,33 +48,34 @@ bool Player::removeResource(vector<Resource> r) {
 
 void Player::showResources() {
     for (int i = 0; i < 5; i++) {
-        cout << static_cast<resourceType>(i) << "\t";
+        std::cout << static_cast<resourceType>(i) << "\t";
     }
-    cout << endl;
+    std::cout << std::endl;
     for (const auto r : resources) {
-        cout << r << "\t";
+        std::cout << r << "\t";
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 
-void Player::takeTurn(vector<Player> players) {
+void Player::takeTurn(std::vector<Player> players, Board* board) {
     const int roll = dice() + dice();
-    cout << "You rolled a " << roll << endl;
-    cout << "Collecting Resources" << endl;
-    cout << "You got " << endl;
+    std::cout << "You rolled a " << roll << std::endl;
+    std::cout << "Collecting Resources" << std::endl;
+    std::cout << "You got " << std::endl;
     int collected = 0;
-    for (const auto b : buildings) {
-        if (auto[r,num] = b->giveResources(roll); num) {
-            cout << (collected?", and ":"") << num << " " << r;
-            collected += num;
-            addResource(Resource(r,num));
-        }
-    }
-    cout << (collected?"!":"nothing!") << endl;
+    board->collectResources(roll);
+    // for (const auto b : buildings) {
+    //     if (auto[r,num] = b->giveResources(roll); num) {
+    //         cout << (collected?", and ":"") << num << " " << r;
+    //         collected += num;
+    //         addResource(r);
+    //     }
+    // }
+    std::cout << (collected?"!":"nothing!") << std::endl;
     char choice;
     while (!choice) {
-        cout << "Select an option to \n- (b)uy something\n- (e)nd turn\n- (t)rade\n";
-        cin >> choice;
+        std::cout << "Select an option to \n- (b)uy something\n- (e)nd turn\n- (t)rade\n";
+        std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
             case 'b': case 'B': buyMenu(); choice = 0; break;
@@ -230,20 +233,20 @@ bool Player::initiateTrade(vector<Player> players) {
 
     bool traded = false;
     for (Player player : players) {
-        if (&player != this && !traded) {
+        if (&player != this) {
             if (player.trade(offer, want)) {
                 traded = true;
+                break;
             }
         }
     }
     if (!traded) {
         return false;
     }
-    else {
-        removeResource(offer);
-        for (Resource resource : want) {
-            addResource(resource);
-        }
-        return true;
+    removeResource(offer);
+    for (Resource resource : want) {
+        addResource(resource);
     }
+    return true;
+
 }

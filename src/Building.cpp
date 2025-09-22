@@ -4,6 +4,8 @@
 
 #include "Building.h"
 
-std::tuple<resourceType, int> Building::giveResources(int roll) {
-    return std::make_tuple(resourceType::wood, 1);
+void Building::giveResources(int roll) {
+    if (roll == tileKey) {
+        owner->addResource(Resource(resource,num));
+    }
 }

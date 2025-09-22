@@ -55,13 +55,13 @@ int main() {
         }
         players.emplace_back(&name);
     }
-    //Board board = Board::generateBoard();
+    Board board = Board::generateBoard();
     bool gameWon = false;
     int p = 10;
     while (!gameWon) {
         for (auto &player : players) {
             cout << player.getName() << ", your turn!" << endl;
-            player.takeTurn(players);
+            player.takeTurn(players, &board);
             gameWon = player.hasWon();
             gameWon = !(--p);
         }

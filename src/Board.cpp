@@ -45,3 +45,9 @@ void Board::printBoard() {
         tile->printTile();
     }
 }
+
+void Board::collectResources(int roll) {
+
+}
+
+

@@ -12,6 +12,7 @@ class Settlement : Building {
 public:
     //Sets modifier to 1
     //Sets enumerated variables to the correct amount (wood = 1, wheat = 1, brick = 1, sheep = 1)
+
     Settlement() = default;
     ~Settlement() = default;
 

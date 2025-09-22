@@ -4,6 +4,6 @@
 
 #include "City.h"
 
-void City::buy() {
-    return;
+bool City::buy() {
+    return true;
 }

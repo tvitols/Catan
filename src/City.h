@@ -6,6 +6,7 @@
 #define CITY_H
 
 #include "Building.h"
+#include "Player.h"
 
 //Necessary Resources: stone = 3, wheat = 2
 class City : Building{
@@ -18,7 +19,7 @@ public:
     //Depends on where we want to have the vertex
     //If they have the vertex, then make sure that the vertex used to be a house
     bool checksIfHouse(Vertex vertex);
-    void buy();
+    bool buy();
 
 };
 

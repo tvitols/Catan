@@ -14,19 +14,24 @@
 
 using namespace std;
 
-class Building : Structure {
-    //1 for a settlement or 2 for a city
-    //Multiply the resources you recieve by this modifier (if that makes sense)
-    int modifier;
+class Building : public Structure {
 
-    public:
+protected:
+
+    int tileKey;
+    resourceType resource;
+    int num;
+
+
+public:
     Building() = default;
     ~Building() = default;
+
 
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier
     //returns type and number or resources
-    std::tuple<resourceType,int> giveResources(int roll);
+    void giveResources(int roll);
 
     bool place(Vertex vertex);
     bool buy();

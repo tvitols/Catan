@@ -5,14 +5,18 @@
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
 #include <vector>
+#include "player.h"
 
 
 class Structure {
+
+protected:
     //Create Player pointer to the player that owns the structure
+    Player* owner;
     enum necessaryResources : int {wood = 0, stone = 0, brick = 0, sheep = 0, wheat = 0};
     int victoryPoint;
 
-    public:
+public:
     Structure() = default;
     ~Structure() = default;
 
@@ -20,9 +24,9 @@ class Structure {
     bool buy();
 
     //Adds the number of victory points each structure is worth to the Player
-    int addsVictoryPoint();
+    bool addsVictoryPoint();
 
-
+    Player* getOwner();
 
 };
 
