@@ -61,8 +61,8 @@ int main() {
     while (!gameWon) {
         for (auto &player : players) {
             cout << player.getName() << ", your turn!" << endl;
-            player.takeTurn();
-            // gameWon = player.hasWon();
+            player.takeTurn(players);
+            gameWon = player.hasWon();
             gameWon = !(--p);
         }
     }

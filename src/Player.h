@@ -29,10 +29,10 @@ class Player {
     explicit Player(const std::string *pname);
 
     //add resource to player
-    void getResource(resourceType r, int num);
+    void addResource(Resource r);
 
     //take resourcce from player
-    tuple<resourceType, int> giveResource(resourceType r, int num);
+    bool removeResource(Resource r);
 
     //show players resources
     void showResources();
@@ -55,6 +55,9 @@ class Player {
     std::string getName() const;
 
     bool hasWon();
+
+    friend bool operator==(const Player &lhs, const Player &rhs);
+    friend bool operator!=(const Player &lhs, const Player &rhs);
 };
 
 

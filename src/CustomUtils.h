@@ -36,6 +36,15 @@ static auto dice = [] { return distribution_(generator_); };
 
 enum resourceType : int {wood = 0, sheep = 1, brick = 2, stone = 3, wheat = 4};
 
+struct Resource {
+    resourceType type;
+    int num;
+};
+
+inline void inline void operator<<(std::istream const &, Resource const &rhs) {
+    lvalue << rhs.type;
+}
+
 inline void operator<<(std::istream const &, resourceType const &rhs){
     switch (rhs) {
         case wood: std::cout << "wood"; break;
