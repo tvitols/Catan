@@ -3,3 +3,13 @@
 //
 
 #include "Tile.h"
+
+Tile::Tile() = default;
+
+void Tile::printTile() {
+
+}
+
+void Tile::setVertex(int index, Vertex *vertex) {
+    vertices[index] = vertex;
+}

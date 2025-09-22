@@ -4,10 +4,13 @@
 
 #ifndef BOARD_H
 #define BOARD_H
-
+#include <vector>
+#include "Tile.h"
 
 
 class Board {
+
+    std::vector<Tile*> tiles = std::vector<Tile*>(6);
 
     Board();
 
@@ -16,6 +19,8 @@ public:
 
     static Board generateBoard();
     static Board generateBoard(int seed);
+
+    void printBoard();
 
 };
 

@@ -18,6 +18,8 @@ public:
     //Depends on where we want to have the vertex
     //If they have the vertex, then make sure that the vertex used to be a house
     bool checksIfHouse(Vertex vertex);
+    void buy();
+
 };
 
 

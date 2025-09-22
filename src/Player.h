@@ -4,15 +4,15 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
+
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "Building.h"
 #include "CardStack.h"
 #include "Road.h"
-
-
-enum resourceType : int {wood = 0, sheep = 1, brick = 2, stone = 3, wheat = 4};
+#include "customUtils.h"
 
 class Player {
 
@@ -32,16 +32,19 @@ class Player {
     void getResource(resourceType r, int num);
 
     //take resourcce from player
-    void giveResource(resourceType r, int num);
+    tuple<resourceType, int> giveResource(resourceType r, int num);
 
     //show players resources
     void showResources();
+
 
     //take their turn
     void takeTurn();
 
     //display options to buy things
     void buyMenu();
+
+    void buyDevCard();
 
     // adds vp, return true if player has over 10 vp
     bool addVP(int pVP);

@@ -9,6 +9,9 @@
 
 #include "Structure.h"
 #include "Vertex.h"
+#include "customUtils.h"
+#include <tuple>
+
 using namespace std;
 
 class Building : Structure {
@@ -22,8 +25,8 @@ class Building : Structure {
 
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier
-    //calls the getResources() function of the player that owns the building
-    void giveResources(vector<int> resources);
+    //returns type and number or resources
+    std::tuple<resourceType,int> giveResources(int roll);
 
     bool place(Vertex vertex);
     bool buy();

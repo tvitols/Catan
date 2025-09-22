@@ -8,6 +8,14 @@
 
 
 class Edge {
+    bool shown = false;
+
+public:
+
+    bool isShown();
+
+    void show();
+    void reset();
 
 };
 

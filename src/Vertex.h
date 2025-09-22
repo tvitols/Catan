@@ -9,6 +9,15 @@
 
 class Vertex {
 
+    int x;
+    int y;
+    bool occupied = false;
+
+    public:
+    Vertex();
+    ~Vertex();
+    Vertex(int x, int y) : x(x), y(y) {};
+
 };
 
 

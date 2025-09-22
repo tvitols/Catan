@@ -4,11 +4,22 @@
 
 #ifndef TILE_H
 #define TILE_H
-
+#include <vector>
+#include "Edge.h"
+#include "Vertex.h"
 
 
 class Tile {
     bool hasRobber = false;
+    std::vector<Edge*> edges = std::vector<Edge*>(6);
+    std::vector<Vertex*> vertices = std::vector<Vertex*>(6);
+
+public:
+    Tile();
+
+    void printTile();
+
+    void setVertex(int index, Vertex* vertex);
 
 };
 
