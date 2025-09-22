@@ -34,12 +34,15 @@ class Player {
     //take resourcce from player
     bool removeResource(Resource r);
 
+    //does the same as removeResource but with a vector of Resources
+    bool removeResource(vector<Resource> r);
+
     //show players resources
     void showResources();
 
 
     //take their turn
-    void takeTurn();
+    void takeTurn(vector<Player> players);
 
     //display options to buy things
     void buyMenu();
@@ -58,6 +61,10 @@ class Player {
 
     friend bool operator==(const Player &lhs, const Player &rhs);
     friend bool operator!=(const Player &lhs, const Player &rhs);
+
+    bool trade(vector<Resource>get, vector<Resource>give);
+
+    bool initiateTrade(vector<Player> players);
 };
 
 

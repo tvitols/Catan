@@ -41,7 +41,7 @@ struct Resource {
     int num;
 };
 
-inline void inline void operator<<(std::istream const &, Resource const &rhs) {
+inline void operator<<(std::istream const &, Resource const &rhs) {
     lvalue << rhs.type;
 }
 

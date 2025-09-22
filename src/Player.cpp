@@ -26,6 +26,24 @@ bool Player::removeResource(Resource r) {
     return false;
 }
 
+bool Player::removeResource(vector<Resource> r) {
+    bool canRemove = true;
+    for (Resource resource : r) {
+        if (resource.num >= resources[resource.type]) {
+            canRemove = false;
+        }
+    }
+    if (canRemove) {
+        for (Resource resource : r) {
+            removeResource(resource);
+        }
+    }
+    else {
+        return false;
+    }
+    return true;
+}
+
 void Player::showResources() {
     for (int i = 0; i < 5; i++) {
         cout << static_cast<resourceType>(i) << "\t";
@@ -37,7 +55,7 @@ void Player::showResources() {
     cout << endl;
 }
 
-void Player::takeTurn() {
+void Player::takeTurn(vector<Player> players) {
     const int roll = dice() + dice();
     cout << "You rolled a " << roll << endl;
     cout << "Collecting Resources" << endl;
@@ -47,7 +65,7 @@ void Player::takeTurn() {
         if (auto[r,num] = b->giveResources(roll); num) {
             cout << (collected?", and ":"") << num << " " << r;
             collected += num;
-            addResource(r);
+            addResource(Resource(r,num));
         }
     }
     cout << (collected?"!":"nothing!") << endl;
@@ -59,7 +77,14 @@ void Player::takeTurn() {
         switch (choice) {
             case 'b': case 'B': buyMenu(); choice = 0; break;
             case 'e': case 'E': return;
-            case 't': case 'T': choice = 0; cout<<"Sorry, this functionality isn't currently implemented" <<endl; break;
+            case 't': case 'T': choice = 0;
+                if (initiateTrade(players)) {
+                    cout << "Trade Completed!" << endl;
+                }
+                else {
+                    cout << "Trade Failed!" << endl;
+                }
+                break;
             default: choice = 0; cout << "Invalid choice" << endl; break;
         }
     }
@@ -123,4 +148,102 @@ bool operator==(const Player &lhs, const Player &rhs) {
 
 bool operator!=(const Player &lhs, const Player &rhs) {
     return !(lhs == rhs);
+}
+
+bool Player::trade(vector<Resource> get, vector<Resource> give) {
+    char choice;
+    cout << "Trade Offered! \n You recieve: " << endl;
+    for (Resource resourceGet : get) {
+        cout << resourceGet.num + " " + resourceGet.type << endl;
+    }
+    cout << "\nYou give: " << endl;
+    for (Resource resourceGive : give) {
+        cout << resourceGive.num + " " + resourceGive.type << endl;
+    }
+    while (!choice) {
+        cout << "Would you like to proceed? (y or n): ";
+        cin >> choice;
+        checkCin(&choice);
+        switch (choice) {
+            case 'y': case 'Y':
+                if (removeResource(give)) {
+                    cout << "Trade done!" << endl;
+                }
+                else {
+                    cout << "Trade failed! You don't have enough resources!" << endl;
+                    return false;
+                }
+                return true;
+            case 'n': case 'N':
+                cout << "Trade rejected!" << endl;
+                return false;
+            default: choice = 0; cout << "Invalid choice" << endl; break;
+        }
+    }
+}
+
+bool Player::initiateTrade(vector<Player> players) {
+    vector<Resource> want;
+    vector<Resource> offer;
+    int numResource;
+    for (int i = 0; i < 5; i++) {
+        Resource resourceWant;
+        cout<<"How many " << static_cast<resourceType>(i) << " do you want? Minimum: 0 (or q to quit) ";
+        cin >> numResource;
+        checkCin(&numResource);
+
+        if (numResource == 'q' || numResource == 'Q') {
+            return false;
+        }
+
+        while (numResource < 0 ) {
+            cout << "Invalid number of  " << static_cast<resourceType>(i) << "please enter value >= 0: ";
+            cin >> numResource;
+            checkCin(&numResource);
+        }
+        want.push_back(Resource(static_cast<resourceType>(i), numResource));
+    }
+    for (int i = 0; i < 5; i++) {
+        Resource resourceOffer;
+        cout << "How many " << static_cast<resourceType>(i) << " will you give? Minimum: 0 (or q to quit) " <<endl;
+        cin >> numResource;
+        checkCin(&numResource);
+
+        if (numResource == 'q' || numResource == 'Q') {
+            return false;
+        }
+
+        while (numResource < 0 || numResource > resources[static_cast<resourceType>(i)]){
+            if (numResource < 0) {
+                cout << "Invalid number of  " << static_cast<resourceType>(i) << "please enter value >= 0: ";
+                cin >> numResource;
+                checkCin(&numResource);
+            }
+            else {
+                cout << "You dont have enough " << static_cast<resourceType>(i) << " to offer that! Please enter another value: ";
+                cin >> numResource;
+                checkCin(&numResource);
+            }
+        }
+        offer.push_back(Resource(static_cast<resourceType>(i), numResource));
+    }
+
+    bool traded = false;
+    for (Player player : players) {
+        if (&player != this && !traded) {
+            if (player.trade(offer, want)) {
+                traded = true;
+            }
+        }
+    }
+    if (!traded) {
+        return false;
+    }
+    else {
+        removeResource(offer);
+        for (Resource resource : want) {
+            addResource(resource);
+        }
+        return true;
+    }
 }
