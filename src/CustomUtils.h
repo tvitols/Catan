@@ -41,19 +41,21 @@ struct Resource {
     int num;
 };
 
-inline void operator<<(std::istream const &, Resource const &rhs) {
-    std::cout << rhs.type;
+inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
+    os << rhs.num << " " << rhs.type;
+    return os;
 }
 
-inline void operator<<(std::istream const &, resourceType const &rhs){
+inline std::ostream& operator<<(std::ostream& os, resourceType const &rhs){
     switch (rhs) {
-        case wood: std::cout << "wood"; break;
-        case sheep: std::cout << "sheep"; break;
-        case brick: std::cout << "brick"; break;
-        case stone: std::cout << "stone"; break;
-        case wheat: std::cout << "wheat"; break;
-        default: std::cout << "unknown"; break;
+        case wood: os << "wood"; break;
+        case sheep: os << "sheep"; break;
+        case brick: os << "brick"; break;
+        case stone: os << "stone"; break;
+        case wheat: os << "wheat"; break;
+        default: os << "unknown"; break;
     }
+    return os;
 }
 
 

@@ -11,6 +11,7 @@
 #include "Settlement.h"
 #include "City.h"
 #include "Board.h"
+#include <string>
 
 Player::Player(const std::string *pname) {
     name = *pname;
@@ -146,7 +147,11 @@ bool Player::hasWon() {
 }
 
 bool operator==(const Player &lhs, const Player &rhs) {
-   return rhs.getName() == lhs.getName();
+
+    const std::string lhsName = lhs.getName();
+    const std::string rhsName = rhs.getName();
+    return lhsName == rhsName;
+
 }
 
 bool operator!=(const Player &lhs, const Player &rhs) {
