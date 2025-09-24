@@ -8,6 +8,7 @@
 #include <chrono>
 #include <random>
 #include <iostream>
+#include <string>
 
 static int start_time = static_cast<int>(std::chrono::duration_cast<std::chrono::milliseconds>(
     std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now()).
@@ -56,6 +57,29 @@ inline std::ostream& operator<<(std::ostream& os, resourceType const &rhs){
         default: os << "unknown"; break;
     }
     return os;
+}
+
+inline int getIntFromUser() {
+    //Create stringstream
+    std::stringstream ss;
+    //Obtain user input
+    int number;
+    std::string input;
+    std::string left_in_ss = "";
+    getline(std::cin, input);
+    ss << input;
+    std::cout << left_in_ss << std::endl;
+    bool is_int = !(ss >> number);
+    getline(ss, left_in_ss);
+    //Validate input: will return false if unable to convert to an int
+    if (is_int || !left_in_ss.empty()) {
+        return -1;
+    }
+    if (number < 0) {
+        return -1;
+    }
+    //Return validated integer
+    return number;
 }
 
 
