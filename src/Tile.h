@@ -16,6 +16,7 @@ class Tile {
 
 public:
     Tile();
+    Tile(const std::vector<Edge*>& _edges, const std::vector<Vertex*>& _vertices);
 
     void printTile();
 

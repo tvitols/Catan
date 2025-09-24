@@ -19,8 +19,7 @@ constexpr unsigned int str2int(const char* str, const int h = 0){
     return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-
-inline void checkCin(auto *checkVar) {
+ void checkCin(auto *checkVar) {
     if (std::cin.peek() != '\n') {
        *checkVar = 0;
     }
@@ -30,7 +29,7 @@ inline void checkCin(auto *checkVar) {
 }
 
 static std::default_random_engine generator_(start_time);
-static std::uniform_int_distribution<int> distribution_ = std::uniform_int_distribution<int>(1,6);
+static auto distribution_ = std::uniform_int_distribution<int>(1,6);
 
 static auto dice = [] { return distribution_(generator_); };
 

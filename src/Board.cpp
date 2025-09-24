@@ -4,27 +4,28 @@
 
 #include "Board.h"
 
+#include <vector>
+
+#include "Edge.h"
+#include "Vertex.h"
+
 Board::Board() {
-    // generate vertices
-    // generate edges
-    // assign vertices and edges to tiles
-    // std::vector<Vertex> vertices;
-    // int rowsizes[] = {3,5,7,5,3};
-    // for (int row = 0; row < 5; row++) {
-    //     int rowsize = rowsizes[row] + 2;
-    //     for (int i = 0; i <= rowsize - 1; i++) {
-    //         vertices.emplace_back(row + i * 5, row);
-    //     }
-    // }
-    // for (int row = 0; row < 5; row++) {
-    //     int rowsize = rowsizes[row] + 2;
-    //     for (int i = 0; i <= rowsize - 1; i++) {
-    //         for (int j = 0; j <= 6; j++) {
-    //             tiles[row*rowsize + i]->setVertex(j,vertices[]);
-    //         }
-    //     }
-    // }
-    // }
+
+    std::vector<Edge*> e;
+    for (int i = 0; i < 30; i++) {
+        e.push_back(new Edge());
+    }
+    std::vector<Vertex*> v;
+    for (int i = 0; i < 30; i++) {
+        v.push_back(new Vertex());
+    }
+
+    tiles =
+            {std::vector<Tile*>() = {new Tile({e[0],e[1],e[2],e[3],e[4],e[5]},{v[0],v[1],v[2],v[3],v[4],v[5]}), new Tile({e[1],e[6],e[7],e[8],e[9],e[10]},{v[1],v[2],v[6],v[7],v[8],v[9]}), new Tile({e[8],e[11],e[12],e[13],e[14],e[15]},{v[7],v[8],v[10],v[11],v[12],v[13]})},
+        std::vector<Tile*>() = {new Tile({e[3], e[16], e[17], e[18], e[19], e[20]},{v[4], v[3], v[14], v[15], v[16], v[17]}), new Tile({e[2],e[6],e[21],e[22],e[23],e[16]},{v[2],v[3],v[6],v[18],v[19],v[14]}), new Tile(), new Tile()},
+    std::vector<Tile*>() = {new Tile(), new Tile(), new Tile(), new Tile(), new Tile()},
+        std::vector<Tile*>() = {new Tile(), new Tile(), new Tile(), new Tile()},
+            std::vector<Tile*>() = {new Tile(), new Tile(), new Tile()},};
 
 
 }

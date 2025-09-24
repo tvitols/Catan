@@ -9,8 +9,7 @@
 
 
 class Board {
-
-    std::vector<Tile*> tiles = std::vector<Tile*>(6);
+    std::vector<std::vector<Tile*>> tiles;
 
     Board();
 

@@ -6,6 +6,11 @@
 
 Tile::Tile() = default;
 
+Tile::Tile(const std::vector<Edge *>& _edges, const std::vector<Vertex *>& _vertices) {
+    this->edges = _edges;
+    this->vertices = _vertices;
+}
+
 void Tile::printTile() {
 
 }
