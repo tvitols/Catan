@@ -9,6 +9,7 @@
 #include "Info.h"
 #include "Player.h"
 #include "Board.h"
+#include "Game.h"
 using namespace std;
 
 int main() {
@@ -44,7 +45,7 @@ int main() {
     }
     cout << "Players: " << numPlayers << endl;
 
-    vector<Player> players;
+    vector<Player*> players;
     string name;
     for (int i = 0; i < numPlayers; i++) {
         cout << "Player " << i + 1 << ", enter your name: ";
@@ -53,18 +54,9 @@ int main() {
             cout << "Invalid name." << endl;
             i --; break;
         }
-        players.emplace_back(&name);
-    }
-    Board board = Board::generateBoard();
-    bool gameWon = false;
-    int p = 10;
-    while (!gameWon) {
-        for (auto &player : players) {
-            cout << player.getName() << ", your turn!" << endl;
-            player.takeTurn(players, &board);
-            gameWon = player.hasWon();
-            gameWon = !(--p);
-        }
+        players.push_back(new Player(&name));
     }
 
+    auto game = Game(players);
+    game.Play();
 }

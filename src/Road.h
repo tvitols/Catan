@@ -13,6 +13,8 @@ class Road : public Structure {
 public:
     Road() = default;
     ~Road() = default;
+
+    bool buy();
 };
 
 

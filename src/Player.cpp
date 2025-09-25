@@ -2,26 +2,21 @@
 // Created by tvito on 9/16/2025.
 //
 
-#include "CustomUtils.h"
-
 #include "Player.h"
 #include <iostream>
-
-#include "Road.h"
-#include "Settlement.h"
-#include "City.h"
-#include "Board.h"
+#include <vector>
 #include <string>
 
 Player::Player(const std::string *pname) {
     name = *pname;
 }
 
-void Player::addResource(Resource r) {
+void Player::addResource(const Resource r) {
     resources[r.type] += r.num;
+    collected.push_back(r);
 }
 
-bool Player::removeResource(Resource r) {
+bool Player::removeResource(const Resource r) {
     if (resources[r.type] >= r.num) {
         resources[r.type] -= r.num;
         return true;
@@ -29,7 +24,7 @@ bool Player::removeResource(Resource r) {
     return false;
 }
 
-bool Player::removeResource(vector<Resource> r) {
+bool Player::removeResource(const std::vector<Resource> &r) {
     bool canRemove = true;
     for (Resource resource : r) {
         if (resource.num >= resources[resource.type]) {
@@ -37,7 +32,7 @@ bool Player::removeResource(vector<Resource> r) {
         }
     }
     if (canRemove) {
-        for (Resource resource : r) {
+        for (const auto resource : r) {
             removeResource(resource);
         }
     }
@@ -58,22 +53,8 @@ void Player::showResources() {
     std::cout << std::endl;
 }
 
-void Player::takeTurn(std::vector<Player> players, Board* board) {
-    const int roll = dice() + dice();
-    std::cout << "You rolled a " << roll << std::endl;
-    std::cout << "Collecting Resources" << std::endl;
-    std::cout << "You got " << std::endl;
-    int collected = 0;
-    board->collectResources(roll);
-    // for (const auto b : buildings) {
-    //     if (auto[r,num] = b->giveResources(roll); num) {
-    //         cout << (collected?", and ":"") << num << " " << r;
-    //         collected += num;
-    //         addResource(r);
-    //     }
-    // }
-    std::cout << (collected?"!":"nothing!") << std::endl;
-    char choice;
+void Player::takeTurn(const std::vector<Player*>& players) {
+    char choice = static_cast<char>(NULL);
     while (!choice) {
         std::cout << "Select an option to \n- (b)uy something\n- (e)nd turn\n- (t)rade\n";
         std::cin >> choice;
@@ -83,44 +64,53 @@ void Player::takeTurn(std::vector<Player> players, Board* board) {
             case 'e': case 'E': return;
             case 't': case 'T': choice = 0;
                 if (initiateTrade(players)) {
-                    std::cout << name + ": Trade Completed!" << endl;
+                    std::cout << name + ": Trade Completed!" << std::endl;
                 }
                 else {
-                    std::cout << name + ": Trade Failed!" << endl;
+                    std::cout << name + ": Trade Failed!" << std::endl;
                 }
                 break;
-            default: choice = 0; cout << "Invalid choice" << endl; break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
 
 }
 
+void Player::showCollectedResources() {
+    if (!collected.empty()) {
+        for (auto r : collected) {
+            std::cout << r << "\t";
+        }
+        std::cout << "!" << std::endl;
+    }else {
+        std::cout << "nothing!" <<std::endl;
+    }
+    collected.clear();
+}
+
 void Player::buyMenu() {
 
     char choice;
-    Road road;
-    Settlement settlement;
-    City city;
     while (!choice) {
-        cout << "Select an option to buy\n- (r)oad\n- (s)ettlement\n- (c)ity\n- (d)evelopment card";
-        cout << endl << "Or press (b) to go back" << endl;
-        cin >> choice;
+        std::cout << "Select an option to buy\n- (r)oad\n- (s)ettlement\n- (c)ity\n- (d)evelopment card";
+        std::cout << std::endl << "Or press (b) to go back" << std::endl;
+        std::cin >> choice;
         checkCin(&choice);
         switch (choice){
-            case 'r': case 'R': road = Road();
-                                cout << (road.buy()?"Success":"Insufficient resources") << endl;
+            case 'r': case 'R':
+                                //std::cout << (road.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
-            case 's': case 'S': settlement = Settlement();
-                                cout << (settlement.buy()?"Success":"Insufficient resources") << endl;
+            case 's': case 'S':
+                                // std::cout << (settlement.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
-            case 'c': case 'C': city = City();
-                                cout << (city.buy()?"Success":"Insufficient resources") << endl;
+            case 'c': case 'C':
+                                // std::cout << (city.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
             case 'd': case 'D': buyDevCard();
 
             case 'b': case 'B': return;
 
-            default: choice = 0; cout << "Invalid choice" << endl; break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
 }
@@ -158,41 +148,41 @@ bool operator!=(const Player &lhs, const Player &rhs) {
     return !(lhs == rhs);
 }
 
-bool Player::trade(vector<Resource> get, vector<Resource> give) {
+bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
     char choice;
-    cout << "\n" + name + ": Trade Offered! \nYou recieve: " << endl;
+    std::cout << "\n" + name + ": Trade Offered! \nYou recieve: " << std::endl;
     for (Resource resourceGet : get) {
-        cout << to_string(resourceGet.num) << " " << static_cast<resourceType>(resourceGet.type) << endl;
+        std::cout << std::to_string(resourceGet.num) << " " << static_cast<resourceType>(resourceGet.type) << std::endl;
     }
-    cout << "\nYou give: " << endl;
+    std::cout << "\nYou give: " << std::endl;
     for (Resource resourceGive : give) {
-        cout << to_string(resourceGive.num) << " " << static_cast<resourceType>(resourceGive.type) << endl;
+        std::cout << std::to_string(resourceGive.num) << " " << static_cast<resourceType>(resourceGive.type) << std::endl;
     }
     while (!choice) {
-        cout << "Would you like to proceed? (y or n): ";
-        cin >> choice;
+        std::cout << "Would you like to proceed? (y or n): ";
+        std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
             case 'y': case 'Y':
                 if (removeResource(give)) {
-                    cout << "Trade done!" << endl;
+                    std::cout << "Trade done!" << std::endl;
                 }
                 else {
-                    cout << "Trade failed! You don't have enough resources!" << endl;
+                    std::cout << "Trade failed! You don't have enough resources!" << std::endl;
                     return false;
                 }
                 return true;
             case 'n': case 'N':
-                cout << "Trade rejected!" << endl;
+                std::cout << "Trade rejected!" << std::endl;
                 return false;
-            default: choice = 0; cout << "Invalid choice" << endl; break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
 }
 
-bool Player::initiateTrade(vector<Player> players) {
-    vector<Resource> want;
-    vector<Resource> offer;
+bool Player::initiateTrade(std::vector<Player*> players) {
+    std::vector<Resource> want;
+    std::vector<Resource> offer;
     int numResource;
 
     char choice;
@@ -203,46 +193,46 @@ bool Player::initiateTrade(vector<Player> players) {
         checkCin(&choice);
         switch (choice) {
             case 'w': case 'W': choice = 0;
-                cout << "How much wood do you want? Minimum 0: ";
+                std::cout << "How much wood do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 want.push_back(Resource(wood, numResource));
                 break;
             case 's': case 'S': choice = 0;
-                cout << "How many sheep do you want? Minimum 0: ";
+                std::cout << "How many sheep do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 want.push_back(Resource(sheep, numResource));
                 break;
             case 't': case 'T': choice = 0;
-                cout << "How many stones do you want? Minimum 0: ";
+                std::cout << "How many stones do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 want.push_back(Resource(wood, numResource));
                 break;
             case 'b': case 'B': choice = 0;
-                cout << "How many bricks do you want? Minimum 0: ";
+                std::cout << "How many bricks do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 want.push_back(Resource(wood, numResource));
                 break;
             case 'h': case 'H': choice = 0;
-                cout << "How much wheat do you want? Minimum 0: ";
+                std::cout << "How much wheat do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 want.push_back(Resource(wheat, numResource));
@@ -250,7 +240,7 @@ bool Player::initiateTrade(vector<Player> players) {
             case 'f': case 'F': choice = 1; break;
             case 'q': case 'Q':
                 return false;
-            default: choice = 0; cout << "Invalid choice" << endl; break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
 
@@ -262,66 +252,66 @@ bool Player::initiateTrade(vector<Player> players) {
         checkCin(&choice);
         switch (choice) {
             case 'w': case 'W': choice = 0;
-                cout << "How much wood do you trade? Minimum 0: ";
+                std::cout << "How much wood do you trade? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[wood]) {
-                    cout << "You don't have enough wood for that trade!" << endl;
+                    std::cout << "You don't have enough wood for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(wood, numResource));
                 break;
             case 's': case 'S': choice = 0;
-                cout << "How many sheep do you want? Minimum 0: ";
+                std::cout << "How many sheep do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[sheep]) {
-                    cout << "You don't have enough wood for that trade!" << endl;
+                    std::cout << "You don't have enough wood for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(sheep, numResource));
                 break;
             case 't': case 'T': choice = 0;
-                cout << "How many stones do you want? Minimum 0: ";
+                std::cout << "How many stones do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[stone]) {
-                    cout << "You don't have enough wood for that trade!" << endl;
+                    std::cout << "You don't have enough wood for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(stone, numResource));
                 break;
             case 'b': case 'B': choice = 0;
-                cout << "How many bricks do you want? Minimum 0: ";
+                std::cout << "How many bricks do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[brick]) {
-                    cout << "You don't have enough wood for that trade!" << endl;
+                    std::cout << "You don't have enough wood for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(brick, numResource));
                 break;
             case 'h': case 'H': choice = 0;
-                cout << "How much wheat do you want? Minimum 0: ";
+                std::cout << "How much wheat do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 while (numResource == -1) {
-                    cout << "Invalid input. Please enter a number > 0: ";
+                    std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[wheat]) {
-                    cout << "You don't have enough wood for that trade!" << endl;
+                    std::cout << "You don't have enough wood for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(wheat, numResource));
@@ -329,14 +319,14 @@ bool Player::initiateTrade(vector<Player> players) {
             case 'f': case 'F': choice = 1; break;
             case 'q': case 'Q':
                 return false;
-            default: choice = 0; cout << "Invalid choice" << endl; break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
 
     bool traded = false;
-    for (Player player : players) {
-        if (&player != this) {
-            if (player.trade(offer, want)) {
+    for (Player* player : players) {
+        if (player != this) {
+            if (player->trade(offer, want)) {
                 traded = true;
                 break;
             }

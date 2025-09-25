@@ -16,13 +16,13 @@ public:
     Settlement() = default;
     ~Settlement() = default;
 
-    //obtains a vector of resources from the vertice
+    //obtains a std::vector of resources from the vertice
     //multiplies each resource by the modifier
     //calls the getResources() function of the player that owns the building
-    void giveResources(vector<int> resources);
+    //void giveResources(std::vector<int> resources);
 
     //yeah don't worry about this right now it's a mess
-    bool place(Vertex vertex);
+    // bool place(Vertex vertex);
 
     //Checks whether the player has enough resources
     //returns true if they do and false otherwise

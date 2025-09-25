@@ -37,6 +37,8 @@ ADD_EXECUTABLE(Catan src/main.cpp
         src/Info.cpp
         src/Board.cpp
         src/Board.h
+        src/Game.cpp
+        src/Game.h
 )
 add_executable(Tests test/testing.cpp)
 

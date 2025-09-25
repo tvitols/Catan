@@ -10,6 +10,11 @@
 
 class Port : Vertex {
 
+    public:
+    Port() = default;
+
+    explicit Port(const Vertex &pVert): Vertex(pVert) {};
+    ~Port() = default;
 };
 
 

@@ -3,3 +3,7 @@
 //
 
 #include "Road.h"
+
+bool Road::buy() {
+    return true;
+}

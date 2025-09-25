@@ -3,3 +3,10 @@
 //
 
 #include "Vertex.h"
+
+void Vertex::collectResources(const resourceType rtype) const {
+    if (building) {
+        building->giveResources(rtype);
+    }
+
+}

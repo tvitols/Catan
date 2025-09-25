@@ -12,19 +12,22 @@ class Board {
     std::vector<std::vector<Tile*>> tiles;
 
     Board();
+    explicit Board(int seed);
+    void generateTiles(std::mt19937 twist);
+
 
 public:
+
     ~Board();
 
     static Board generateBoard();
     static Board generateBoard(int seed);
 
-    void printBoard();
+    void printBoard() const;
 
-    void collectResources(int roll);
+    void collectResources(int roll) const;
 
 };
-
 
 
 #endif //BOARD_H

@@ -5,36 +5,34 @@
 #ifndef BUILDING_H
 #define BUILDING_H
 
-#include <vector>
 
 #include "Structure.h"
-#include "Vertex.h"
 #include "customUtils.h"
-#include <tuple>
 
-using namespace std;
 
 class Building : public Structure {
 
 protected:
 
-    int tileKey;
-    resourceType resource;
     int num;
+    Player* owner;
 
 
 public:
     Building() = default;
+    explicit Building(Player* owner) : Structure(), num(0), owner(owner) {};
     ~Building() = default;
 
 
     //obtains a vector of resources from the vertice
     //multiplies each resource by the modifier
     //returns type and number or resources
-    void giveResources(int roll);
+    void giveResources(resourceType rType);
 
-    bool place(Vertex vertex);
+    //bool place(Vertex vertex);
     bool buy();
+
+    bool upgradeToCity();
 
 };
 

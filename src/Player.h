@@ -9,7 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "Board.h"
 #include "CardStack.h"
 #include "customUtils.h"
 
@@ -19,6 +18,7 @@ class Player {
     int vp = 0;
                             //    w,s,b,s,wh
     std::vector<int> resources = {0,0,0,0,0};
+    std::vector<Resource> collected = {};
     CardStack devCards;
 
     public:
@@ -32,14 +32,16 @@ class Player {
     bool removeResource(Resource r);
 
     //does the same as removeResource but with a vector of Resources
-    bool removeResource(std::vector<Resource> r);
+    bool removeResource(const std::vector<Resource> &r);
 
     //show players resources
     void showResources();
 
 
     //take their turn
-    void takeTurn(std::vector<Player> players, Board* board);
+    void takeTurn(const std::vector<Player*>& players);
+
+    void showCollectedResources();
 
     //display options to buy things
     void buyMenu();
@@ -61,7 +63,7 @@ class Player {
 
     bool trade(std::vector<Resource>get, std::vector<Resource>give);
 
-    bool initiateTrade(std::vector<Player> players);
+    bool initiateTrade(std::vector<Player*> players);
 };
 
 

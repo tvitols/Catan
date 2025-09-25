@@ -4,8 +4,6 @@
 
 #include "Building.h"
 
-void Building::giveResources(int roll) {
-    if (roll == tileKey) {
-        owner->addResource(Resource(resource,num));
-    }
+void Building::giveResources(resourceType rType) {
+    owner->addResource(Resource(rType,num));
 }
