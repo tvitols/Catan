@@ -12,11 +12,9 @@ void Game::Play() {
     while (!gameOver) {
         for (const auto &player : players) {
             std::cout << player->getName() << ", your turn!" << std::endl;
-            player->addResource(Resource(wood, 15));
             std::cout << "During other players turns, you collected: ";
             player->showCollectedResources();
-            const int roll = 7;
-                //dice() + dice();
+            const int roll = dice() + dice();
             std::cout << "You rolled a " << roll << std::endl;
             if (roll == 7) {
                 int otherPlayersRobbed = 0;
