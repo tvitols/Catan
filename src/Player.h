@@ -64,6 +64,10 @@ class Player {
     bool trade(std::vector<Resource>get, std::vector<Resource>give);
 
     bool initiateTrade(std::vector<Player*> players);
+
+    bool rolledASeven();
+
+    void loseHalfOfCards();
 };
 
 

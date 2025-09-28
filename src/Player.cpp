@@ -272,7 +272,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[sheep]) {
-                    std::cout << "You don't have enough wood for that trade!" << std::endl;
+                    std::cout << "You don't have enough sheep for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(sheep, numResource));
@@ -285,7 +285,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[stone]) {
-                    std::cout << "You don't have enough wood for that trade!" << std::endl;
+                    std::cout << "You don't have enough stone for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(stone, numResource));
@@ -298,7 +298,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[brick]) {
-                    std::cout << "You don't have enough wood for that trade!" << std::endl;
+                    std::cout << "You don't have enough brick for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(brick, numResource));
@@ -311,7 +311,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 if (numResource > resources[wheat]) {
-                    std::cout << "You don't have enough wood for that trade!" << std::endl;
+                    std::cout << "You don't have enough wheat for that trade!" << std::endl;
                     break;
                 }
                 offer.push_back(Resource(wheat, numResource));
@@ -341,4 +341,116 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     }
     return true;
 
+}
+
+bool Player::rolledASeven() {
+    int numberOfResources = 0;
+    for (int num : resources) {
+        numberOfResources += num;
+    }
+    if (numberOfResources <= 7) {
+        return false;
+    }
+    return true;
+}
+
+//Should they be allowed to get rid of more Resources than they need to?
+void Player::loseHalfOfCards() {
+    int numberOfResources = 0;
+    for (int num : resources) {
+        numberOfResources += num;
+    }
+    std::cout << name << ": you have over 7 cards! \nYou need to get rid of " << std::to_string(numberOfResources / 2) << " them" << std::endl;
+    std::cout << "You have: " << std::endl;
+    showResources();
+    int gottenRidOf = 0;
+    std::vector<Resource> removed;
+    char choice;
+    while (gottenRidOf < numberOfResources/2) {
+        int numResource = 0;
+        std::cout << "Would you like to get rid of (w)ood, (s)heep, (b)rick, s(t)one w(h)eat: ";
+        std::cin >> choice;
+        checkCin(&choice);
+        switch (choice) {
+            case 'w': case 'W':
+                std::cout << "How much wood would you like to get rid of? ";
+                numResource = getIntFromUser();
+                while (numResource == -1) {
+                    std::cout << "Invalid input. Please enter a number > 0: ";
+                    numResource = getIntFromUser();
+                }
+                if (numResource > resources[wood]) {
+                    std::cout << "You don't have enough wood!" << std::endl;
+                    break;
+                }
+                gottenRidOf += numResource;
+                removed.push_back(Resource(wood, numResource));
+                break;
+            case 's': case 'S':
+                std::cout << "How many sheep would you like to get rid of? ";
+                numResource = getIntFromUser();
+                while (numResource == -1) {
+                    std::cout << "Invalid input. Please enter a number > 0: ";
+                    numResource = getIntFromUser();
+                }
+                if (numResource > resources[sheep]) {
+                    std::cout << "You don't have enough sheep!" << std::endl;
+                    break;
+                }
+                gottenRidOf += numResource;
+                removed.push_back(Resource(sheep, numResource));
+                break;
+            case 't': case 'T': choice = 0;
+                std::cout << "How many stones do you want to get rid of? ";
+                numResource = getIntFromUser();
+                while (numResource == -1) {
+                    std::cout << "Invalid input. Please enter a number > 0: ";
+                    numResource = getIntFromUser();
+                }
+                if (numResource > resources[stone]) {
+                    std::cout << "You don't have enough stone!" << std::endl;
+                    break;
+                }
+                gottenRidOf += numResource;
+                removed.push_back(Resource(stone, numResource));
+                break;
+            case 'b': case 'B': choice = 0;
+                std::cout << "How many bricks do you want to get rid of? ";
+                numResource = getIntFromUser();
+                while (numResource == -1) {
+                    std::cout << "Invalid input. Please enter a number > 0: ";
+                    numResource = getIntFromUser();
+                }
+                if (numResource > resources[brick]) {
+                    std::cout << "You don't have enough brick!" << std::endl;
+                    break;
+                }
+                gottenRidOf += numResource;
+                removed.push_back(Resource(brick, numResource));
+                break;
+            case 'h': case 'H': choice = 0;
+                std::cout << "How much wheat do you want to get rid of? ";
+                numResource = getIntFromUser();
+                while (numResource == -1) {
+                    std::cout << "Invalid input. Please enter a number > 0: ";
+                    numResource = getIntFromUser();
+                }
+                if (numResource > resources[wheat]) {
+                    std::cout << "You don't have enough wheat!" << std::endl;
+                    break;
+                }
+                gottenRidOf += numResource;
+                removed.push_back(Resource(wheat, numResource));
+                break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+        }
+        if (removeResource(removed) && gottenRidOf >= numberOfResources / 2) {
+            std::cout << "The robber has taken half of your cards!" << std::endl;
+        }
+        else if (gottenRidOf >= numberOfResources) {
+            std::cout << "Something went wrong with the robber stealing your cards! Let's try again!" << std::endl;
+            gottenRidOf = 0;
+        }
+        removed.clear();
+    }
 }

@@ -9,13 +9,14 @@
 
 class Robber {
 
-    Tile*currentTile;
+    Tile* currentTile;
 
     public:
 
     Robber();
     ~Robber();
 
+    //iterate through the tile vertices and return a list of players on that tile
     void move(Tile* currentTile);
 
 };

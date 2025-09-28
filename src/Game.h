@@ -6,6 +6,7 @@
 #define CATAN_GAME_H
 #include "Board.h"
 #include "Player.h"
+#include "Robber.h"
 
 
 class Game {
