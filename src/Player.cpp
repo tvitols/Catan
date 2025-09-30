@@ -455,9 +455,8 @@ void Player::loseHalfOfCards() {
     }
 }
 
-void Player::moveRobber() {
+std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal) {
     //Do the shit with actually moving the robber
-    std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal = robber->otherPlayerResources(name);
     int choice;
     resourceType gained;
     if (!stuffToSteal.empty()) {
@@ -480,7 +479,7 @@ void Player::moveRobber() {
             }
             if (numberOfResources > 0) {
                 canStealFrom = true;
-                gained = robber->stealResource(get<0>(stuffToSteal[choice-1]));
+                return get<0>(stuffToSteal[choice-1]);
             }
             else {
                 std::cout << "They don't have any resources to steal!" << std::endl;

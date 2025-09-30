@@ -14,7 +14,7 @@ class Robber {
     public:
 
     Robber();
-    ~Robber();
+    ~Robber() = default;
 
     //iterate through the tile vertices and return a list of players on that tile
     void move(Tile* currentTile);

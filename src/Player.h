@@ -11,7 +11,6 @@
 
 #include "CardStack.h"
 #include "customUtils.h"
-#include "Robber.h"
 
 class Player {
 
@@ -21,7 +20,6 @@ class Player {
     std::vector<int> resources = {0,0,0,0,0};
     std::vector<Resource> collected = {};
     CardStack devCards;
-    Robber* robber;
 
     public:
 
@@ -71,7 +69,7 @@ class Player {
 
     void loseHalfOfCards();
 
-    void moveRobber();
+    std::string moveRobber(std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal);
 
     std::vector<int> getResources();
 

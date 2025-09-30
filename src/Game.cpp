@@ -37,6 +37,8 @@ void Game::Play() {
                 else {
                     std::cout << "You had less than 7 cards!" << std::endl;
                 }
+                //Implement moving robber
+                robber.stealResource(player->moveRobber(robber.otherPlayerResources(player->getName())));
             }
             std::cout << "Collecting Resources..." << std::endl;
             board.collectResources(roll);
