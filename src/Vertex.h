@@ -19,6 +19,10 @@ class Vertex {
     Vertex(int x, int y) : x(x), y(y) {};
 
     void collectResources(resourceType rtype) const;
+
+    std::tuple<std::string, std::vector<int>> getPlayerInfo(std::string name);
+
+    resourceType stealResources();
 };
 
 

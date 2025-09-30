@@ -19,6 +19,12 @@ class Robber {
     //iterate through the tile vertices and return a list of players on that tile
     void move(Tile* currentTile);
 
+    void setCurrentTile(Tile* newTile);
+
+    std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
+
+    resourceType stealResource(std::string name);
+
 };
 
 

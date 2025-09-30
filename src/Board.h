@@ -6,6 +6,7 @@
 #define BOARD_H
 #include <vector>
 #include "Tile.h"
+#include "Robber.h"
 
 
 class Board {
@@ -14,6 +15,8 @@ class Board {
     Board();
     explicit Board(int seed);
     void generateTiles(std::mt19937 twist);
+    Robber* robber;
+
 
 
 public:
@@ -21,11 +24,14 @@ public:
     ~Board();
 
     static Board generateBoard();
+    static Board generateBoard(Robber* robber);
     static Board generateBoard(int seed);
 
     void printBoard() const;
 
     void collectResources(int roll) const;
+
+    void addRobber(Robber* robber);
 
 };
 

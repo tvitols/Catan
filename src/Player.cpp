@@ -454,3 +454,51 @@ void Player::loseHalfOfCards() {
         removed.clear();
     }
 }
+
+void Player::moveRobber() {
+    //Do the shit with actually moving the robber
+    std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal = robber->otherPlayerResources(name);
+    int choice;
+    resourceType gained;
+    if (!stuffToSteal.empty()) {
+        bool canStealFrom = false;
+        while (!canStealFrom) {
+            std::cout << "Who would you like to steal from?" << std::endl;
+            for (int i = 0; i < stuffToSteal.size(); i++) {
+                std::cout << "(" << std::to_string(i+1) << ") " << get<0>(stuffToSteal[i]) << std::endl;
+            }
+            choice = getIntFromUser();
+            //Validates that the input is a valid choice
+            while (choice == -1 || choice > stuffToSteal.size()) {
+                std::cout << "Invalid input. Please enter a number > 0 and < " << std::to_string(stuffToSteal.size()) << ": " << std::endl;
+                choice = getIntFromUser();
+            }
+            //Steals from the player if they have resources
+            int numberOfResources = 0;
+            for (int resource : get<1>(stuffToSteal[choice-1])) {
+                numberOfResources += resource;
+            }
+            if (numberOfResources > 0) {
+                canStealFrom = true;
+                gained = robber->stealResource(get<0>(stuffToSteal[choice-1]));
+            }
+            else {
+                std::cout << "They don't have any resources to steal!" << std::endl;
+            }
+        }
+        std::cout << "You got " << gained << std::endl;
+        addResource(Resource(gained, 1));
+    }
+    else {
+        std::cout << "There's no one on that tile!" << std::endl;
+    }
+}
+
+std::vector<int> Player::getResources() {
+    return resources;
+}
+
+std::string Player::getName() {
+    return name;
+}
+

@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game() : board(Board::generateBoard()) {
+Game::Game() : robber(Robber()), robberPtr(&robber), board(Board::generateBoard(robberPtr)) {
     players = {new Player(new std::string("Player 1")), new Player(new std::string("Player 2"))};
 }
 

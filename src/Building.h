@@ -29,10 +29,14 @@ public:
     //returns type and number or resources
     void giveResources(resourceType rType);
 
+    std::tuple<std::string, std::vector<int>> getPlayerInfo(std::string name);
+
     //bool place(Vertex vertex);
     bool buy();
 
     bool upgradeToCity();
+
+    resourceType stealResource();
 
 };
 

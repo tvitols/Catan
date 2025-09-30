@@ -8,7 +8,6 @@
 #include "Edge.h"
 #include "Vertex.h"
 
-
 class Tile {
     bool hasRobber = false;
     int key;
@@ -29,6 +28,14 @@ public:
     void setVertex(int index, Vertex* vertex);
 
     void collectResources(int roll) const;
+
+    void isRobbed(bool robbed);
+
+    resourceType getResourceType();
+
+    std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
+
+    resourceType stealResource(std::string name);
 
 };
 
