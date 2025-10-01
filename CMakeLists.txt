@@ -32,6 +32,10 @@ foreach (DIR ${PREFIX_PATH_CHECK})
 endforeach ()
 message("CMAKE_PREFIX_PATH:${CMAKE_PREFIX_PATH}")
 
+execute_process(COMMAND "git submodule init")
+execute_process(COMMAND "git submodule update")
+execute_process(COMMAND "echo 'Git submodules updated'")
+
 
 set(TARGET_NAME "Catan")
 set(LIST_OF_FILES src/main.cpp

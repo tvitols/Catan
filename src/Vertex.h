@@ -11,12 +11,12 @@ class Vertex {
 
     int x;
     int y;
-    Building* building = static_cast<Building *>(static_cast<void *>(nullptr));
+    Building* building;
 
     public:
-    Vertex() :x(0), y(0) {};
+    Vertex() :x(0), y(0), building(nullptr) {};
     ~Vertex() = default;
-    Vertex(int x, int y) : x(x), y(y) {};
+    Vertex(int x, int y) : x(x), y(y), building(nullptr) {};
 
     void collectResources(resourceType rtype) const;
 

@@ -12,14 +12,19 @@
 #include "Vertex.h"
 
 Board::Board() {
-    this->robber = robber;
+    robber = new Robber;
     generateTiles(std::mt19937(std::random_device()()));
 };
 
+Board::Board(Robber *pRobber) {
+    robber = pRobber;
+    generateTiles(std::mt19937(std::random_device()()));
+}
+
 Board::Board(const int seed) {
-    this-> robber = robber;
+    robber = new Robber;
     generateTiles(std::mt19937(seed));
-    for (std::vector<Tile*> tileVector : tiles) {
+    for (const std::vector<Tile*>& tileVector : tiles) {
         for (Tile *tile : tileVector) {
             if (tile->getResourceType() == null) {
                 robber->setCurrentTile(tile);
@@ -69,9 +74,7 @@ Board Board::generateBoard() {
 }
 
 Board Board::generateBoard(Robber *robber) {
-    Board board{};
-    board.addRobber(robber);
-    return board;
+    return Board(robber);
 }
 
 Board Board::generateBoard(const int seed) {
@@ -92,10 +95,6 @@ void Board::collectResources(int roll) const {
             tile->collectResources(roll);
         }
     }
-}
-
-void Board::addRobber(Robber* robber) {
-    this->robber = robber;
 }
 
 

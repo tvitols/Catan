@@ -14,12 +14,15 @@ void Vertex::collectResources(const resourceType rtype) const {
 
 std::tuple<std::string, std::vector<int>> Vertex::getPlayerInfo(std::string name) {
     std::tuple<std::string, std::vector<int>> result = std::make_tuple("\n", std::vector<int>());
-    if (building) {
+    if (building != nullptr) {
         result = building->getPlayerInfo(name);
     }
     return result;
 }
 
 resourceType Vertex::stealResources() {
-    return building->stealResource();
+    if (building != nullptr) {
+        return building->stealResource();
+    }
+    return null;
 }

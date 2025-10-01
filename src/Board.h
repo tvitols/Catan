@@ -13,9 +13,10 @@ class Board {
     std::vector<std::vector<Tile*>> tiles;
 
     Board();
+    explicit Board(Robber* pRobber);
     explicit Board(int seed);
     void generateTiles(std::mt19937 twist);
-    Robber* robber;
+    Robber* robber = nullptr;
 
 
 
