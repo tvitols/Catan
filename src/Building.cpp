@@ -12,20 +12,20 @@ void Building::giveResources(resourceType rType) {
 
 }
 
-std::tuple<std::string, std::vector<int>> Building::getPlayerInfo(std::string name) {
-    if (owner->getName() == name) {
-        return std::make_tuple("\t", std::vector<int>());
-    }
-
-    std::tuple<std::string, std::vector<int>> result= make_tuple(owner->getName(), owner->getResources());
-    return result;
+std::string Building::getPlayerName() {
+    return owner->getName();
 }
 
-resourceType Building::stealResource() {
-    srand(time(NULL));
-    int randNum = rand() % 5;
-    while (!owner->removeResource(Resource(static_cast<resourceType>(randNum), 1))) {
-        randNum = rand() % 5;
-    }
-    return static_cast<resourceType>(randNum);
+std::vector<int> Building::getPlayerResources() {
+    return owner->getResources();
 }
+
+
+// resourceType Building::stealResource() {
+//     srand(time(NULL));
+//     int randNum = rand() % 5;
+//     while (!owner->removeResource(Resource(static_cast<resourceType>(randNum), 1))) {
+//         randNum = rand() % 5;
+//     }
+//     return static_cast<resourceType>(randNum);
+// }

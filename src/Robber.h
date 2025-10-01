@@ -21,9 +21,11 @@ class Robber {
 
     void setCurrentTile(Tile* newTile);
 
+    resourceType getCurrentTile();
+
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 
-    resourceType stealResource(std::string name);
+    // resourceType stealResource(std::string name);
 
 };
 

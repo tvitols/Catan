@@ -44,7 +44,7 @@ std::vector<std::tuple<std::string, std::vector<int>>> Tile::otherPlayerResource
     std::vector<std::tuple<std::string, std::vector<int>>> playerResources;
     std::tuple<std::string, std::vector<int>> vertexInfo;
     for (const auto& vertex : vertices) {
-        if (get<0>(vertex->getPlayerInfo(name)) != "\n"){
+        if (get<0>(vertex->getPlayerInfo(name)) != ""){
             vertexInfo = vertex->getPlayerInfo(name);
             playerResources.push_back(vertexInfo);
         }
@@ -52,10 +52,10 @@ std::vector<std::tuple<std::string, std::vector<int>>> Tile::otherPlayerResource
     return playerResources;
 }
 
-resourceType Tile::stealResource(std::string name) {
-    for (const auto& vertex : vertices) {
-        if (get<0>(vertex->getPlayerInfo(name)) == "\t") {
-            return vertex->stealResources();
-        }
-    }
-}
+// resourceType Tile::stealResource(std::string name) {
+//     for (const auto& vertex : vertices) {
+//         if (get<0>(vertex->getPlayerInfo(name)) == "\t") {
+//             return vertex->stealResources();
+//         }
+//     }
+// }

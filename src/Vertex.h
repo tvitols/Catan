@@ -22,7 +22,7 @@ class Vertex {
 
     std::tuple<std::string, std::vector<int>> getPlayerInfo(std::string name);
 
-    resourceType stealResources();
+    // resourceType stealResources();
 };
 
 

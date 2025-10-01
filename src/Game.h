@@ -14,14 +14,12 @@ class Game {
     std::vector<Player*> players;
     int numTurns = 0;
     bool gameOver = false;
-    Robber robber;
-    Robber* robberPtr;
 
     public:
 
     Game();
-    explicit Game(const std::vector<Player*>& players) : robber(Robber()), robberPtr(&robber), board(Board::generateBoard(robberPtr)), players(players) {};
-    Game(const std::vector<Player*>& players, int seed) : robber(Robber()), robberPtr(&robber), board(Board::generateBoard(seed)), players(players) {};
+    explicit Game(const std::vector<Player*>& players) : board(Board::generateBoard()), players(players) {};
+    Game(const std::vector<Player*>& players, int seed) : board(Board::generateBoard(seed)), players(players) {};
     ~Game() = default;
 
     int Play();

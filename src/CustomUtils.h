@@ -53,6 +53,7 @@ inline std::ostream& operator<<(std::ostream& os, resourceType const &rhs){
         case brick: os << "brick"; break;
         case stone: os << "stone"; break;
         case wheat: os << "wheat"; break;
+        case null: os << "null"; break;
         default: os << "unknown"; break;
     }
     return os;
