@@ -11,7 +11,7 @@ class Vertex {
 
     int x;
     int y;
-    Building* building = nullptr;
+    Building* building = static_cast<Building *>(static_cast<void *>(nullptr));
 
     public:
     Vertex() :x(0), y(0) {};

@@ -5,7 +5,6 @@
 #ifndef CATAN_GAME_H
 #define CATAN_GAME_H
 #include "Board.h"
-#include "Player.h"
 #include "Robber.h"
 
 
@@ -16,7 +15,7 @@ class Game {
     int numTurns = 0;
     bool gameOver = false;
     Robber robber;
-    Robber* robberPtr;;
+    Robber* robberPtr;
 
     public:
 
@@ -25,7 +24,7 @@ class Game {
     Game(const std::vector<Player*>& players, int seed) : robber(Robber()), robberPtr(&robber), board(Board::generateBoard(seed)), players(players) {};
     ~Game() = default;
 
-    void Play();
+    int Play();
     void takeTurn(Player* player);
 
 };

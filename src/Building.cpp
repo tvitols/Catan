@@ -6,7 +6,10 @@
 #include <time.h>
 
 void Building::giveResources(resourceType rType) {
-    owner->addResource(Resource(rType,num));
+    if (owner) {
+        owner->addResource(Resource(rType,num));
+    }
+
 }
 
 std::tuple<std::string, std::vector<int>> Building::getPlayerInfo(std::string name) {

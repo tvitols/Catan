@@ -31,7 +31,7 @@ constexpr unsigned int str2int(const char* str, const int h = 0){
 static std::default_random_engine generator_(start_time);
 static auto distribution_ = std::uniform_int_distribution<int>(1,6);
 
-static auto dice = [] { return distribution_(generator_); };
+static auto dice = []{ return distribution_(generator_); };
 
 
 enum resourceType : int {wood = 0, sheep = 1, brick = 2, stone = 3, wheat = 4, null = 7};

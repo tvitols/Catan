@@ -8,7 +8,7 @@ Game::Game() : robber(Robber()), robberPtr(&robber), board(Board::generateBoard(
     players = {new Player(new std::string("Player 1")), new Player(new std::string("Player 2"))};
 }
 
-void Game::Play() {
+int Game::Play() {
     while (!gameOver) {
         for (const auto &player : players) {
             std::cout << player->getName() << ", your turn!" << std::endl;
@@ -48,6 +48,7 @@ void Game::Play() {
             gameOver = player->hasWon();
         }
     }
+    return 0;
 }
 
 void Game::takeTurn(Player *player) {
