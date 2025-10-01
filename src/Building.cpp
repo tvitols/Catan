@@ -6,7 +6,7 @@
 #include <time.h>
 
 void Building::giveResources(resourceType rType) {
-    if (owner) {
+    if (owner != nullptr) {
         owner->addResource(Resource(rType,num));
     }
 

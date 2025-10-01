@@ -20,7 +20,7 @@ void Tile::setVertex(int index, Vertex *vertex) {
 }
 
 void Tile::collectResources(const int roll) const {
-    if (roll == key && !hasRobber) {
+    if (rtype != null && roll == key && !hasRobber) {
         for (const auto& vertex : vertices) {
             vertex->collectResources(rtype);
         }
@@ -34,6 +34,10 @@ void Tile::isRobbed(bool robbed) {
 
 resourceType Tile::getResourceType() {
     return rtype;
+}
+
+int Tile::getKey() {
+    return key;
 }
 
 std::vector<std::tuple<std::string, std::vector<int>>> Tile::otherPlayerResources(std::string name) {

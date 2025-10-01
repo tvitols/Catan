@@ -36,11 +36,11 @@ Board::Board(const int seed) {
 
 void Board::generateTiles(std::mt19937 twist) {
     std::vector<Edge*> e;
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 54; i++) {
         e.push_back(new Edge());
     }
     std::vector<Vertex*> v;
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 72; i++) {
         v.push_back(new Vertex());
     }
 
@@ -50,12 +50,17 @@ void Board::generateTiles(std::mt19937 twist) {
         v[p] = reinterpret_cast<std::vector<Vertex *>::value_type>(new Port(*v[p]));
     }
 
-    std::vector keys = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,12};
-
+    std::vector keys = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
     std::vector types = {wood,wood,wood,wood,sheep,sheep,sheep,sheep,wheat,wheat,wheat,wheat,brick,brick,brick,stone,stone,stone,null};
 
     shuffle(keys.begin(), keys.end(), twist);
     shuffle(types.begin(),types.end(), twist);
+
+    for (int i = 0; i < types.size(); i++) {
+        if (types[i] == null ) {
+            keys.insert(keys.begin() + i,{7});
+        }
+    }
 
     //Lila: starting from top and going clockwise
     tiles =
