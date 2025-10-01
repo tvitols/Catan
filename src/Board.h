@@ -34,6 +34,9 @@ public:
 
     void addRobber(Robber* robber);
 
+    std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
+
+
 };
 
 

@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game() : robber(Robber()), robberPtr(&robber), board(Board::generateBoard(robberPtr)) {
+Game::Game() : board(Board::generateBoard()) {
     players = {new Player(new std::string("Player 1")), new Player(new std::string("Player 2"))};
 }
 
@@ -37,8 +37,9 @@ int Game::Play() {
                 else {
                     std::cout << "You had less than 7 cards!" << std::endl;
                 }
-                //Implement moving robber
-                robber.stealResource(player->moveRobber(robber.otherPlayerResources(player->getName())));
+                //TODO: Implement moving robber
+                player->moveRobber(board.otherPlayerResources(player->getName()));
+                //TODO: implement getting a random resource
             }
             std::cout << "Collecting Resources..." << std::endl;
             board.collectResources(roll);

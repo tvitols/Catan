@@ -14,11 +14,25 @@
 Board::Board() {
     robber = new Robber;
     generateTiles(std::mt19937(std::random_device()()));
+    for (const std::vector<Tile*>& tileVector : tiles) {
+        for (Tile *tile : tileVector) {
+            if (tile->getResourceType() == null) {
+                robber->setCurrentTile(tile);
+            }
+        }
+    }
 };
 
 Board::Board(Robber *pRobber) {
     robber = pRobber;
     generateTiles(std::mt19937(std::random_device()()));
+    for (const std::vector<Tile*>& tileVector : tiles) {
+        for (Tile *tile : tileVector) {
+            if (tile->getResourceType() == null) {
+                robber->setCurrentTile(tile);
+            }
+        }
+    }
 }
 
 Board::Board(const int seed) {
@@ -102,4 +116,7 @@ void Board::collectResources(int roll) const {
     }
 }
 
+std::vector<std::tuple<std::string, std::vector<int>>> Board::otherPlayerResources(std::string name) {
+    return robber->otherPlayerResources(name);
+}
 

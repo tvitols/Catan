@@ -485,12 +485,11 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
                 std::cout << "They don't have any resources to steal!" << std::endl;
             }
         }
-        std::cout << "You got " << gained << std::endl;
-        addResource(Resource(gained, 1));
     }
     else {
         std::cout << "There's no one on that tile!" << std::endl;
     }
+    return "";
 }
 
 std::vector<int> Player::getResources() {
