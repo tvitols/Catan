@@ -26,6 +26,21 @@ std::tuple<std::string, std::vector<int>> Vertex::getPlayerInfo(std::string name
     return result;
 }
 
+void Vertex::setCoordinates(int x, int y) {
+    coordinates.x = x;
+    coordinates.y = y;
+}
+
+bool Vertex::getVertex(coords fCoordinates) {
+    if (fCoordinates.x >= coordinates.x - BUFFER && fCoordinates.x <= coordinates.x + BUFFER) {
+        if (fCoordinates.y >= coordinates.y - BUFFER && fCoordinates.y <= coordinates.y + BUFFER) {
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+
 // resourceType Vertex::stealResources() {
 //     if (building != nullptr) {
 //         return building->stealResource();

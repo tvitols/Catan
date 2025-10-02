@@ -52,6 +52,43 @@ std::vector<std::tuple<std::string, std::vector<int>>> Tile::otherPlayerResource
     return playerResources;
 }
 
+void Tile::setCoordinates(int x, int y) {
+    coordinates.x = x;
+    coordinates.y = y;
+}
+
+coords Tile::getCoordinates() {
+    return coordinates;
+}
+
+bool Tile::getTile(coords pCoordinates) {
+    if (pCoordinates.x >= (coordinates.x -XBUFFER) && pCoordinates.x <= (coordinates.x + XBUFFER)) {
+        if (pCoordinates.y >= (coordinates.y -YBUFFER) && pCoordinates.y <= (coordinates.y + YBUFFER)) {
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+
+void Tile::setVerticeCoords() {
+    vertices[0]->setCoordinates(coordinates.x, coordinates.y - 70);
+    vertices[1]->setCoordinates(coordinates.x + 50, coordinates.y - 32);
+    vertices[2]->setCoordinates(coordinates.x + 50, coordinates.y + 32);
+    vertices[3]->setCoordinates(coordinates.x, coordinates.y + 70);
+    vertices[4]->setCoordinates(coordinates.x - 50, coordinates.y + 32);
+    vertices[5]->setCoordinates(coordinates.x - 50, coordinates.y - 32);
+}
+
+Vertex* Tile::getVertice(coords coordinates) {
+    for (Vertex *vertex : vertices) {
+        if (vertex->getVertex(coordinates)) {
+            return vertex;
+        }
+    }
+    return nullptr;
+}
+
 // resourceType Tile::stealResource(std::string name) {
 //     for (const auto& vertex : vertices) {
 //         if (get<0>(vertex->getPlayerInfo(name)) == "\t") {

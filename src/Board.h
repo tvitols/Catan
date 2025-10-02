@@ -36,9 +36,11 @@ public:
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 
     Edge* getEdge(double x, double y);
-    Vertex* getVertex(double x, double y);
+    Vertex* getVertex(coords coordinates);
     Structure* getStructure(double x, double y);
-    Tile* getTile(double x, double y);
+    Tile* getTile(coords coordinates);
+
+    void moveRobber(Tile* tile);
 
 };
 

@@ -17,7 +17,7 @@ class Robber {
     ~Robber() = default;
 
     //iterate through the tile vertices and return a list of players on that tile
-    void move(Tile* currentTile);
+    void move(Tile* newTile);
 
     void setCurrentTile(Tile* newTile);
 

@@ -9,9 +9,13 @@
 
 class Vertex {
 
+    //+- 50
     int x;
+    //+- 32
     int y;
     Building* building = nullptr;
+    const int BUFFER = 7;
+    coords coordinates;
 
     public:
     Vertex() :x(0), y(0){};
@@ -21,6 +25,10 @@ class Vertex {
     void collectResources(resourceType rtype) const;
 
     std::tuple<std::string, std::vector<int>> getPlayerInfo(std::string name);
+
+    void setCoordinates(int x, int y);
+
+    bool getVertex(coords fCoordinates);
 
     // resourceType stealResources();
 };

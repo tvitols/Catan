@@ -85,6 +85,15 @@ void Board::generateTiles(std::mt19937 twist) {
     std::vector<Tile*>() = {new Tile({e[18], e[31], e[32], e[33], e[34], e[35]}, {v[16], v[15], v[25], v[26], v[27], v[28]},keys[7],types[7]), new Tile({e[23], e[36], e[37], e[38], e[31], e[17]}, {v[14], v[19], v[29], v[30], v[25], v[15]},keys[8],types[8]), new Tile({e[26], e[39], e[40], e[41], e[36], e[22]}, {v[18], v[21], v[31], v[32], v[29], v[19]},keys[9],types[9]), new Tile({e[30], e[42], e[43], e[44], e[39], e[25]}, {v[20], v[24], v[33], v[34], v[31], v[21]},keys[10],types[10]), new Tile({e[45], e[46], e[47], e[48], e[42], e[29]}, {v[23], v[35], v[36], v[37], v[33], v[24]},keys[11],types[11])},
         std::vector<Tile*>() = {new Tile({e[38], e[49], e[50], e[51], e[52], e[32]}, {v[25], v[30], v[38], v[39], v[40], v[26]},keys[12],types[12]), new Tile({e[41], e[53], e[54], e[55], e[49], e[37]}, {v[29], v[32], v[41], v[42], v[38], v[30]},keys[13],types[13]), new Tile({e[44], e[56], e[57], e[58], e[53], e[40]}, {v[31], v[34], v[43], v[44], v[41], v[32]},keys[14],types[14]), new Tile({e[48], e[59], e[60], e[61], e[56], e[43]}, {v[33], v[37], v[45], v[46], v[43], v[34]},keys[15],types[15])},
             std::vector<Tile*>() = {new Tile({e[55], e[62], e[63], e[64], e[65], e[50]}, {v[38], v[42], v[47], v[48], v[49], v[39]},keys[16],types[16]), new Tile({e[58], e[66], e[67], e[68], e[62], e[54]}, {v[41], v[44], v[50], v[51], v[47], v[42]},keys[17],types[17]), new Tile({e[61], e[69], e[70], e[71], e[66], e[57]}, {v[43], v[46], v[52], v[53], v[50], v[44]},keys[18],types[18])},};
+
+    std::vector<int> offset ={300,250,200,250,300};
+    for (int i = 0; i < tiles.size(); i++) {
+        for (int j = 0; j < tiles[i].size(); j++) {
+            tiles[i][j]->setCoordinates(offset[i]+(j*100), 217+(i*100));
+            tiles[i][j]->setVerticeCoords();
+        }
+    }
+
 }
 
 Board::~Board() = default;
@@ -118,6 +127,8 @@ coords Board::printBoard(const std::string &message){
     }
 
 
+
+
     while (cg::wait_until_mouse() != cg::MouseLeft) {}
 
     const coords xy = {cg::get_mouse_x(),cg::get_mouse_y()};
@@ -143,12 +154,31 @@ std::vector<std::tuple<std::string, std::vector<int>>> Board::otherPlayerResourc
 Edge * Board::getEdge(double x, double y) {
 }
 
-Vertex * Board::getVertex(double x, double y) {
+Vertex * Board::getVertex(coords coordinates) {
+    for (int i = 0; i < tiles.size(); i++) {
+        for (int j = 0; j < tiles[i].size(); j++) {
+            if (tiles[i][j]->getVertice(coordinates) != nullptr) {
+                return tiles[i][j]->getVertice(coordinates);
+            }
+        }
+    }
+    return nullptr;
 }
 
 Structure * Board::getStructure(double x, double y) {
 }
 
-Tile* Board::getTile(double x, double y) {
+Tile* Board::getTile(coords coordinates) {
+    for (int i = 0; i < tiles.size(); i++) {
+        for (int j = 0; j < tiles[i].size(); j++) {
+            if (tiles[i][j]->getTile(coordinates)) {
+                return tiles[i][j];
+            }
+        }
+    }
+    return nullptr;
+}
 
+void Board::moveRobber(Tile* tile) {
+    robber->move(tile);
 }

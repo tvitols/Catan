@@ -14,6 +14,9 @@ class Tile {
     resourceType rtype;
     std::vector<Edge*> edges = std::vector<Edge*>(6);
     std::vector<Vertex*> vertices = std::vector<Vertex*>(6);
+    coords coordinates;
+    const int XBUFFER = 35;
+    const int YBUFFER = 55;
 
 public:
     Tile();
@@ -35,8 +38,17 @@ public:
 
     int getKey();
 
+    void setCoordinates(int x, int y);
+
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 
+    coords getCoordinates();
+
+    bool getTile(coords pCoordinates);
+
+    void setVerticeCoords();
+
+    Vertex* getVertice(coords coordinates);
     // resourceType stealResource(std::string name);
 
 };

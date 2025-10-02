@@ -52,7 +52,12 @@ void Game::onA7(Player* player) {
     else {
         std::cout << "You had less than 7 cards!" << std::endl;
     }
-    //TODO: Implement moving robber
+    coords xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
+    while (board.getTile(xy) == nullptr) {
+        std::cout << "You didn't chose a tile!" << std::endl;
+        xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
+    }
+    board.moveRobber(board.getTile(xy));
     player->moveRobber(board.otherPlayerResources(player->getName()));
     //TODO: implement getting a random resource
 }

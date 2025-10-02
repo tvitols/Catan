@@ -7,10 +7,11 @@
 Robber::Robber() {
 }
 
-void Robber::move(Tile *currentTile) {
+void Robber::move(Tile *newTile) {
     currentTile->isRobbed(false);
-    this->currentTile = currentTile;
-    this->currentTile->isRobbed(true);
+    currentTile = newTile;
+    currentTile->isRobbed(true);
+    std::cout << currentTile->getResourceType() << std::endl;
 }
 
 void Robber::setCurrentTile(Tile *newTile) {
