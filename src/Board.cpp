@@ -10,6 +10,8 @@
 #include "Edge.h"
 #include "Port.h"
 #include "Vertex.h"
+#include "customUtils.h"
+#include "cppgraphics.hpp"
 
 Board::Board() {
     robber = new Robber;
@@ -100,12 +102,30 @@ Board Board::generateBoard(const int seed) {
     return Board(seed);
 }
 
-void Board::printBoard() const {
-    for (const auto& row : tiles) {
-        for (const auto tile : row) {
-            tile->printTile();
+coords Board::printBoard(const std::string &message){
+
+
+    cg::create_window("Catan",800,800);
+
+    std::vector<int> offset ={250,200,150,200,250};
+    cg::set_background_color(cg::Blue);
+    cg::set_inactive_color(0,0,1,1);
+    cg::text(message, 10,10,780,50);
+    for (int i = 0; i < tiles.size(); i++) {
+        for (int j = 0; j < tiles[i].size(); j++) {
+            cg::image(getRTypeFile(tiles[i][j]->getResourceType()),offset[i]+j*100,150+(i*100),100,140);
         }
     }
+
+
+    while (cg::wait_until_mouse() != cg::MouseLeft) {}
+
+    const coords xy = {cg::get_mouse_x(),cg::get_mouse_y()};
+    cg::clear();
+    cg::close_window();
+
+    return xy;
+
 }
 
 void Board::collectResources(int roll) const {
@@ -120,3 +140,15 @@ std::vector<std::tuple<std::string, std::vector<int>>> Board::otherPlayerResourc
     return robber->otherPlayerResources(name);
 }
 
+Edge * Board::getEdge(double x, double y) {
+}
+
+Vertex * Board::getVertex(double x, double y) {
+}
+
+Structure * Board::getStructure(double x, double y) {
+}
+
+Tile* Board::getTile(double x, double y) {
+
+}

@@ -58,5 +58,6 @@ int main() {
     }
 
     auto game = Game(players);
+    game.setUp();
     game.Play();
 }

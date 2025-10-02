@@ -28,14 +28,17 @@ public:
     static Board generateBoard(Robber* robber);
     static Board generateBoard(int seed);
 
-    void printBoard() const;
+    coords printBoard(const std::string &message);
 
     void collectResources(int roll) const;
 
-    void addRobber(Robber* robber);
 
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 
+    Edge* getEdge(double x, double y);
+    Vertex* getVertex(double x, double y);
+    Structure* getStructure(double x, double y);
+    Tile* getTile(double x, double y);
 
 };
 

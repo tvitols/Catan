@@ -37,6 +37,16 @@ execute_process(COMMAND "git submodule update")
 execute_process(COMMAND "echo 'Git submodules updated'")
 
 
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/rules.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/info.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+
+file(COPY src/static/ DESTINATION static/)
+
+
 set(TARGET_NAME "Catan")
 set(LIST_OF_FILES src/main.cpp
         src/Player.cpp

@@ -23,7 +23,9 @@ class Game {
     ~Game() = default;
 
     int Play();
+    void onA7(Player* player);
     void takeTurn(Player* player);
+    void setUp();
 
 };
 

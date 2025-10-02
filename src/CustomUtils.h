@@ -59,6 +59,40 @@ inline std::ostream& operator<<(std::ostream& os, resourceType const &rhs){
     return os;
 }
 
+inline std::stringstream& operator<<(std::stringstream& os, resourceType const &rhs){
+    switch (rhs) {
+        case wood: os << "wood"; break;
+        case sheep: os << "sheep"; break;
+        case brick: os << "brick"; break;
+        case stone: os << "stone"; break;
+        case wheat: os << "wheat"; break;
+        case null: os << "desert"; break;
+        default: os << "unknown"; break;
+    }
+    return os;
+}
+
+inline std::string getRTypeFile(const resourceType rtype) {
+    std::stringstream ss;
+    std::string file = "static/";
+    std::string type;
+    ss << rtype;
+    ss >> type;
+    file += type;
+    file += ".png";
+    return file;
+}
+
+struct coords {
+    double x;
+    double y;
+};
+
+inline std::ostream& operator<<(std::ostream& os, coords const &rhs) {
+    os << "(" << rhs.x << ", " << rhs.y << ")";
+    return os;
+}
+
 inline int getIntFromUser() {
     //Create stringstream
     std::stringstream ss;
