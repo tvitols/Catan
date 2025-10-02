@@ -138,12 +138,10 @@ coords Board::printBoard(const std::string &message){
                 }
             }
         }
-        const auto [rx, ry] = robber->getCurrentTile()->getCoordinates();
-        cg::centered_image("static/robber.png",rx+shift(),ry+shift(),25,50);
-
     }
 
-
+    const auto [rx, ry] = robber->getCurrentTile()->getCoordinates();
+    cg::centered_image("static/robber.png",rx+shift(),ry+shift(),25,50);
 
 
     while (cg::wait_until_mouse() != cg::MouseLeft) {}
@@ -194,6 +192,10 @@ Tile* Board::getTile(coords coordinates) {
         }
     }
     return nullptr;
+}
+
+std::vector<std::vector<Tile *>> Board::getTiles() {
+    return tiles;
 }
 
 void Board::moveRobber(Tile* tile) {

@@ -40,6 +40,8 @@ public:
     Structure* getStructure(double x, double y);
     Tile* getTile(coords coordinates);
 
+    std::vector<std::vector<Tile*>> getTiles();
+
     void moveRobber(Tile* tile);
 
 };
