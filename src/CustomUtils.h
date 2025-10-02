@@ -30,9 +30,10 @@ constexpr unsigned int str2int(const char* str, const int h = 0){
 
 static std::default_random_engine generator_(start_time);
 static auto distribution_ = std::uniform_int_distribution<int>(1,6);
+static auto shiftDist_ = std::uniform_int_distribution<int>(-20,20);
 
 static auto dice = []{ return distribution_(generator_); };
-
+static auto shift = []{ return shiftDist_(generator_); };
 
 enum resourceType : int {wood = 0, sheep = 1, brick = 2, stone = 3, wheat = 4, null = 7};
 
@@ -79,6 +80,14 @@ inline std::string getRTypeFile(const resourceType rtype) {
     ss << rtype;
     ss >> type;
     file += type;
+    file += ".png";
+    return file;
+}
+
+inline std::string getNumImgFile(const int num){
+    if (num == 7 || num < 2 || num > 12) return "";
+    std::string file = "static/";
+    file += std::to_string(num);
     file += ".png";
     return file;
 }

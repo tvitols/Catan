@@ -19,6 +19,14 @@ void Tile::setVertex(int index, Vertex *vertex) {
     vertices[index] = vertex;
 }
 
+Vertex* Tile::getVertex(const int index) const {
+    return vertices[index];
+}
+
+Edge* Tile::getEdge(const int index) const {
+    return edges[index];
+}
+
 void Tile::collectResources(const int roll) const {
     if (rtype != null && roll == key && !hasRobber) {
         for (const auto& vertex : vertices) {
@@ -28,8 +36,12 @@ void Tile::collectResources(const int roll) const {
 
 }
 
-void Tile::isRobbed(bool robbed) {
+void Tile::rob(bool robbed) {
     hasRobber = robbed;
+}
+
+bool Tile::isRobbed() const {
+    return hasRobber;
 }
 
 resourceType Tile::getResourceType() {
@@ -80,9 +92,9 @@ void Tile::setVerticeCoords() {
     vertices[5]->setCoordinates(coordinates.x - 50, coordinates.y - 32);
 }
 
-Vertex* Tile::getVertice(coords coordinates) {
+Vertex* Tile::getVertice(const coords pCoordinates) const {
     for (Vertex *vertex : vertices) {
-        if (vertex->getVertex(coordinates)) {
+        if (vertex->getVertex(pCoordinates)) {
             return vertex;
         }
     }

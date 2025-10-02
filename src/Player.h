@@ -12,6 +12,8 @@
 #include "CardStack.h"
 #include "customUtils.h"
 
+enum playerColor : int {red = 0, white = 1, blue = 2, green = 3};
+
 class Player {
 
     std::string name;
@@ -20,10 +22,11 @@ class Player {
     std::vector<int> resources = {0,0,0,0,0};
     std::vector<Resource> collected = {};
     CardStack devCards;
+    playerColor color;
 
     public:
 
-    explicit Player(const std::string *pname);
+    Player(const std::string *pname, playerColor pColor);
 
     //add resource to player
     void addResource(Resource r);
@@ -74,6 +77,8 @@ class Player {
     std::vector<int> getResources();
 
     std::string getName();
+
+    std::string getColor() const;
 };
 
 

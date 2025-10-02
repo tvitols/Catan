@@ -15,7 +15,7 @@ class Vertex {
     int y;
     Building* building = nullptr;
     const int BUFFER = 7;
-    coords coordinates;
+    coords coordinates = {0,0};
 
     public:
     Vertex() :x(0), y(0){};
@@ -28,9 +28,14 @@ class Vertex {
 
     void setCoordinates(int x, int y);
 
+    coords getCoordinates();
+
     bool getVertex(coords fCoordinates);
 
-    // resourceType stealResources();
+    bool isOccupied() const;
+
+    std::string getOccupiedImg();
+
 };
 
 

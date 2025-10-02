@@ -3,3 +3,15 @@
 //
 
 #include "Edge.h"
+
+coords Edge::getCoordinates() {
+    return coordinates;
+}
+
+bool Edge::isOccupied() const {
+    return occupied;
+}
+
+std::string Edge::getOccupiedImg() {
+    return road->getImg();
+}

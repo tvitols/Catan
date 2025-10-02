@@ -7,8 +7,9 @@
 #include <vector>
 #include <string>
 
-Player::Player(const std::string *pname) {
+Player::Player(const std::string *pname, playerColor pColor) {
     name = *pname;
+    color = pColor;
 }
 
 void Player::addResource(const Resource r) {
@@ -498,5 +499,15 @@ std::vector<int> Player::getResources() {
 
 std::string Player::getName() {
     return name;
+}
+
+std::string Player::getColor() const {
+    switch (color) {
+        case blue: return "b";
+        case green: return "g";
+        case red: return "r";
+        case white: return "w";
+        default: return "";
+    }
 }
 

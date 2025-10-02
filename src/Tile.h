@@ -30,9 +30,15 @@ public:
 
     void setVertex(int index, Vertex* vertex);
 
+    Vertex* getVertex(int index) const;
+
+    Edge* getEdge(int index) const;
+
     void collectResources(int roll) const;
 
-    void isRobbed(bool robbed);
+    void rob(bool robbed);
+
+    bool isRobbed() const;
 
     resourceType getResourceType();
 
@@ -48,7 +54,7 @@ public:
 
     void setVerticeCoords();
 
-    Vertex* getVertice(coords coordinates);
+    Vertex* getVertice(coords pCoordinates) const;
     // resourceType stealResource(std::string name);
 
 };

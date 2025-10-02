@@ -10,11 +10,16 @@
 //Necessary Resources = wood = 1, brick = 1
 class Road : public Structure {
 
+    // 0 = upright, 1 = tilt left, 2 = tilt right
+    int orientation;
+
 public:
     Road() = default;
     ~Road() = default;
 
     bool buy();
+
+    std::string getImg() const;
 };
 
 

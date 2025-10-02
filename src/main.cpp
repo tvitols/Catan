@@ -54,7 +54,7 @@ int main() {
             cout << "Invalid name." << endl;
             i --; break;
         }
-        players.push_back(new Player(&name));
+        players.push_back(new Player(&name,static_cast<playerColor>(i)));
     }
 
     auto game = Game(players);

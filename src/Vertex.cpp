@@ -31,6 +31,10 @@ void Vertex::setCoordinates(int x, int y) {
     coordinates.y = y;
 }
 
+coords Vertex::getCoordinates() {
+    return coordinates;
+}
+
 bool Vertex::getVertex(coords fCoordinates) {
     if (fCoordinates.x >= coordinates.x - BUFFER && fCoordinates.x <= coordinates.x + BUFFER) {
         if (fCoordinates.y >= coordinates.y - BUFFER && fCoordinates.y <= coordinates.y + BUFFER) {
@@ -39,6 +43,14 @@ bool Vertex::getVertex(coords fCoordinates) {
         return false;
     }
     return false;
+}
+
+bool Vertex::isOccupied() const {
+    return building != nullptr;
+}
+
+std::string Vertex::getOccupiedImg() {
+    return building->getImg();
 }
 
 // resourceType Vertex::stealResources() {

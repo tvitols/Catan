@@ -5,10 +5,13 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-
+#include "Road.h"
 
 class Edge {
     bool shown = false;
+    bool occupied = false;
+    Road* road = nullptr;
+    coords coordinates = {0,0};
 
 public:
 
@@ -16,6 +19,12 @@ public:
 
     void show();
     void reset();
+
+    coords getCoordinates();
+
+    bool isOccupied() const;
+
+    std::string getOccupiedImg();
 
 };
 

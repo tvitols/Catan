@@ -5,7 +5,7 @@
 #include "Game.h"
 
 Game::Game() : board(Board::generateBoard()) {
-    players = {new Player(new std::string("Player 1")), new Player(new std::string("Player 2"))};
+    players = {new Player(new std::string("Player 1"),red), new Player(new std::string("Player 2"),white)};
 }
 
 int Game::Play() {
@@ -71,9 +71,9 @@ void Game::setUp() {
 
     while (iter != players.end()) {
         coords xy = board.printBoard((*iter)->getName().append(", place a settlement"));
-        std::cout << xy << std::endl;
+        // std::cout << xy << std::endl;
         xy = board.printBoard((*iter)->getName().append(", place a road"));
-        std::cout << xy << std::endl;
+        // std::cout << xy << std::endl;
 
         ++iter;
     }
@@ -82,9 +82,9 @@ void Game::setUp() {
 
     while (iter >= players.begin()) {
         coords xy = board.printBoard((*iter)->getName().append(", place another settlement"));
-        std::cout << xy << std::endl;
+        //std::cout << xy << std::endl;
         xy = board.printBoard((*iter)->getName().append(", place another road"));
-        std::cout << xy << std::endl;
+        //std::cout << xy << std::endl;
 
         --iter;
     }

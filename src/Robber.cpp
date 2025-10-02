@@ -8,9 +8,9 @@ Robber::Robber() {
 }
 
 void Robber::move(Tile *newTile) {
-    currentTile->isRobbed(false);
+    currentTile->rob(false);
     currentTile = newTile;
-    currentTile->isRobbed(true);
+    currentTile->rob(true);
     std::cout << currentTile->getResourceType() << std::endl;
 }
 
@@ -18,8 +18,8 @@ void Robber::setCurrentTile(Tile *newTile) {
     currentTile = newTile;
 }
 
-resourceType Robber::getCurrentTile() {
-    return currentTile->getResourceType();
+Tile* Robber::getCurrentTile() {
+    return currentTile;
 }
 
 std::vector<std::tuple<std::string, std::vector<int>>> Robber::otherPlayerResources(std::string name) {

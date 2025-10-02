@@ -21,7 +21,7 @@ class Robber {
 
     void setCurrentTile(Tile* newTile);
 
-    resourceType getCurrentTile();
+    Tile* getCurrentTile();
 
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 

@@ -38,7 +38,7 @@ public:
 
     bool upgradeToCity();
 
-    // resourceType stealResource();
+    const std::string getImg();
 
 };
 

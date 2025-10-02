@@ -52,7 +52,7 @@ Board::Board(const int seed) {
 
 void Board::generateTiles(std::mt19937 twist) {
     std::vector<Edge*> e;
-    for (int i = 0; i < 54; i++) {
+    for (int i = 0; i < 72; i++) {
         e.push_back(new Edge());
     }
     std::vector<Vertex*> v;
@@ -89,6 +89,9 @@ void Board::generateTiles(std::mt19937 twist) {
     std::vector<int> offset ={300,250,200,250,300};
     for (int i = 0; i < tiles.size(); i++) {
         for (int j = 0; j < tiles[i].size(); j++) {
+            if (tiles[i][j]->getKey() == 7) {
+                tiles[i][j]->rob(true);
+            }
             tiles[i][j]->setCoordinates(offset[i]+(j*100), 217+(i*100));
             tiles[i][j]->setVerticeCoords();
         }
@@ -115,15 +118,29 @@ coords Board::printBoard(const std::string &message){
 
 
     cg::create_window("Catan",800,800);
-
-    std::vector<int> offset ={250,200,150,200,250};
-    cg::set_background_color(cg::Blue);
-    cg::set_inactive_color(0,0,1,1);
+    cg::set_fill_color(cg::DarkBlue);
+    cg::rectangle(0,0,800,800);
     cg::text(message, 10,10,780,50);
-    for (int i = 0; i < tiles.size(); i++) {
-        for (int j = 0; j < tiles[i].size(); j++) {
-            cg::image(getRTypeFile(tiles[i][j]->getResourceType()),offset[i]+j*100,150+(i*100),100,140);
+    for (auto ts : tiles) {
+        for (const auto tile : ts) {
+            const auto [tx, ty] = tile->getCoordinates();
+            cg::centered_image(getRTypeFile(tile->getResourceType()),tx,ty,100,140);
+            if (tile->getKey() != 7)
+                cg::centered_image(getNumImgFile(tile->getKey()),tx,ty,50,50);
+            for (int k = 0; k < 6; k++) {
+                if (Vertex * v = tile->getVertex(k); v->isOccupied()) {
+                    const auto [vx, vy] = v->getCoordinates();
+                    cg::centered_image(v->getOccupiedImg(),vx,vy,25,25);
+                }
+                if (Edge * e = tile->getEdge(k); e->isOccupied()) {
+                    const auto [ex, ey] = e->getCoordinates();
+                    cg::centered_image(e->getOccupiedImg(),ex,ey,25,25);
+                }
+            }
         }
+        const auto [rx, ry] = robber->getCurrentTile()->getCoordinates();
+        cg::centered_image("static/robber.png",rx+shift(),ry+shift(),25,50);
+
     }
 
 

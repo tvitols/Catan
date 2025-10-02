@@ -20,12 +20,15 @@ std::vector<int> Building::getPlayerResources() {
     return owner->getResources();
 }
 
+const std::string Building::getImg() {
+    std::string file = "static/";
+    switch (num) {
+        case 1: file += "settlement_"; break;
+        case 2: file += "city_"; break;
+        default: return "";
+    }
+    file += owner->getName();
+    file += ".png";
 
-// resourceType Building::stealResource() {
-//     srand(time(NULL));
-//     int randNum = rand() % 5;
-//     while (!owner->removeResource(Resource(static_cast<resourceType>(randNum), 1))) {
-//         randNum = rand() % 5;
-//     }
-//     return static_cast<resourceType>(randNum);
-// }
+    return file;
+}
