@@ -6,6 +6,7 @@
 #define PLAYER_H
 
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -23,10 +24,11 @@ class Player {
     std::vector<Resource> collected = {};
     CardStack devCards;
     playerColor color;
+    std::set<Trade> allowedTrades = {Trade(Resource(null,4),Resource(null, 1))};
 
     public:
 
-    Player(const std::string *pname, playerColor pColor);
+        Player(const std::string *pname, playerColor pColor);
 
     //add resource to player
     void addResource(Resource r);
@@ -63,6 +65,8 @@ class Player {
 
     friend bool operator==(const Player &lhs, const Player &rhs);
     friend bool operator!=(const Player &lhs, const Player &rhs);
+
+    void addTrade(const Trade &t);
 
     bool trade(std::vector<Resource>get, std::vector<Resource>give);
 

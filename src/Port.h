@@ -8,13 +8,17 @@
 #include "Vertex.h"
 
 
-class Port : Vertex {
+class Port : public Vertex {
+
+    Trade trade;
 
     public:
     Port() = default;
 
     explicit Port(const Vertex &pVert): Vertex(pVert) {};
     ~Port() = default;
+
+    void setBuilding(Building *pBuilding);
 };
 
 

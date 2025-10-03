@@ -66,7 +66,7 @@ std::vector<Edge *> AdjacencyGraph::getAdjacentEdges(Edge *&edge) {
     for ( auto vertex : edgeKeyedAdjacencyList[edge]) {
         std::vector<Edge*> e = vertexKeyedAdjacencyList[vertex];
         if (e.size() != 0) {
-            adjacentEdges.insert(e.begin(), e.end());
+            adjacentEdges.insert(e.begin(), e.end()-1);
         }
     }
     return std::vector<Edge *>(adjacentEdges.begin(),adjacentEdges.end());
@@ -98,15 +98,15 @@ bool AdjacencyGraph::checkVertex( Vertex *&pVertex,  Player *&player,  bool setu
         if (vertex->isOccupied()) {
             return false;
         }
-        const std::vector<Vertex *> secondaryVertices = getAdjacentVertices(vertex);
-        for (const auto v : secondaryVertices) {
-            if (v == nullptr || v == pVertex) {
-                continue;
-            }
-            if (v->isOccupied()) {
-                return false;
-            }
-        }
+        // const std::vector<Vertex *> secondaryVertices = getAdjacentVertices(vertex);
+        // for (const auto v : secondaryVertices) {
+        //     if (v == nullptr || v == pVertex) {
+        //         continue;
+        //     }
+        //     if (v->isOccupied()) {
+        //         return false;
+        //     }
+        // }
     }
     if (!setup) {
         const std::vector<Edge *> adjacentEdges = getAdjacentEdges(pVertex);

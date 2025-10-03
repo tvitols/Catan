@@ -87,8 +87,10 @@ int Player::takeTurn(const std::vector<Player*>& players, int action) {
 
 void Player::showCollectedResources() {
     if (!collected.empty()) {
-        for (auto r : collected) {
-            std::cout << r << "\t";
+        auto iter = collected.begin();
+        while (iter != collected.end()) {
+            std::cout << to_string(*iter) << ((iter+1)!=collected.end()?" and ":"");
+            ++iter;
         }
         std::cout << "!" << std::endl;
     }else {
@@ -196,6 +198,10 @@ bool operator==(const Player &lhs, const Player &rhs) {
 
 bool operator!=(const Player &lhs, const Player &rhs) {
     return !(lhs == rhs);
+}
+
+void Player::addTrade(const Trade &t) {
+    allowedTrades.insert(t);
 }
 
 bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {

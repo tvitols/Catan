@@ -9,6 +9,7 @@
 
 class Vertex {
 
+protected:
     //+- 50
     int x;
     //+- 32

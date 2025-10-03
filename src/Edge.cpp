@@ -25,6 +25,7 @@ bool Edge::getEdge(coords fCoordinates) {
 bool Edge::setRoad(Road *pRoad) {
     if (occupied) return false;
     road = pRoad;
+    road->place(type);
     occupied = true;
     return true;
 }

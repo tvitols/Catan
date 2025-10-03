@@ -9,6 +9,7 @@
 
 class Structure {
 
+
 protected:
     //Create Player pointer to the player that owns the structure
     Player* owner;

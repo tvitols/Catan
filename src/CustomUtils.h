@@ -48,9 +48,33 @@ enum tilt {
     upright
 };
 
+struct Trade {
+    Resource give;
+    Resource receive;
+};
+
+inline bool operator<(const Trade& lhs, const Trade& rhs)
+{
+    return lhs.receive.num < rhs.receive.num;
+}
+
 inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
     os << rhs.num << " " << rhs.type;
     return os;
+}
+
+inline std::string to_string(Resource const &rhs) {
+    std::string res = std::to_string(rhs.num);
+    res += " ";
+    switch (rhs.type) {
+        case wood: res += ("wood"); break;
+        case sheep: res += ("sheep"); break;
+        case brick: res += "brick"; break;
+        case stone: res += ("stone"); break;
+        case wheat: res += ("wheat"); break;
+        case null: res += ("null"); break;
+    }
+    return res;
 }
 
 inline std::ostream& operator<<(std::ostream& os, resourceType const &rhs){
