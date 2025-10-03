@@ -15,12 +15,11 @@ class Building : public Structure {
 protected:
 
     int num;
-    Player* owner;
 
 
 public:
     Building() = default;
-    explicit Building(Player* owner) : Structure(), num(0), owner(owner) {};
+    explicit Building(Player* pOwner);
     ~Building() = default;
 
 
@@ -33,12 +32,11 @@ public:
 
     std::vector<int> getPlayerResources();
 
-    //bool place(Vertex vertex);
-    bool buy();
+    bool isCity();
 
-    bool upgradeToCity();
+    void upgradeToCity();
 
-    const std::string getImg();
+    std::string getImg() const;
 
 };
 

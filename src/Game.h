@@ -28,7 +28,7 @@ class Game {
 
     int Play();
     void onA7(Player* player);
-    void takeTurn(Player* player);
+    int placeStructure(Player* player, int type);
     void setUp();
 
 };

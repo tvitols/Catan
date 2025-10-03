@@ -4,17 +4,23 @@
 
 #include "Road.h"
 
-bool Road::buy() {
-    return true;
+Road::Road(Player *player) {
+    owner = player;
+}
+
+
+
+void Road::place(const tilt orient) {
+    orientation = orient;
 }
 
 std::string Road::getImg() const {
         std::string file = "static/road_";
-        file += owner->getName();
+        file += owner->getColor();
         switch (orientation) {
-            case 0: file += "_u"; break;
-            case 1: file += "_l"; break;
-            case 2: file += "_r"; break;
+            case upright: file += "_u"; break;
+            case left: file += "_l"; break;
+            case right: file += "_r"; break;
             default: return "";
         }
         file += ".png";

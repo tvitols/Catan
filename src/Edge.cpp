@@ -13,15 +13,20 @@ void Edge::setCoordinates(int x, int y, tilt fTilt) {
 bool Edge::getEdge(coords fCoordinates) {
     if (type != upright) {
         if (fCoordinates.x >= coordinates.x - XBUFFER && fCoordinates.x <= coordinates.x + XBUFFER && fCoordinates.y >= coordinates.y - YBUFFER && fCoordinates.y <= coordinates.y + YBUFFER) {
-            std::cout << "Edge Coordinates: " << coordinates << std::endl;
             return true;
         }
     }
     else if (fCoordinates.x >= coordinates.x - 5 && fCoordinates.x <= coordinates.x + 5 && fCoordinates.y >= coordinates.y - 32 && fCoordinates.y <= coordinates.x + 32) {
-        std::cout << "Edge Coordinates: " << coordinates << std::endl;
         return true;
     }
     return false;
+}
+
+bool Edge::setRoad(Road *pRoad) {
+    if (occupied) return false;
+    road = pRoad;
+    occupied = true;
+    return true;
 }
 
 Road * Edge::getRoad() {

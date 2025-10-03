@@ -4,7 +4,7 @@
 
 #include "Robber.h"
 
-Robber::Robber() {
+Robber::Robber() : currentTile(nullptr) {
 }
 
 void Robber::move(Tile *newTile) {

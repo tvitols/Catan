@@ -54,15 +54,23 @@ void Player::showResources() {
     std::cout << std::endl;
 }
 
-void Player::takeTurn(const std::vector<Player*>& players) {
+int Player::takeTurn(const std::vector<Player*>& players, int action) {
     char choice = static_cast<char>(NULL);
+    int result;
     while (!choice) {
         std::cout << "Select an option to \n- (b)uy something\n- (e)nd turn\n- (t)rade\n";
         std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
-            case 'b': case 'B': buyMenu(); choice = 0; break;
-            case 'e': case 'E': return;
+            case 'b': case 'B': {
+                result = buyMenu();
+                if (result > 0 && result < 4) {
+                    return result;
+                }
+                choice = 0;
+                break;
+            }
+            case 'e': case 'E': return 0;
             case 't': case 'T': choice = 0;
                 if (initiateTrade(players)) {
                     std::cout << name + ": Trade Completed!" << std::endl;
@@ -74,7 +82,7 @@ void Player::takeTurn(const std::vector<Player*>& players) {
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
-
+    return static_cast<int>(NULL);
 }
 
 void Player::showCollectedResources() {
@@ -157,7 +165,7 @@ int Player::buyMenu() {
     }
 }
 
-void Player::buyDevCard() {
+int Player::buyDevCard() {
 }
 
 //returns true if that puts the player over 10

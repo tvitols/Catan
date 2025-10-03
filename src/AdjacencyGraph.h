@@ -26,8 +26,8 @@ class AdjacencyGraph {
     bool isAdjacent( Vertex* &vertex1,  Vertex* &vertex2) ;
 
     std::vector<Vertex*> getAdjacentVertices( Edge* &edge) ;
-    std::vector<Vertex*> getAdjacentVertices( Vertex* &vertex) const;
-    std::vector<Edge*> getAdjacentEdges( Edge* &edge) const;
+    std::vector<Vertex*> getAdjacentVertices(Vertex* &vertex);
+    std::vector<Edge*> getAdjacentEdges(Edge* &edge);
     std::vector<Edge*> getAdjacentEdges( Vertex* &vertex) ;
 
     bool checkEdge( Edge* &pEdge,  Player* &player) ;

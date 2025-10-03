@@ -42,14 +42,14 @@ class Player {
 
 
     //take their turn
-    void takeTurn(const std::vector<Player*>& players);
+    int takeTurn(const std::vector<Player*>& players, int action);
 
     void showCollectedResources();
 
     //display options to buy things
     int buyMenu();
 
-    void buyDevCard();
+    int buyDevCard();
 
     // adds vp, return true if player has over 10 vp
     bool addVP(int pVP);

@@ -129,13 +129,13 @@ coords Board::printBoard(const std::string &message){
             if (tile->getKey() != 7)
                 cg::centered_image(getNumImgFile(tile->getKey()),tx,ty,50,50);
             for (int k = 0; k < 6; k++) {
-                if (Vertex * v = tile->getVertex(k); v->isOccupied()) {
-                    const auto [vx, vy] = v->getCoordinates();
-                    cg::centered_image(v->getOccupiedImg(),vx,vy,25,25);
-                }
                 if (Edge * e = tile->getEdge(k); e->isOccupied()) {
                     const auto [ex, ey] = e->getCoordinates();
-                    cg::centered_image(e->getOccupiedImg(),ex,ey,25,25);
+                    cg::centered_image(e->getOccupiedImg(),ex,ey,60,60);
+                }
+                if (Vertex * v = tile->getVertex(k); v->isOccupied()) {
+                    const auto [vx, vy] = v->getCoordinates();
+                    cg::centered_image(v->getOccupiedImg(),vx,vy,30,30);
                 }
             }
         }
@@ -155,6 +155,7 @@ coords Board::printBoard(const std::string &message){
 
 }
 
+
 void Board::collectResources(int roll) const {
     for (const auto& row : tiles) {
         for (const auto tile : row) {
@@ -171,7 +172,6 @@ Edge * Board::getEdge(coords coordinates) {
     for (int i = 0; i < tiles.size(); i++) {
         for (int j = 0; j < tiles[i].size(); j++) {
             if (tiles[i][j]->getEdge(coordinates) != nullptr) {
-                std::cout << "You found an edge (yay)" << std::endl;
                 return tiles[i][j]->getEdge(coordinates);
             }
         }
@@ -183,12 +183,19 @@ Vertex * Board::getVertex(coords coordinates) {
     for (int i = 0; i < tiles.size(); i++) {
         for (int j = 0; j < tiles[i].size(); j++) {
             if (tiles[i][j]->getVertice(coordinates) != nullptr) {
-                std::cout << "You found a vertex (yay)" << std::endl;
                 return tiles[i][j]->getVertice(coordinates);
             }
         }
     }
     return nullptr;
+}
+
+Edge * Board::getEdge(const std::string &message) {
+    return getEdge(printBoard(message));
+}
+
+Vertex * Board::getVertex(const std::string &message) {
+    return getVertex(printBoard(message));
 }
 
 Structure * Board::getStructure(double x, double y) {

@@ -16,6 +16,7 @@ class Vertex {
     Building* building = nullptr;
     const int BUFFER = 7;
     coords coordinates = {0,0};
+    bool occupied = false;
 
     public:
     Vertex() :x(0), y(0){};
@@ -33,6 +34,10 @@ class Vertex {
     bool getVertex(coords fCoordinates);
 
     bool isOccupied() const;
+
+    bool setBuilding(Building* pBuilding);
+
+    bool upgradeBuilding(Player* player);
 
     Building* getBuilding() const;
 

@@ -10,22 +10,17 @@
 #include "Road.h"
 
 class Edge {
-    bool shown = false;
     coords coordinates = {0, 0};
     int YBUFFER = 19;
     int XBUFFER = 25;
-    bool occupied = false;
     Road* road = nullptr;
-    tilt type;
+    tilt type = {};
+    bool occupied = false;
 
 
 public:
 
-    bool isShown();
-
-    void show();
-    void reset();
-
+    bool setRoad(Road* pRoad);
     Road* getRoad();
 
     coords getCoordinates();

@@ -46,7 +46,21 @@ bool Vertex::getVertex(coords fCoordinates) {
 }
 
 bool Vertex::isOccupied() const {
-    return building != nullptr;
+    return occupied;
+}
+
+bool Vertex::setBuilding(Building *pBuilding) {
+    if (occupied) return false;
+    building = pBuilding;
+    occupied = true;
+    return true;
+}
+
+bool Vertex::upgradeBuilding(Player* player) {
+    if (!isOccupied() || building->getOwner() != player || building->isCity()) return false;
+    building->upgradeToCity();
+    return true;
+
 }
 
 Building * Vertex::getBuilding() const {

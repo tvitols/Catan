@@ -37,6 +37,8 @@ public:
 
     Edge* getEdge(coords coordinates);
     Vertex* getVertex(coords coordinates);
+    Edge* getEdge(const std::string &message);
+    Vertex* getVertex(const std::string &message);
     Structure* getStructure(double x, double y);
     Tile* getTile(coords coordinates);
 

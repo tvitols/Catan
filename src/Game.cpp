@@ -3,6 +3,9 @@
 //
 
 #include "Game.h"
+#include "Road.h"
+#include "Building.h"
+#include <windows.h>
 
 Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)) {
     players = {
@@ -26,7 +29,15 @@ int Game::Play() {
                 std::cout << "You got ";
                 player->showCollectedResources();
             }
-            player->takeTurn(players);
+            int action = 200;
+            while (action != 0) {
+                action = (player->takeTurn(players, action));
+                switch (action) {
+                    case 0: break;
+                    case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action)); break;
+                    default: action = 0; break;
+                }
+            }
             gameOver = player->hasWon();
         }
     }
@@ -64,20 +75,62 @@ void Game::onA7(Player* player) {
     //TODO: implement getting a random resource
 }
 
-void Game::takeTurn(Player *player) {
+int Game::placeStructure(Player *player, const int type) {
+
+    switch (type) {
+        case 1: {
+            Vertex* vertex = board.getVertex("Place a settlement");
+            if (adjGraph.checkVertex(vertex,player) && vertex->setBuilding(new Building(player))) {
+                return 1;
+            }
+            return -1;
+        }
+        case 2: {
+            if (board.getVertex("Select a settlement to upgrade")->upgradeBuilding(player)) {
+                return 2;
+            }
+            return -2;
+        }
+        case 3: {
+            Edge* edge = board.getEdge("Place a road");
+            if (adjGraph.checkEdge(edge,player) && edge->setRoad(new Road(player))) {
+                return 3;
+            }
+            return -3;
+        }
+        default: return 0;
+    }
+
+
 }
+
 
 void Game::setUp() {
 
     auto iter = players.begin();
 
     while (iter != players.end()) {
-        coords xy = board.printBoard((*iter)->getName().append(", place a settlement"));
-        board.getEdge(xy);
-        std::cout << xy << std::endl;
-        xy = board.printBoard((*iter)->getName().append(", place a road"));
-        board.getEdge(xy);
-        std::cout << xy << std::endl;
+        Vertex* vertex;
+        Building* building = new Building(*iter);
+        while (true) {
+            vertex = board.getVertex((*iter)->getName().append(", place a settlement"));
+            if (vertex != nullptr && adjGraph.checkVertex(vertex,*iter,true) && vertex->setBuilding(building)) {
+                break;
+            }
+            std::cout << "INVALID PLACEMENT" << std::endl;
+            Sleep(500);
+
+        }
+        Edge* edge;
+        Road* road= new Road(*iter);
+        while (true) {
+            edge = board.getEdge((*iter)->getName().append(", place a road"));
+            if (edge != nullptr && adjGraph.checkEdge(edge,*iter) && edge->setRoad(road)) {
+                break;
+            }
+            std::cout << "INVALID PLACEMENT" << std::endl;
+            Sleep(500);
+        }
 
         ++iter;
     }
@@ -85,12 +138,27 @@ void Game::setUp() {
     --iter;
 
     while (iter >= players.begin()) {
-        coords xy = board.printBoard((*iter)->getName().append(", place another settlement"));
-        board.getEdge(xy);
-        std::cout << xy << std::endl;
-        xy = board.printBoard((*iter)->getName().append(", place another road"));
-        board.getEdge(xy);
-        std::cout << xy << std::endl;
+        Vertex* vertex;
+        Building* building = new Building(*iter);
+        while (true) {
+            vertex = board.getVertex((*iter)->getName().append(", place another settlement"));
+            if (adjGraph.checkVertex(vertex,*iter,true) && vertex->setBuilding(building)) {
+                    break;
+            }
+            std::cout << "INVALID PLACEMENT" << std::endl;
+            Sleep(500);
+        }
+
+        Edge* edge;
+        Road* road= new Road(*iter);
+        while (true) {
+            edge = board.getEdge((*iter)->getName().append(", place a road"));
+            if (edge != nullptr && adjGraph.checkEdge(edge,*iter) && edge->setRoad(road)) {
+                break;
+            }
+            std::cout << "INVALID PLACEMENT" << std::endl;
+            Sleep(500);
+        }
 
         --iter;
     }

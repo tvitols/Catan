@@ -11,13 +11,14 @@
 class Road : public Structure {
 
     // 0 = upright, 1 = tilt left, 2 = tilt right
-    int orientation;
+    tilt orientation = {};
 
 public:
     Road() = default;
+    explicit Road(Player* player);
     ~Road() = default;
 
-    bool buy();
+    void place(tilt orient);
 
     std::string getImg() const;
 };
