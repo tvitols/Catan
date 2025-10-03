@@ -9,11 +9,12 @@
 
 
 class Port : public Vertex {
-
+    resourceType type;
+    int modifier;
     Trade trade;
 
     public:
-    Port() = default;
+    Port(resourceType rType);
 
     explicit Port(const Vertex &pVert): Vertex(pVert) {};
     ~Port() = default;

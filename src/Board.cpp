@@ -56,15 +56,28 @@ void Board::generateTiles(std::mt19937 twist) {
         e.push_back(new Edge());
     }
     std::vector<Vertex*> v;
-    for (int i = 0; i < 72; i++) {
-        v.push_back(new Vertex());
+    std::vector<resourceType> randomResource = {wood, wheat, sheep, brick, stone, null, null, null, null};
+    std::shuffle(randomResource.begin(), randomResource.end(), twist);
+    int counter = 1;
+    for (int i = 0; i < 54; i++) {
+        if (i == 0 || i == 5 || i == 11 || i == 22 || i == 35 || i == 36 || i == 45 || i == 46 || i == 50 || i == 51 || i == 48 || i == 49 || i == 40 || i == 26 || i == 16 || i == 12) {
+            v.push_back(new Port(randomResource[0]));
+            if (counter % 2 == 0) {
+                randomResource.erase(randomResource.begin());
+            }
+            counter++;
+        }
+        else {
+            v.push_back(new Vertex());
+        }
     }
 
-    std::vector<int> ports = {};
-
-    for (auto p : ports) {
-        v[p] = reinterpret_cast<std::vector<Vertex *>::value_type>(new Port(*v[p]));
-    }
+    //Do we need this??????
+    // std::vector<int> ports = {};
+    //
+    // for (auto p : ports) {
+    //     v[p] = reinterpret_cast<std::vector<Vertex *>::value_type>(new Port(*v[p]));
+    // }
 
     std::vector keys = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
     std::vector types = {wood,wood,wood,wood,sheep,sheep,sheep,sheep,wheat,wheat,wheat,wheat,brick,brick,brick,stone,stone,stone,null};
@@ -172,6 +185,7 @@ Edge * Board::getEdge(coords coordinates) {
     for (int i = 0; i < tiles.size(); i++) {
         for (int j = 0; j < tiles[i].size(); j++) {
             if (tiles[i][j]->getEdge(coordinates) != nullptr) {
+                std::cout << "You got an edge!" << std::endl;
                 return tiles[i][j]->getEdge(coordinates);
             }
         }

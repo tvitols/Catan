@@ -241,10 +241,92 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     std::vector<Resource> offer;
     int numResource;
 
+    char exchange;
+    char exchangeChoice;
+
+    while (!exchange) {
+        std::cout << "Do you want to exchange 4 of your cards? (y/n): ";
+        std::cin >> exchange;
+        checkCin(&exchange);
+        switch (exchange) {
+            case 'y': case 'Y':
+                while (!exchangeChoice) {
+                    std::cout << "Would you like to trade (w)ood, (s)heep, (b)rick, s(t)one, w(h)eat, or (q)uit: ";
+                    std::cin >> exchangeChoice;
+                    checkCin(&exchangeChoice);
+                    switch (exchangeChoice) {
+                        case 'w': case 'W':
+                            if (!removeResource(Resource(wood, 4))) {
+                                std::cout << "Insufficient resources!" << std::endl;
+                                exchangeChoice = 0;
+                            }
+                            break;
+                        case 's': case 'S':
+                            if (!removeResource(Resource(sheep, 4))) {
+                                std::cout << "Insufficient resources!" << std::endl;
+                                exchangeChoice = 0;
+                            }
+                            break;
+                        case 't': case 'T':
+                            if (!removeResource(Resource(stone, 4))) {
+                                std::cout << "Insufficient resources!" << std::endl;
+                                exchangeChoice = 0;
+                            }
+                            break;
+                        case 'b': case 'B':
+                            if (!removeResource(Resource(brick, 4))) {
+                                std::cout << "Insufficient resources!" << std::endl;
+                                exchangeChoice = 0;
+                            }
+                            break;
+                        case 'h': case 'H':
+                            if (!removeResource(Resource(wheat, 4))) {
+                                std::cout << "Insufficient resources!" << std::endl;
+                                exchangeChoice = 0;
+                            }
+                            break;
+                        case 'q': case 'Q':
+                            return false;
+                        default: exchangeChoice = 0; std::cout << "Invalid choice" << std::endl;
+                            break;
+                    }
+                }
+                exchangeChoice = 0;
+                while (!exchangeChoice) {
+                    std::cout << "Would you like to recieve (w)ood, (s)heep, (b)rick, s(t)one, or w(h)eat: ";
+                    std::cin >> exchangeChoice;
+                    checkCin(&exchangeChoice);
+                    switch (exchangeChoice) {
+                        case 'w': case 'W':
+                            addResource(Resource(wood, 1));
+                            break;
+                        case 's': case 'S':
+                            addResource(Resource(sheep, 1));
+                            break;
+                        case 't': case 'T':
+                            addResource(Resource(stone, 1));
+                            break;
+                        case 'b': case 'B':
+                            addResource(Resource(brick, 1));
+                            break;
+                        case 'h': case 'H':
+                            addResource(Resource(wheat, 1));
+                            break;
+                        default: exchangeChoice = 0; std::cout << "Invalid choice" << std::endl;
+                            break;
+                    }
+                }
+            case 'n': case 'N':
+                break;
+            default: exchangeChoice = 0; std::cout << "Invalid choice" << std::endl;
+                break;
+        }
+    }
+
     char choice;
     while (!choice) {
         int numResources;
-        std::cout << "Would you like to get (w)ood, (s)heep, (b)rick, s(t)one w(h)eat, (f)inish, or (q)uit: ";
+        std::cout << "Would you like to get (w)ood, (s)heep, (b)rick, s(t)one, w(h)eat, (f)inish, or (q)uit: ";
         std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
@@ -303,7 +385,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     choice = 0;
     while (!choice) {
         int numResources;
-        std::cout << "Would you like to get (w)ood, (s)heep, (b)rick, s(t)one w(h)eat, (f)inish, or (q)uit: ";
+        std::cout << "Would you like to get (w)ood, (s)heep, (b)rick, s(t)one, w(h)eat, (f)inish, or (q)uit: ";
         std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
