@@ -245,42 +245,63 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     char exchangeChoice;
 
     while (!exchange) {
-        std::cout << "Do you want to exchange 4 of your cards? (y/n): ";
+        std::cout << "Would you like to trade with (p)layers or with the (s)upply?";
         std::cin >> exchange;
         checkCin(&exchange);
+        int tChoice = 0;
+        std::vector<Trade> trades = std::vector<Trade>(allowedTrades.begin(), allowedTrades.end());
+        auto trade = trades.begin();
+
         switch (exchange) {
-            case 'y': case 'Y':
+            case 's': case 'S':
+                while (tChoice < 1 || tChoice > allowedTrades.size()) {
+
+                    std::cout << "Please select an option from the list below: " << std::endl;
+                    for (int i = 1; i <= allowedTrades.size(); i++) {
+                        std::cout << i << ". " << to_string((*trade).give) << " for " << to_string((*trade).receive) << std::endl;
+                        ++trade;
+                    }
+                    tChoice = getIntFromUser();
+                    trade = trades.begin();
+                }
+                trade += tChoice;
+
                 while (!exchangeChoice) {
-                    std::cout << "Would you like to trade (w)ood, (s)heep, (b)rick, s(t)one, w(h)eat, or (q)uit: ";
+                    if (tChoice < 3) {
+                        std::cout << "Would you like to trade (w)ood, (s)heep, (b)rick, s(t)one, w(h)eat, or (q)uit: ";
+                    }else {
+                        exchangeChoice = (*trade).give.type;
+                    }
                     std::cin >> exchangeChoice;
                     checkCin(&exchangeChoice);
+
                     switch (exchangeChoice) {
-                        case 'w': case 'W':
-                            if (!removeResource(Resource(wood, 4))) {
+                        case 'w': case 'W': case wood:
+                            if (!removeResource(Resource(wood, (*trade).give.num))) {
                                 std::cout << "Insufficient resources!" << std::endl;
                                 exchangeChoice = 0;
                             }
                             break;
-                        case 's': case 'S':
-                            if (!removeResource(Resource(sheep, 4))) {
+                        case 's': case 'S': case sheep:
+                            if (!removeResource(Resource(sheep, (*trade).give.num))) {
                                 std::cout << "Insufficient resources!" << std::endl;
                                 exchangeChoice = 0;
                             }
                             break;
-                        case 't': case 'T':
-                            if (!removeResource(Resource(stone, 4))) {
+                        case 't': case 'T': case stone:
+                            if (!removeResource(Resource(stone, (*trade).give.num))) {
                                 std::cout << "Insufficient resources!" << std::endl;
                                 exchangeChoice = 0;
                             }
                             break;
-                        case 'b': case 'B':
-                            if (!removeResource(Resource(brick, 4))) {
+                        case 'b': case 'B': case brick:
+                            if (!removeResource(Resource(brick, (*trade).give.num))) {
                                 std::cout << "Insufficient resources!" << std::endl;
                                 exchangeChoice = 0;
                             }
                             break;
-                        case 'h': case 'H':
-                            if (!removeResource(Resource(wheat, 4))) {
+                        case 'h': case 'H': case wheat:
+                            if (!removeResource(Resource(wheat, (*trade).give.num))) {
                                 std::cout << "Insufficient resources!" << std::endl;
                                 exchangeChoice = 0;
                             }
@@ -316,7 +337,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                             break;
                     }
                 }
-            case 'n': case 'N':
+            case 'p': case 'P':
                 break;
             default: exchangeChoice = 0; std::cout << "Invalid choice" << std::endl;
                 break;

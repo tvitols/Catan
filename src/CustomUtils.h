@@ -55,7 +55,7 @@ struct Trade {
 
 inline bool operator<(const Trade& lhs, const Trade& rhs)
 {
-    return lhs.receive.num < rhs.receive.num;
+    return lhs.receive.num > rhs.receive.num;
 }
 
 inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
@@ -72,7 +72,7 @@ inline std::string to_string(Resource const &rhs) {
         case brick: res += "brick"; break;
         case stone: res += ("stone"); break;
         case wheat: res += ("wheat"); break;
-        case null: res += ("null"); break;
+        case null: res += ("anything"); break;
     }
     return res;
 }

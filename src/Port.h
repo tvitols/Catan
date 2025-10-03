@@ -9,17 +9,17 @@
 
 
 class Port : public Vertex {
-    resourceType type;
-    int modifier;
+
     Trade trade;
 
     public:
-    Port(resourceType rType);
+    Port() = default;
 
-    explicit Port(const Vertex &pVert): Vertex(pVert) {};
+    explicit Port(const Trade pTrade) : trade(pTrade) {};
     ~Port() = default;
 
     void setBuilding(Building *pBuilding);
+    Trade getTrade() const;
 };
 
 

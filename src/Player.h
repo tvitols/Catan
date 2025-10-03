@@ -24,7 +24,7 @@ class Player {
     std::vector<Resource> collected = {};
     CardStack devCards;
     playerColor color;
-    std::set<Trade> allowedTrades = {Trade(Resource(null,4),Resource(null, 1))};
+    std::set<Trade> allowedTrades = {{{null,4},{null, 1}}};
 
     public:
 
@@ -33,7 +33,7 @@ class Player {
     //add resource to player
     void addResource(Resource r);
 
-    //take resourcce from player
+    //take resource from player
     bool removeResource(Resource r);
 
     //does the same as removeResource but with a vector of Resources

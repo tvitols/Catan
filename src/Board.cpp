@@ -55,17 +55,17 @@ void Board::generateTiles(std::mt19937 twist) {
     for (int i = 0; i < 72; i++) {
         e.push_back(new Edge());
     }
+
+    // 0-0,1-0,2-1,3-1,4-2,5-2,6-3,7-3,8-4,9-4,10-5,11-5,12-6,13-6,14-7,15-7
     std::vector<Vertex*> v;
-    std::vector<resourceType> randomResource = {wood, wheat, sheep, brick, stone, null, null, null, null};
+    std::vector<resourceType> randomResource = {wood,  wheat,  sheep, brick, stone, null, null, null};
     std::shuffle(randomResource.begin(), randomResource.end(), twist);
-    int counter = 1;
+    const std::vector<int> portIndices = {0, 5, 11, 22, 35, 36, 45, 46, 50, 51, 48, 49, 40, 26, 16, 12};
+    int portCounter = 0;
     for (int i = 0; i < 54; i++) {
-        if (i == 0 || i == 5 || i == 11 || i == 22 || i == 35 || i == 36 || i == 45 || i == 46 || i == 50 || i == 51 || i == 48 || i == 49 || i == 40 || i == 26 || i == 16 || i == 12) {
-            v.push_back(new Port(randomResource[0]));
-            if (counter % 2 == 0) {
-                randomResource.erase(randomResource.begin());
-            }
-            counter++;
+        if (portIndices[portCounter] == i) {
+            v.push_back(new Port({{randomResource[portCounter/2],randomResource[portCounter/2]==null?3:2},{null,1}}));
+            portCounter++;
         }
         else {
             v.push_back(new Vertex());
@@ -135,6 +135,12 @@ coords Board::printBoard(const std::string &message){
     cg::set_fill_color(cg::DarkBlue);
     cg::rectangle(0,0,800,800);
     cg::text(message, 10,10,780,50);
+    cg::centered_image("static/top.png",350,125,325,400);
+    cg::centered_image("static/top_left.png",160,310,325,400);
+    cg::centered_image("static/bottom_left.png",205,595,325,400);
+    cg::centered_image("static/bottom.png",435,715,325,400);
+    cg::centered_image("static/bottom_right.png",640,500,325,400);
+    cg::centered_image("static/top_right.png",600,210,325,400);
     for (auto ts : tiles) {
         for (const auto tile : ts) {
             const auto [tx, ty] = tile->getCoordinates();
