@@ -16,14 +16,14 @@
 Board::Board() {
     robber = new Robber;
     generateTiles(std::mt19937(std::random_device()()));
-    for (const std::vector<Tile*>& tileVector : tiles) {
-        for (Tile *tile : tileVector) {
+    for (const std::vector<Tile *> &tileVector: tiles) {
+        for (Tile *tile: tileVector) {
             if (tile->getResourceType() == null) {
                 robber->setCurrentTile(tile);
             }
         }
     }
-};
+} ;
 
 Board::Board(Robber *pRobber) {
     robber = pRobber;

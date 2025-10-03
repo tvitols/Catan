@@ -24,6 +24,8 @@ public:
     void show();
     void reset();
 
+    Road* getRoad();
+
     coords getCoordinates();
 
     bool isOccupied() const;

@@ -4,8 +4,10 @@
 
 #include "Game.h"
 
-Game::Game() : board(Board::generateBoard()) {
-    players = {new Player(new std::string("Player 1"),red), new Player(new std::string("Player 2"),white)};
+Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)) {
+    players = {
+        new Player(new std::string("Player 1"), red), new Player(new std::string("Player 2"), white)
+    };
 }
 
 int Game::Play() {

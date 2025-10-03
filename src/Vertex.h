@@ -34,6 +34,8 @@ class Vertex {
 
     bool isOccupied() const;
 
+    Building* getBuilding() const;
+
     std::string getOccupiedImg();
 
 };

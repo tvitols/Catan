@@ -49,6 +49,10 @@ bool Vertex::isOccupied() const {
     return building != nullptr;
 }
 
+Building * Vertex::getBuilding() const {
+    return building;
+}
+
 std::string Vertex::getOccupiedImg() {
     return building->getImg();
 }

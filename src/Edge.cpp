@@ -21,6 +21,10 @@ bool Edge::getEdge(coords fCoordinates) {
     return false;
 }
 
+Road * Edge::getRoad() {
+    return road;
+}
+
 coords Edge::getCoordinates() {
     return coordinates;
 }

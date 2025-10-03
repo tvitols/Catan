@@ -4,8 +4,10 @@
 
 #ifndef CATAN_GAME_H
 #define CATAN_GAME_H
+
 #include "Board.h"
 #include "Robber.h"
+#include "AdjacencyGraph.h"
 
 
 class Game {
@@ -15,11 +17,13 @@ class Game {
     int numTurns = 0;
     bool gameOver = false;
 
+    AdjacencyGraph adjGraph;
+
     public:
 
     Game();
-    explicit Game(const std::vector<Player*>& players) : board(Board::generateBoard()), players(players) {};
-    Game(const std::vector<Player*>& players, int seed) : board(Board::generateBoard(seed)), players(players) {};
+    explicit Game(const std::vector<Player*>& players) : board(Board::generateBoard()), players(players),adjGraph(AdjacencyGraph(&board)){};
+    Game(const std::vector<Player*>& players, const int seed) : board(Board::generateBoard(seed)), players(players),adjGraph(AdjacencyGraph(&board)) {};
     ~Game() = default;
 
     int Play();
