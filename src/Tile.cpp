@@ -102,12 +102,12 @@ Vertex* Tile::getVertice(const coords pCoordinates) const {
 }
 
 void Tile::setEdgeCoords() {
-    edges[0]->setCoordinates(coordinates.x + 25, coordinates.y - 51);
-    edges[1]->setCoordinates(coordinates.x + 50, coordinates.y);
-    edges[2]->setCoordinates(coordinates.x + 25, coordinates.y + 51);
-    edges[3]->setCoordinates(coordinates.x - 25, coordinates.y + 51);
-    edges[4]->setCoordinates(coordinates.x - 50, coordinates.y);
-    edges[5]->setCoordinates(coordinates.x - 25, coordinates.y - 51);
+    edges[0]->setCoordinates(coordinates.x + 25, coordinates.y - 51, left);
+    edges[1]->setCoordinates(coordinates.x + 50, coordinates.y, upright);
+    edges[2]->setCoordinates(coordinates.x + 25, coordinates.y + 51, right);
+    edges[3]->setCoordinates(coordinates.x - 25, coordinates.y + 51, left);
+    edges[4]->setCoordinates(coordinates.x - 50, coordinates.y, upright);
+    edges[5]->setCoordinates(coordinates.x - 25, coordinates.y - 51, right);
 }
 
 Edge* Tile::getEdge(coords coordinates) {

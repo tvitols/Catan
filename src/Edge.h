@@ -16,6 +16,8 @@ class Edge {
     int XBUFFER = 25;
     bool occupied = false;
     Road* road = nullptr;
+    tilt type;
+
 
 public:
 
@@ -32,7 +34,7 @@ public:
 
     std::string getOccupiedImg();
 
-    void setCoordinates(int x, int y);
+    void setCoordinates(int x, int y, tilt fTilt);
 
     bool getEdge(coords fCoordinates);
 

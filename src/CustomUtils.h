@@ -42,6 +42,12 @@ struct Resource {
     int num;
 };
 
+enum tilt {
+    right,
+    left,
+    upright
+};
+
 inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
     os << rhs.num << " " << rhs.type;
     return os;
