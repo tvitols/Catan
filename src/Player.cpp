@@ -89,7 +89,13 @@ void Player::showCollectedResources() {
     collected.clear();
 }
 
-void Player::buyMenu() {
+int Player::buyMenu() {
+    //1 = road, -1 = road failure
+    //2 = settlement, -2 = settlement failure
+    //3 = city, -3 = city failure
+    //4 = development card, -4 = dev card failure
+    //5 = back
+
 
     char choice;
     while (!choice) {
@@ -100,16 +106,51 @@ void Player::buyMenu() {
         switch (choice){
             case 'r': case 'R':
                                 //std::cout << (road.buy()?"Success":"Insufficient resources") << std::endl;
+                if (resources[brick] < 1 || resources[wood] < 1) {
+                    std::cout << "Insufficient resources!" << std::endl;
+                    return -1;
+                }
+
+                removeResource(Resource(wood, 1));
+                removeResource(Resource(brick, 1));
+                return 1;
                                 break;
             case 's': case 'S':
                                 // std::cout << (settlement.buy()?"Success":"Insufficient resources") << std::endl;
+                if (resources[sheep] < 1 || resources[wheat] < 1 || resources[wood] < 1 || resources[brick] < 1) {
+                    std::cout << "Insufficient resources!" << std::endl;
+                    return -2;
+                }
+
+                removeResource(Resource(wood, 1));
+                removeResource(Resource(brick, 1));
+                removeResource(Resource(wheat, 1));
+                removeResource(Resource(sheep, 1));
+                return 2;
                                 break;
             case 'c': case 'C':
+                if (resources[stone] < 2 || resources[wheat] < 3) {
+                    std::cout << "Insufficient resources!" << std::endl;
+                    return -3;
+                }
+
+                removeResource(Resource(stone, 3));
+                removeResource(Resource(wheat, 2));
+                return 3;
                                 // std::cout << (city.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
             case 'd': case 'D': buyDevCard();
+                if (resources[wheat] < 1 || resources[stone] < 1 || resources[sheep] < 1) {
+                    std::cout << "Insufficient resources!" << std::endl;
+                    return -4;
+                }
 
-            case 'b': case 'B': return;
+                removeResource(Resource(sheep, 1));
+                removeResource(Resource(stone, 1));
+                removeResource(Resource(wheat, 1));
+                return 4;
+
+            case 'b': case 'B': return 5;
 
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }

@@ -47,7 +47,7 @@ class Player {
     void showCollectedResources();
 
     //display options to buy things
-    void buyMenu();
+    int buyMenu();
 
     void buyDevCard();
 

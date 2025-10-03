@@ -101,6 +101,24 @@ Vertex* Tile::getVertice(const coords pCoordinates) const {
     return nullptr;
 }
 
+void Tile::setEdgeCoords() {
+    edges[0]->setCoordinates(coordinates.x + 25, coordinates.y - 51);
+    edges[1]->setCoordinates(coordinates.x + 50, coordinates.y);
+    edges[2]->setCoordinates(coordinates.x + 25, coordinates.y + 51);
+    edges[3]->setCoordinates(coordinates.x - 25, coordinates.y + 51);
+    edges[4]->setCoordinates(coordinates.x - 50, coordinates.y);
+    edges[5]->setCoordinates(coordinates.x - 25, coordinates.y - 51);
+}
+
+Edge* Tile::getEdge(coords coordinates) {
+    for (Edge *edge : edges) {
+        if (edge->getEdge(coordinates)) {
+            return edge;
+        }
+    }
+    return nullptr;
+}
+
 // resourceType Tile::stealResource(std::string name) {
 //     for (const auto& vertex : vertices) {
 //         if (get<0>(vertex->getPlayerInfo(name)) == "\t") {

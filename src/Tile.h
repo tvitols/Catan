@@ -54,6 +54,10 @@ public:
 
     void setVerticeCoords();
 
+    void setEdgeCoords();
+
+    Edge* getEdge(coords coordinates);
+
     Vertex* getVertice(coords pCoordinates) const;
     // resourceType stealResource(std::string name);
 

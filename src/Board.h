@@ -35,7 +35,7 @@ public:
 
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 
-    Edge* getEdge(double x, double y);
+    Edge* getEdge(coords coordinates);
     Vertex* getVertex(coords coordinates);
     Structure* getStructure(double x, double y);
     Tile* getTile(coords coordinates);

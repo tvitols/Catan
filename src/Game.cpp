@@ -71,9 +71,11 @@ void Game::setUp() {
 
     while (iter != players.end()) {
         coords xy = board.printBoard((*iter)->getName().append(", place a settlement"));
-        // std::cout << xy << std::endl;
+        board.getEdge(xy);
+        std::cout << xy << std::endl;
         xy = board.printBoard((*iter)->getName().append(", place a road"));
-        // std::cout << xy << std::endl;
+        board.getEdge(xy);
+        std::cout << xy << std::endl;
 
         ++iter;
     }
@@ -82,9 +84,11 @@ void Game::setUp() {
 
     while (iter >= players.begin()) {
         coords xy = board.printBoard((*iter)->getName().append(", place another settlement"));
-        //std::cout << xy << std::endl;
+        board.getEdge(xy);
+        std::cout << xy << std::endl;
         xy = board.printBoard((*iter)->getName().append(", place another road"));
-        //std::cout << xy << std::endl;
+        board.getEdge(xy);
+        std::cout << xy << std::endl;
 
         --iter;
     }
