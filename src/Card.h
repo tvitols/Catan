@@ -18,8 +18,9 @@ protected:
 
 public:
 
-    virtual void play() = 0;
+    void play(void (*func)());
     virtual void print() const = 0;
+    virtual int getType() const = 0;
 
     bool isActive() const;
     void makeActive();

@@ -12,6 +12,12 @@ Card::Card(std::string pName, std::string pDescription) {
     description = pDescription;
 }
 
+void Card::play(void (*func)()) {
+    if (isActive()) {
+        func();
+    }
+}
+
 void Card::print() const {
     std::string top = "__";
     const std::string side = "|";
