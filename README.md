@@ -3,7 +3,6 @@
 ---
 ## To do list:
 Fixes:
-- fix upright adjacency issues
 - copy placement validation from setup to other places
 - change how display works to update and display after a change
 
@@ -15,6 +14,9 @@ Final steps:
 - clean up
 - documentation
 - testing
+
+If we have time:
+- Fix robber resource check
 
 ---
 For Citation Purposes:

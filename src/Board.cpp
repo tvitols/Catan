@@ -60,8 +60,8 @@ void Board::generateTiles(std::mt19937 twist) {
     std::vector<Vertex*> v;
     std::vector<resourceType> randomResource = {wood,  wheat,  sheep, brick, stone, null, null, null, null};
     std::shuffle(randomResource.begin(), randomResource.end(), twist);
-    const std::vector<int> portIndices = {0, 5, 11, 22, 35, 36, 45, 46, 50, 51, 48, 49, 40, 26, 16, 12};
-    const std::vector<coords> shipCoords = {{255,115},{450,105},{600,205},{700,410},{590,615},{460,710},{255,710},{150,515},{150,350}};
+    const std::vector<int> portIndices = {0, 5, 9, 8, 11, 22, 35, 36, 45, 46, 50, 51, 48, 49, 40, 26, 16, 12};
+    const std::vector<coords> shipCoords = {{255,115},{450,105},{600,205},{700,410},{590,615},{460,710},{255,710},{150,515},{160,315}};
     bool pushed = false;
     for (int i = 0; i < 54; i++) {
         pushed = false;

@@ -14,7 +14,7 @@ bool Edge::getEdge(coords fCoordinates) {
     if (type != upright && fCoordinates.x >= coordinates.x - XBUFFER && fCoordinates.x <= coordinates.x + XBUFFER && fCoordinates.y >= coordinates.y - YBUFFER && fCoordinates.y <= coordinates.y + YBUFFER) {
         return true;
     }
-    if (type == upright && fCoordinates.x >= coordinates.x - 5 && fCoordinates.x <= coordinates.x + 5 && fCoordinates.y >= coordinates.y - 32 && fCoordinates.y <= coordinates.x + 32) {
+    if (type == upright && (fCoordinates.x >= (coordinates.x - 10)) && (fCoordinates.x <= (coordinates.x + 10)) && (fCoordinates.y >= (coordinates.y - 32)) && (fCoordinates.y <= (coordinates.y + 32))) {
         return true;
     }
     return false;

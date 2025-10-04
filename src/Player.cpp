@@ -15,6 +15,7 @@ Player::Player(const std::string *pname, playerColor pColor) {
 
 void Player::addResource(const Resource r) {
     resources[r.type] += r.num;
+    collected.push_back(r);
 }
 
 void Player::addResource(const std::vector<Resource> &r) {
@@ -700,7 +701,7 @@ void Player::loseHalfOfCards() {
 }
 
 std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal) {
-    //Do the shit with actually moving the robber
+    //Do the **** with actually moving the robber
     int choice = static_cast<int>(NULL);
     resourceType gained;
     if (!stuffToSteal.empty()) {
@@ -714,8 +715,8 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
 
             choice = getIntFromUser();
             //Validates that the input is a valid choice
-            while (choice > 0 || choice <= stuffToSteal.size()+1) {
-                std::cout << "Invalid input. Please enter a number > 0 and < " << std::to_string(stuffToSteal.size()+1) << ": " << std::endl;
+            while (choice < 0 || choice > stuffToSteal.size()+1) {
+                std::cout << "Invalid input. Please enter a number > 0 and < " << std::to_string(stuffToSteal.size()+2) << ": " << std::endl;
                 choice = getIntFromUser();
             }
             if (choice == stuffToSteal.size()+1) {
