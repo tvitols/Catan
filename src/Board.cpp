@@ -58,26 +58,24 @@ void Board::generateTiles(std::mt19937 twist) {
 
     // 0-0,1-0,2-1,3-1,4-2,5-2,6-3,7-3,8-4,9-4,10-5,11-5,12-6,13-6,14-7,15-7
     std::vector<Vertex*> v;
-    std::vector<resourceType> randomResource = {wood,  wheat,  sheep, brick, stone, null, null, null};
+    std::vector<resourceType> randomResource = {wood,  wheat,  sheep, brick, stone, null, null, null, null};
     std::shuffle(randomResource.begin(), randomResource.end(), twist);
     const std::vector<int> portIndices = {0, 5, 11, 22, 35, 36, 45, 46, 50, 51, 48, 49, 40, 26, 16, 12};
-    int portCounter = 0;
+    const std::vector<coords> shipCoords = {{255,115},{450,105},{600,205},{700,410},{590,615},{460,710},{255,710},{150,515},{150,350}};
+    bool pushed = false;
     for (int i = 0; i < 54; i++) {
-        if (portIndices[portCounter] == i) {
-            v.push_back(new Port({{randomResource[portCounter/2],randomResource[portCounter/2]==null?3:2},{null,1}}));
-            portCounter++;
+        pushed = false;
+        for (int j = 0; j < portIndices.size(); j++) {
+            if (portIndices[j] == i) {
+                v.push_back(new Port({{randomResource[j/2],(randomResource[j/2]==null)?3:2},{null,1}},shipCoords[j/2]));
+                pushed = true;
+            }
         }
-        else {
+        if (!pushed){
             v.push_back(new Vertex());
         }
     }
 
-    //Do we need this??????
-    // std::vector<int> ports = {};
-    //
-    // for (auto p : ports) {
-    //     v[p] = reinterpret_cast<std::vector<Vertex *>::value_type>(new Port(*v[p]));
-    // }
 
     std::vector keys = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
     std::vector types = {wood,wood,wood,wood,sheep,sheep,sheep,sheep,wheat,wheat,wheat,wheat,brick,brick,brick,stone,stone,stone,null};
@@ -99,7 +97,7 @@ void Board::generateTiles(std::mt19937 twist) {
         std::vector<Tile*>() = {new Tile({e[38], e[49], e[50], e[51], e[52], e[32]}, {v[25], v[30], v[38], v[39], v[40], v[26]},keys[12],types[12]), new Tile({e[41], e[53], e[54], e[55], e[49], e[37]}, {v[29], v[32], v[41], v[42], v[38], v[30]},keys[13],types[13]), new Tile({e[44], e[56], e[57], e[58], e[53], e[40]}, {v[31], v[34], v[43], v[44], v[41], v[32]},keys[14],types[14]), new Tile({e[48], e[59], e[60], e[61], e[56], e[43]}, {v[33], v[37], v[45], v[46], v[43], v[34]},keys[15],types[15])},
             std::vector<Tile*>() = {new Tile({e[55], e[62], e[63], e[64], e[65], e[50]}, {v[38], v[42], v[47], v[48], v[49], v[39]},keys[16],types[16]), new Tile({e[58], e[66], e[67], e[68], e[62], e[54]}, {v[41], v[44], v[50], v[51], v[47], v[42]},keys[17],types[17]), new Tile({e[61], e[69], e[70], e[71], e[66], e[57]}, {v[43], v[46], v[52], v[53], v[50], v[44]},keys[18],types[18])},};
 
-    std::vector<int> offset ={300,250,200,250,300};
+    const std::vector<int> offset ={300,250,200,250,300};
     for (int i = 0; i < tiles.size(); i++) {
         for (int j = 0; j < tiles[i].size(); j++) {
             if (tiles[i][j]->getKey() == 7) {
@@ -128,7 +126,7 @@ Board Board::generateBoard(const int seed) {
     return Board(seed);
 }
 
-coords Board::printBoard(const std::string &message){
+coords Board::printBoard(const std::string &message, const bool wait){
 
 
     cg::create_window("Catan",800,800);
@@ -152,9 +150,13 @@ coords Board::printBoard(const std::string &message){
                     const auto [ex, ey] = e->getCoordinates();
                     cg::centered_image(e->getOccupiedImg(),ex,ey,60,60);
                 }
-                if (Vertex * v = tile->getVertex(k); v->isOccupied()) {
+                Vertex* v = tile->getVertex(k);
+                if (v->isOccupied()) {
                     const auto [vx, vy] = v->getCoordinates();
                     cg::centered_image(v->getOccupiedImg(),vx,vy,30,30);
+                }
+                if (v->isPort()) {
+                    cg::centered_image(static_cast<Port *>(v)->getShipToken(), static_cast<Port *>(v)->getShipX(),static_cast<Port *>(v)->getShipY(),40,50);
                 }
             }
         }

@@ -10,16 +10,22 @@
 
 class Port : public Vertex {
 
+    coords shipLocation;
     Trade trade;
 
     public:
     //Port() = default;
 
-    explicit Port(const Trade pTrade);
-    ~Port() = default;
+    explicit Port(const Trade pTrade, const coords pLocation);
 
     bool setBuilding(Building *pBuilding) override;
     Trade getTrade() const;
+
+    std::string getShipToken() const;
+    double getShipX() const;
+    double getShipY() const;
+
+    bool isPort() const override;
 };
 
 

@@ -32,10 +32,11 @@ class Player {
         Player(const std::string *pname, playerColor pColor);
 
     //add resource to player
-    void addResource(Resource r);
+    void addResource(const Resource r);
+    void addResource(const std::vector<Resource> &r);
 
     //take resource from player
-    bool removeResource(Resource r);
+    bool removeResource(const Resource r);
 
     //does the same as removeResource but with a vector of Resources
     bool removeResource(const std::vector<Resource> &r);
@@ -56,6 +57,8 @@ class Player {
 
     // adds vp, return true if player has over 10 vp
     bool addVP(int pVP);
+
+    int getVP() const;
 
     //remove vp from a player
     void removeVP(int pVP);

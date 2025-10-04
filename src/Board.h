@@ -28,7 +28,7 @@ public:
     static Board generateBoard(Robber* robber);
     static Board generateBoard(int seed);
 
-    coords printBoard(const std::string &message);
+    coords printBoard(const std::string &message, const bool wait = false);
 
     void collectResources(int roll) const;
 

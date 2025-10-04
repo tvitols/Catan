@@ -44,6 +44,7 @@ protected:
 
     std::string getOccupiedImg();
 
+    virtual bool isPort() const;
 };
 
 

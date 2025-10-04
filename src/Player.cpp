@@ -15,7 +15,12 @@ Player::Player(const std::string *pname, playerColor pColor) {
 
 void Player::addResource(const Resource r) {
     resources[r.type] += r.num;
-    collected.push_back(r);
+}
+
+void Player::addResource(const std::vector<Resource> &r) {
+    for (const Resource r : r) {
+        resources[r.type] += r.num;
+    }
 }
 
 bool Player::removeResource(const Resource r) {
@@ -57,9 +62,66 @@ void Player::showResources() {
 
 int Player::takeTurn(const std::vector<Player*>& players, int action) {
     char choice = static_cast<char>(NULL);
+    switch (action) {
+        case -1: {
+            std::cout << "Invalid Placement for a settlement. Resources have been refunded." << std::endl;
+            while (!choice) {
+                std::cout << "Would you like to try again? (y/n)" << std::endl;
+                std::cin >> choice;
+                checkCin(&choice);
+                switch (choice) {
+                    case 'y': case 'Y': return 1;
+                    case 'n': case 'N': {
+                        addResource({{wood,1},{brick,1},{wheat,1},{sheep,1}});
+                        break;
+                    }
+                    default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+                }
+
+            }
+        }
+        case -2: {
+            std::cout << "Unable to upgrade that to a city. Resources have been refunded." << std::endl;
+            while (!choice) {
+                std::cout << "Would you like to try again? (y/n)" << std::endl;
+                std::cin >> choice;
+                checkCin(&choice);
+                switch (choice) {
+                    case 'y': case 'Y': return 2;
+                    case 'n': case 'N': {
+                        addResource({{wheat,3},{stone,2}});
+                        break;
+                    }
+                    default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+                }
+
+            }
+
+            }
+        case -3: {
+            std::cout << "Invalid placement for a road. Resources have been refunded." << std::endl;
+            while (!choice) {
+                std::cout << "Would you like to try again? (y/n)" << std::endl;
+                std::cin >> choice;
+                checkCin(&choice);
+                switch (choice) {
+                    case 'y': case 'Y': return 3;
+                    case 'n': case 'N': {
+                        addResource({{wood,1},{brick,1}});
+                        break;
+                    }
+                    default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+                }
+            }
+        }
+    default: break;
+    }
+
+
+    choice = static_cast<char>(NULL);
     int result;
     while (!choice) {
-        std::cout << "Select an option to \n- (b)uy something\n- (e)nd turn\n- (t)rade\n";
+        std::cout << "Select an option to \n- (b)uy something\n- (t)rade\n- (s)how board\n- (d)isplay stats\n- (e)nd turn\n";
         std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
@@ -71,7 +133,6 @@ int Player::takeTurn(const std::vector<Player*>& players, int action) {
                 choice = 0;
                 break;
             }
-            case 'e': case 'E': return 0;
             case 't': case 'T': choice = 0;
                 if (initiateTrade(players)) {
                     std::cout << name + ": Trade Completed!" << std::endl;
@@ -80,6 +141,15 @@ int Player::takeTurn(const std::vector<Player*>& players, int action) {
                     std::cout << name + ": Trade Failed!" << std::endl;
                 }
                 break;
+            case 's': case 'S': {
+                    return 5;
+                }
+            case 'd': case 'D': {
+                for (auto player : players) {
+                    std::cout << player->name << ": "  << player->getVP() << " VP" << std::endl;
+                }
+            }
+            case 'e': case 'E': return 0;
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
@@ -177,6 +247,10 @@ bool Player::addVP(int pVP) {
     return hasWon();
 }
 
+int Player::getVP() const {
+    return vp;
+}
+
 void Player::removeVP(int pVP) {
     vp -= pVP;
 }
@@ -268,8 +342,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                         std::cout << i << ". " << to_string((*trade).give) << " for " << to_string((*trade).receive) << std::endl;
                         ++trade;
                     }
+                    std::cout << allowedTrades.size()+1 << ". cancel" << std::endl;
                     tChoice = getIntFromUser();
                     trade = trades.begin();
+                }
+                if (tChoice == allowedTrades.size()+1) {
+                    return false;
                 }
                 trade += tChoice;
 
@@ -623,7 +701,7 @@ void Player::loseHalfOfCards() {
 
 std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal) {
     //Do the shit with actually moving the robber
-    int choice;
+    int choice = static_cast<int>(NULL);
     resourceType gained;
     if (!stuffToSteal.empty()) {
         bool canStealFrom = false;
@@ -632,11 +710,16 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
             for (int i = 0; i < stuffToSteal.size(); i++) {
                 std::cout << "(" << std::to_string(i+1) << ") " << get<0>(stuffToSteal[i]) << std::endl;
             }
+            std::cout << "(" << std::to_string(stuffToSteal.size()+1) << ")  quit" << std::endl;
+
             choice = getIntFromUser();
             //Validates that the input is a valid choice
-            while (choice == -1 || choice > stuffToSteal.size()) {
-                std::cout << "Invalid input. Please enter a number > 0 and < " << std::to_string(stuffToSteal.size()) << ": " << std::endl;
+            while (choice > 0 || choice <= stuffToSteal.size()+1) {
+                std::cout << "Invalid input. Please enter a number > 0 and < " << std::to_string(stuffToSteal.size()+1) << ": " << std::endl;
                 choice = getIntFromUser();
+            }
+            if (choice == stuffToSteal.size()+1) {
+                return "";
             }
             //Steals from the player if they have resources
             int numberOfResources = 0;

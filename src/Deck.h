@@ -4,11 +4,23 @@
 
 #ifndef DECK_H
 #define DECK_H
+#include <vector>
 
+#include "Card.h"
 
 
 class Deck {
+     std::vector<Card*> cards;
 
+public:
+     Deck() = default;
+     ~Deck() = default;
+
+     Deck loadFromFile(std::string fileName);
+
+     void shuffle();
+
+     Card* Deal();
 };
 
 

@@ -71,6 +71,10 @@ std::string Vertex::getOccupiedImg() {
     return building->getImg();
 }
 
+bool Vertex::isPort() const {
+    return false;
+}
+
 // resourceType Vertex::stealResources() {
 //     if (building != nullptr) {
 //         return building->stealResource();

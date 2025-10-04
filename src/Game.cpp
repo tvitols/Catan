@@ -35,6 +35,7 @@ int Game::Play() {
                 switch (action) {
                     case 0: break;
                     case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action)); break;
+                    case 5: board.printBoard("",true); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0)); break;
                     default: action = 0; break;
                 }
             }

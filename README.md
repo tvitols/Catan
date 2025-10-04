@@ -3,7 +3,6 @@
 ---
 ## To do list:
 Fixes:
-- fix road tilt issues
 - fix upright adjacency issues
 - copy placement validation from setup to other places
 - change how display works to update and display after a change
