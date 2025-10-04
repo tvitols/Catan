@@ -36,7 +36,7 @@ protected:
 
     bool isOccupied() const;
 
-    bool setBuilding(Building* pBuilding);
+    virtual bool setBuilding(Building* pBuilding);
 
     bool upgradeBuilding(Player* player);
 

@@ -13,12 +13,12 @@ class Port : public Vertex {
     Trade trade;
 
     public:
-    Port() = default;
+    //Port() = default;
 
-    explicit Port(const Trade pTrade) : trade(pTrade) {};
+    explicit Port(const Trade pTrade);
     ~Port() = default;
 
-    void setBuilding(Building *pBuilding);
+    bool setBuilding(Building *pBuilding) override;
     Trade getTrade() const;
 };
 

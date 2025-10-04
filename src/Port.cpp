@@ -4,10 +4,15 @@
 
 #include "Port.h"
 
+Port::Port(const Trade pTrade){
+    trade = pTrade;
+}
 
-void Port::setBuilding(Building *pBuilding) {
-    Vertex::setBuilding(pBuilding);
-    building->getOwner()->addTrade(trade);
+
+bool Port::setBuilding(Building *pBuilding) {
+    bool toReturn = Vertex::setBuilding(pBuilding);
+    building->setTrade(trade);
+    return toReturn;
 
 }
 

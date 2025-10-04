@@ -10,6 +10,7 @@
 Player::Player(const std::string *pname, playerColor pColor) {
     name = *pname;
     color = pColor;
+    allowedTrades.push_back(Trade(Resource(null, 4), Resource(null, 1)));
 }
 
 void Player::addResource(const Resource r) {
@@ -201,7 +202,13 @@ bool operator!=(const Player &lhs, const Player &rhs) {
 }
 
 void Player::addTrade(const Trade &t) {
-    allowedTrades.insert(t);
+    if (t.give.type != null) {
+        allowedTrades.push_back(t);
+    }
+    else if (!hasA3For1Trade) {
+        allowedTrades.push_back(t);
+        hasA3For1Trade = true;
+    }
 }
 
 bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {

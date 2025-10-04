@@ -24,7 +24,8 @@ class Player {
     std::vector<Resource> collected = {};
     CardStack devCards;
     playerColor color;
-    std::set<Trade> allowedTrades = {{{null,4},{null, 1}}};
+    std::vector<Trade> allowedTrades;
+    bool hasA3For1Trade = false;
 
     public:
 

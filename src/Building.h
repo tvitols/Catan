@@ -38,6 +38,8 @@ public:
 
     std::string getImg() const;
 
+    void setTrade(Trade pTrade);
+
 };
 
 

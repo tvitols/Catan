@@ -191,7 +191,6 @@ Edge * Board::getEdge(coords coordinates) {
     for (int i = 0; i < tiles.size(); i++) {
         for (int j = 0; j < tiles[i].size(); j++) {
             if (tiles[i][j]->getEdge(coordinates) != nullptr) {
-                std::cout << "You got an edge!" << std::endl;
                 return tiles[i][j]->getEdge(coordinates);
             }
         }
@@ -211,7 +210,9 @@ Vertex * Board::getVertex(coords coordinates) {
 }
 
 Edge * Board::getEdge(const std::string &message) {
-    return getEdge(printBoard(message));
+    coords xy = printBoard(message);
+    std::cout << xy << std::endl;
+    return getEdge(xy);
 }
 
 Vertex * Board::getVertex(const std::string &message) {

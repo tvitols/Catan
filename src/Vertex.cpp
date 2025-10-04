@@ -49,7 +49,7 @@ bool Vertex::isOccupied() const {
     return occupied;
 }
 
-bool Vertex::setBuilding(Building *pBuilding) {
+bool Vertex::setBuilding(Building *pBuilding){
     if (occupied) return false;
     building = pBuilding;
     occupied = true;

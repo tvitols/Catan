@@ -46,3 +46,7 @@ std::string Building::getImg() const {
 
     return file;
 }
+
+void Building::setTrade(Trade pTrade) {
+    owner->addTrade(pTrade);
+}

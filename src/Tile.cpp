@@ -110,6 +110,8 @@ void Tile::setEdgeCoords() {
     edges[5]->setCoordinates(coordinates.x - 25, coordinates.y - 51, right);
 }
 
+//399, 522
+
 Edge* Tile::getEdge(coords coordinates) {
     for (Edge *edge : edges) {
         if (edge->getEdge(coordinates)) {
