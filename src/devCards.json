@@ -2,8 +2,7 @@
   "deck": [
     {"type": "knight"},
     {"type": "vp",
-    "name": "Palace",
-    "value": 1},
+    "name": "Palace"},
     {"type":"roadBuilding"}
   ]
 }

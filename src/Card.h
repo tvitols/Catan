@@ -9,17 +9,17 @@
 
 class Card {
 
+protected:
+    Card(std::string pName, std::string pDescription);
+    ~Card() = default;
     std::string name;
     std::string description;
     bool active = false;
 
-
 public:
-    Card(std::string pName, std::string pDescription);
-    ~Card() = default;
 
     virtual void play() = 0;
-    void print() const;
+    virtual void print() const = 0;
 
     bool isActive() const;
     void makeActive();

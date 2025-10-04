@@ -16,8 +16,6 @@ public:
      Deck() = default;
      ~Deck() = default;
 
-     Deck loadFromFile(std::string fileName);
-
      void shuffle();
 
      Card* Deal();
