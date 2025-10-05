@@ -45,6 +45,10 @@ protected:
     std::string getOccupiedImg();
 
     virtual bool isPort() const;
+
+    Resource stealResources();
+
+    std::string getName();
 };
 
 

@@ -35,7 +35,7 @@ int Game::Play() {
                 switch (action) {
                     case 0: break;
                     case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action)); break;
-                    case 5: board.printBoard("",true); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0)); break;
+                    case 5: board.printBoard(""); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0)); break;
                     default: action = 0; break;
                 }
             }
@@ -72,8 +72,10 @@ void Game::onA7(Player* player) {
         xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
     }
     board.moveRobber(board.getTile(xy));
-    player->moveRobber(board.otherPlayerResources(player->getName()));
-    //TODO: implement getting a random resource
+    std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
+    if (name != "") {
+        player->addResource(board.getRandomResource(name));
+    }
 }
 
 int Game::placeStructure(Player *player, const int type) {

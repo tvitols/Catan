@@ -46,6 +46,8 @@ public:
 
     void moveRobber(Tile* tile);
 
+    Resource getRandomResource(std::string name);
+
 };
 
 

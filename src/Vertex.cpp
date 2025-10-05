@@ -75,9 +75,13 @@ bool Vertex::isPort() const {
     return false;
 }
 
-// resourceType Vertex::stealResources() {
-//     if (building != nullptr) {
-//         return building->stealResource();
-//     }
-//     return null;
-// }
+Resource Vertex::stealResources() {
+    return building->stealResources();
+}
+
+std::string Vertex::getName() {
+    if (building != nullptr) {
+        return building->getPlayerName();
+    }
+    return NULL;
+}

@@ -50,3 +50,14 @@ std::string Building::getImg() const {
 void Building::setTrade(Trade pTrade) {
     owner->addTrade(pTrade);
 }
+
+
+Resource Building::stealResources() {
+    srand(time(NULL));
+    int randNum = rand() % 5;
+    while (getPlayerResources()[randNum] == 0) {
+        randNum = rand() % 5;
+    }
+    owner->removeResource(Resource(static_cast<resourceType>(randNum),1));
+    return Resource(static_cast<resourceType>(randNum),1);
+}

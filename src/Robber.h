@@ -25,7 +25,7 @@ class Robber {
 
     std::vector<std::tuple<std::string, std::vector<int>>> otherPlayerResources(std::string name);
 
-    // resourceType stealResource(std::string name);
+    Resource getRandomResource(std::string name);
 
 };
 

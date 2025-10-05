@@ -40,6 +40,8 @@ public:
 
     void setTrade(Trade pTrade);
 
+    Resource stealResources();
+
 };
 
 

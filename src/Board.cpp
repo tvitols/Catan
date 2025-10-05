@@ -242,3 +242,7 @@ std::vector<std::vector<Tile *>> Board::getTiles() {
 void Board::moveRobber(Tile* tile) {
     robber->move(tile);
 }
+
+Resource Board::getRandomResource(std::string name) {
+    return robber->getRandomResource(name);
+}
