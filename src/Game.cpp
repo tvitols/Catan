@@ -79,7 +79,6 @@ int Game::Play() {
 
                     // Play a night
                     case 4: {
-
                         // Get a tile to move the robber to
                         coords xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
                         while (board.getTile(xy) == nullptr) {
@@ -93,7 +92,9 @@ int Game::Play() {
                         // Steal a resource from a player
                         std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
                         if (!name.empty()) {
-                            player->addResource(board.getRandomResource(name));
+                            Resource stolen = board.getRandomResource(name);
+                            player->addResource(stolen);
+                            std::cout << "You got " << stolen.type << "!" << std::endl;
                         }
 
                         //Update action

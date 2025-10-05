@@ -14,7 +14,7 @@ Card::Card(std::string pName, std::string pDescription) {
 
 void Card::print() const {
     if (!active) {
-        std::cout << name + "(Unavailable): " + description << std::endl;
+        std::cout << name + " (Unavailable): " + description << std::endl;
     }
     else {
         std::cout << name + ": " + description << std::endl;
