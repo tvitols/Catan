@@ -238,14 +238,12 @@ int Player::buyMenu() {
     //5 = back
 
 
-    char choice = static_cast<char>(NULL);
-    while (!choice) {
-        std::cout << "Select an option to buy\n- road\n- settlement\n- city\n- development card";
-        std::cout << std::endl << "Or press b to go back" << std::endl;
-        std::cin >> choice;
-        checkCin(&choice);
+    int choice = 0;
+    while (true) {
+        std::cout << "Select an option to buy\n1. road\n2. settlement\n3. city\n4. development card\4. Go Back\n>>> ";
+        choice = getIntFromUser();
         switch (choice){
-            case 'r': case 'R':
+            case 1:
                                 //std::cout << (road.buy()?"Success":"Insufficient resources") << std::endl;
                 if (resources[brick] < 1 || resources[wood] < 1) {
                     std::cout << "Insufficient resources!" << std::endl;
@@ -256,7 +254,7 @@ int Player::buyMenu() {
                 removeResource(Resource(brick, 1));
                 return 3;
                                 break;
-            case 's': case 'S':
+            case 2:
                                 // std::cout << (settlement.buy()?"Success":"Insufficient resources") << std::endl;
                 if (resources[sheep] < 1 || resources[wheat] < 1 || resources[wood] < 1 || resources[brick] < 1) {
                     std::cout << "Insufficient resources!" << std::endl;
@@ -268,8 +266,8 @@ int Player::buyMenu() {
                 removeResource(Resource(wheat, 1));
                 removeResource(Resource(sheep, 1));
                 return 1;
-                                break;
-            case 'c': case 'C':
+
+            case 3:
                 if (resources[stone] < 2 || resources[wheat] < 3) {
                     std::cout << "Insufficient resources!" << std::endl;
                     return -2;
@@ -280,7 +278,7 @@ int Player::buyMenu() {
                 return 2;
                                 // std::cout << (city.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
-            case 'd': case 'D':
+            case 4:
                 if (resources[wheat] < 1 || resources[stone] < 1 || resources[sheep] < 1) {
                     std::cout << "Insufficient resources!" << std::endl;
                     return -4;
@@ -291,7 +289,7 @@ int Player::buyMenu() {
                 removeResource(Resource(wheat, 1));
                 return 4;
 
-            case 'b': case 'B': return 5;
+            case 5: return 5;
 
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }

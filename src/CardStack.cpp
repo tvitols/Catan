@@ -42,11 +42,20 @@ int CardStack::play(std::vector<int>* resources, int* vp) {
             }
         }
     }
-
+    int ret;
     switch (cards[choice]->getType()) {
-        case 3: return cards[choice]->play(resources);
-        case 5: return cards[choice]->play(vp);
-        default: return cards[choice]->play(nullptr);
+        case 3:
+            ret = cards[choice]->play(resources);
+            cards.erase(cards.begin()+choice-1);
+            return ret;
+        case 5:
+            ret = cards[choice]->play(vp);
+            cards.erase(cards.begin()+choice-1);
+            return ret;
+        default:
+            ret = cards[choice]->play(nullptr);
+            cards.erase(cards.begin()+choice-1);
+            return ret;
     }
 
 }
