@@ -48,8 +48,10 @@ int Game::Play() {
                         }
                         board.moveRobber(board.getTile(xy));
                         name = player->moveRobber(board.otherPlayerResources(player->getName()));
-                        if (!name.empty()) {
-                            player->addResource(board.getRandomResource(name));
+                        if (name != "") {
+                            Resource stolen = board.getRandomResource(name);
+                            player->addResource(stolen);
+                            std::cout << "You got " << stolen.type << "!" << std::endl;
                         }
                         action = (player->takeTurn(players, action, deck));
                         break;

@@ -36,24 +36,27 @@ int CardStack::play(std::vector<int>* resources, int* vp) {
             if (choice == cards.size()+1) {
                 return -1;
             }
-            if (!cards[choice]->isActive()) {
+            if (!cards[choice-1]->isActive()) {
                 std::cout << "Card can not be played on the same turn you bought it" << std::endl;
                 choice = 0;
+                std::cout << "Select an option from the list below" << std::endl;
+                show();
             }
         }
     }
+
     int ret;
-    switch (cards[choice]->getType()) {
+    switch (cards[choice-1]->getType()) {
         case 3:
-            ret = cards[choice]->play(resources);
+            ret = cards[choice-1]->play(resources);
             cards.erase(cards.begin()+choice-1);
             return ret;
         case 5:
-            ret = cards[choice]->play(vp);
+            ret = cards[choice-1]->play(vp);
             cards.erase(cards.begin()+choice-1);
             return ret;
         default:
-            ret = cards[choice]->play(nullptr);
+            ret = cards[choice-1]->play(nullptr);
             cards.erase(cards.begin()+choice-1);
             return ret;
     }
