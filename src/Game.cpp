@@ -7,7 +7,7 @@
 #include "Building.h"
 #include <windows.h>
 
-Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)) {
+Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)), deck(new Deck()) {
     players = {
         new Player(new std::string("Player 1"), red), new Player(new std::string("Player 2"), white)
     };
@@ -167,7 +167,7 @@ void Game::setUp() {
         Building* building = new Building(*iter);
         while (true) {
             vertex = board.getVertex((*iter)->getName().append(", place another settlement"));
-            if (adjGraph.checkVertex(vertex,*iter,true) && vertex->setBuilding(building)) {
+            if (vertex != nullptr && adjGraph.checkVertex(vertex,*iter,true) && vertex->setBuilding(building)) {
                     break;
             }
             std::cout << "INVALID PLACEMENT" << std::endl;

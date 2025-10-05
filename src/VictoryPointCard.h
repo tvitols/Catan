@@ -9,9 +9,10 @@
 #include "vector"
 
 
+static const std::vector<std::string> names = {"Library", "Market", "Chapel", "Great Hall", "University"};
+
 class VictoryPoint : public Card{
 
-    const std::vector<std::string> names = {"Library", "Market", "Chapel", "Great Hall", "University"};
     const int type = 5;
 
     public:

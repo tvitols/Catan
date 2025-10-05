@@ -7,7 +7,6 @@
 
 Building::Building(Player* pOwner) : Structure(), num(1){
     owner = pOwner;
-    owner->addVP(1);
 }
 
 void Building::giveResources(resourceType rType) {

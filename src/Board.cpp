@@ -213,7 +213,6 @@ Vertex * Board::getVertex(coords coordinates) {
 
 Edge * Board::getEdge(const std::string &message) {
     coords xy = printBoard(message);
-    std::cout << xy << std::endl;
     return getEdge(xy);
 }
 
@@ -221,8 +220,6 @@ Vertex * Board::getVertex(const std::string &message) {
     return getVertex(printBoard(message));
 }
 
-Structure * Board::getStructure(double x, double y) {
-}
 
 Tile* Board::getTile(coords coordinates) {
     for (int i = 0; i < tiles.size(); i++) {

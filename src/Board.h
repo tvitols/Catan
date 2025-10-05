@@ -39,9 +39,7 @@ public:
     Vertex* getVertex(coords coordinates);
     Edge* getEdge(const std::string &message);
     Vertex* getVertex(const std::string &message);
-    Structure* getStructure(double x, double y);
     Tile* getTile(coords coordinates);
-
     std::vector<std::vector<Tile*>> getTiles();
 
     void moveRobber(Tile* tile);

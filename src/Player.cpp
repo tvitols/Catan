@@ -92,88 +92,83 @@ bool Player::hasLargestArmy() const {
 }
 
 int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &deck) {
-    char choice = static_cast<char>(NULL);
+    int choice = 0;
     switch (action) {
         case 200:
             devCards.makeActive();
-        case -1: {
+            break;
+        case -1:
             std::cout << "Invalid Placement for a settlement. Resources have been refunded." << std::endl;
             while (!choice) {
-                std::cout << "Would you like to try again? (y/n)" << std::endl;
-                std::cin >> choice;
-                checkCin(&choice);
+                std::cout << "Would you like to try again?\n1. yes\n2. no\n>>>";
+                choice = getIntFromUser();
                 switch (choice) {
-                    case 'y': case 'Y': return 1;
-                    case 'n': case 'N': {
+                    case 1: return 1;
+                    case 2:
                         addResource({{wood,1},{brick,1},{wheat,1},{sheep,1}});
                         break;
-                    }
                     default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
                 }
 
             }
-        }
-        case -2: {
+            break;
+        case -2:
             std::cout << "Unable to upgrade that to a city. Resources have been refunded." << std::endl;
             while (!choice) {
-                std::cout << "Would you like to try again? (y/n)" << std::endl;
-                std::cin >> choice;
-                checkCin(&choice);
+                std::cout << "Would you like to try again?\n1. yes\n2. no\n>>>";
+                choice = getIntFromUser();
                 switch (choice) {
-                    case 'y': case 'Y': return 2;
-                    case 'n': case 'N': {
+                    case 1: return 2;
+                    case 2:
                         addResource({{wheat,3},{stone,2}});
                         break;
-                    }
                     default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
                 }
-
             }
-
-            }
-        case -3: {
+            break;
+        case -3:
             std::cout << "Invalid placement for a road. Resources have been refunded." << std::endl;
             while (!choice) {
-                std::cout << "Would you like to try again? (y/n)" << std::endl;
-                std::cin >> choice;
-                checkCin(&choice);
+                std::cout << "Would you like to try again?\n1. yes\n2. no\n>>>";
+                choice = getIntFromUser();
                 switch (choice) {
-                    case 'y': case 'Y': return 3;
-                    case 'n': case 'N': {
+                    case 1: return 3;
+                    case 2:
                         addResource({{wood,1},{brick,1}});
                         break;
-                    }
+
                     default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
                 }
             }
-        }
+            break;
         case 4:
-            if (checkLargestArmy(players)) {
+            if (!largestArmy && checkLargestArmy(players)) {
                 std::cout << "Congratulations! You have the largest army!" << std::endl;
             }
-    default: break;
+            break;
+        default: break;
     }
 
 
-    choice = static_cast<char>(NULL);
-    int result;
-    while (!choice) {
-        std::cout << "Select an option to \n- (b)uy something\n- (t)rade\n- (p)lay a dev card\n- (s)how board\n- (d)isplay stats\n- (e)nd turn\n";
-        std::cin >> choice;
-        checkCin(&choice);
+    while (true) {
+        std::cout << "Select an option to \n1. Show Resources\n2. Buy something\n3. Trade\n4. Play a dev card\n5. Show board\n6. Display stats\n7. End turn\n>>>";
+        choice = getIntFromUser();
         switch (choice) {
-            case 'b': case 'B': {
-                result = buyMenu();
+            case 1:
+                std::cout << "You have: " << std::endl;
+                showResources();
+                break;
+            case 2: {
+                const int result = buyMenu();
                 if (result > 0 && result < 4) {
                     return result;
                 }
                 if (result == 4) {
                     std::cout << devCards.draw(deck) << std::endl;
                 }
-                choice = 0;
                 break;
             }
-            case 't': case 'T': choice = 0;
+            case 3:
                 if (initiateTrade(players)) {
                     std::cout << name + ": Trade Completed!" << std::endl;
                 }
@@ -181,32 +176,32 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                     std::cout << name + ": Trade Failed!" << std::endl;
                 }
                 break;
-            case 'p': case 'P':
+            case 4:
                 if (devCards.isEmpty()) {
                     std::cout << "You don't have any dev cards, you can buy some from the buy menu!" << std::endl;
-                    choice = 0;
                     break;
                 }
                 switch (devCards.play(&resources,&vp)) {
                 case 1: army += 1; return 4;
                 case 2: return 5;
-                case 3: monopoly(players);
+                case 3: monopoly(players); break;
                 default: break;
                 }
+                break;
 
-            case 's': case 'S': {
+            case 5:
                     return 6;
-                }
-            case 'd': case 'D': {
+
+            case 6:
                 for (const auto player : players) {
                     std::cout << player->name << ": "  << player->getVP() << " VP" << (player->hasLargestArmy()?"Largest Army: "+std::to_string(player->getArmy()):"") << std::endl;
                 }
-            }
-            case 'e': case 'E': return 0;
-            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+                break;
+
+            case 7: return 0;
+            default: std::cout << "Invalid choice" << std::endl; break;
         }
     }
-    return static_cast<int>(NULL);
 }
 
 void Player::showCollectedResources() {
@@ -370,7 +365,7 @@ void Player::monopoly(const std::vector<Player*>& players) {
 
 //returns true if that puts the player over 10
 bool Player::addVP(int pVP) {
-    pVP += pVP;
+    vp += pVP;
     return hasWon();
 }
 
@@ -409,7 +404,7 @@ void Player::addTrade(const Trade &t) {
 }
 
 bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
-    char choice;
+    char choice = static_cast<char>(NULL);
     std::cout << "\n" + name + ": Trade Offered! \nYou recieve: " << std::endl;
     for (Resource resourceGet : get) {
         std::cout << std::to_string(resourceGet.num) << " " << static_cast<resourceType>(resourceGet.type) << std::endl;

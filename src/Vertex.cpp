@@ -53,6 +53,7 @@ bool Vertex::setBuilding(Building *pBuilding){
     if (occupied) return false;
     building = pBuilding;
     occupied = true;
+    building->getOwner()->addVP(1);
     return true;
 }
 
