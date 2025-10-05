@@ -11,14 +11,13 @@
 
 class VictoryPoint : public Card{
 
-    const std::string description = "Adds 1 Victory Point";
     const std::vector<std::string> names = {"Library", "Market", "Chapel", "Great Hall", "University"};
-    const int type = 4;
+    const int type = 5;
 
     public:
     VictoryPoint(int i);
 
-    int play(void *object) override;
+    int play(void* &object) override;
 
     int getType() const override;
 

@@ -6,9 +6,9 @@
 
 #include <iostream>
 
-VictoryPoint::VictoryPoint(int i) : Card(names[i], description){}
+VictoryPoint::VictoryPoint(int i) : Card(names[i], "Adds 1 Victory Point"){}
 
-int VictoryPoint::play(void *object) {
+int VictoryPoint::play(void* &object) {
     (*(static_cast<int*>(object)))++;
     return 0;
 }

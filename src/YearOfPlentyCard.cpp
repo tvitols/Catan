@@ -8,9 +8,9 @@
 
 #include "vector"
 
-YearOfPlenty::YearOfPlenty() : Card(name, description){};
+YearOfPlenty::YearOfPlenty() : Card("Year of Plenty", "Adds Two Resources of Players Choice"){};
 
-int YearOfPlenty::play(void *object) {
+int YearOfPlenty::play(void* &object) {
     int numberChosen = 0;
     int choice;
     std::vector<int>* resources = static_cast<std::vector<int>*>(object);

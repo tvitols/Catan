@@ -9,14 +9,12 @@
 
 
 class YearOfPlenty : public Card {
-    const std::string description = "Adds Two Resources of Players Choice";
-    std::string name = "Year of Plenty";
-    const int type = 2;
+    const int type = 3;
 
 public:
     YearOfPlenty();
 
-    int play(void *object) override;
+    int play(void* &object) override;
 
     int getType() const override;
 
