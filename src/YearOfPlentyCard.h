@@ -14,11 +14,10 @@ class YearOfPlenty : public Card {
 public:
     YearOfPlenty();
 
-    int play(void* &object) override;
+    int play(void* object) override;
 
     int getType() const override;
 
-    void print() const override;
 };
 
 

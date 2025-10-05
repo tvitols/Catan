@@ -18,7 +18,7 @@ protected:
 
 public:
 
-    virtual int play(void* &object) = 0;
+    virtual int play(void* object) = 0;
     void print() const;
     virtual int getType() const = 0;
 
