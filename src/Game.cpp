@@ -74,8 +74,10 @@ void Game::onA7(Player* player) {
         xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
     }
     board.moveRobber(board.getTile(xy));
-    player->moveRobber(board.otherPlayerResources(player->getName()));
-    //TODO: implement getting a random resource
+    std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
+    if (name != "") {
+        player->addResource(board.getRandomResource(name));
+    }
 }
 
 int Game::placeStructure(Player *player, const int type) {

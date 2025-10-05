@@ -121,10 +121,10 @@ Edge* Tile::getEdge(coords coordinates) {
     return nullptr;
 }
 
-// resourceType Tile::stealResource(std::string name) {
-//     for (const auto& vertex : vertices) {
-//         if (get<0>(vertex->getPlayerInfo(name)) == "\t") {
-//             return vertex->stealResources();
-//         }
-//     }
-// }
+Resource Tile::stealResource(std::string name) {
+    for (const auto& vertex : vertices) {
+        if (vertex->getName() == name) {
+            return vertex->stealResources();
+        }
+    }
+}

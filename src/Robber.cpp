@@ -26,6 +26,6 @@ std::vector<std::tuple<std::string, std::vector<int>>> Robber::otherPlayerResour
     return currentTile->otherPlayerResources(name);
 }
 
-// resourceType Robber::stealResource(std::string name) {
-//     return currentTile->stealResource(name);
-// }
+Resource Robber::getRandomResource(std::string name) {
+    return currentTile->stealResource(name);
+}

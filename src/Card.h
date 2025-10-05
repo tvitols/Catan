@@ -19,8 +19,8 @@ protected:
 public:
 
     virtual int play(void* object) = 0;
-    virtual void print() const = 0;
-
+    void print() const;
+    virtual int getType() const = 0;
 
     bool isActive() const;
     void makeActive();
