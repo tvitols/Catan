@@ -14,6 +14,9 @@ Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)), 
 }
 
 int Game::Play() {
+    std::cin.clear();
+    std::string junk;
+    std::getline(std::cin,junk);
     while (!gameOver) {
         for (const auto &player : players) {
             std::cout << player->getName() << ", your turn!" << std::endl;
