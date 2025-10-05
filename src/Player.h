@@ -6,10 +6,10 @@
 #define PLAYER_H
 
 
-#include <set>
 #include <string>
 #include <vector>
 
+#include "Deck.h"
 #include "CardStack.h"
 #include "customUtils.h"
 
@@ -26,10 +26,11 @@ class Player {
     playerColor color;
     std::vector<Trade> allowedTrades;
     bool hasA3For1Trade = false;
+    int army = 0;
 
     public:
 
-        Player(const std::string *pname, playerColor pColor);
+    Player(const std::string *pname, playerColor pColor);
 
     //add resource to player
     void addResource(const Resource r);
@@ -46,14 +47,15 @@ class Player {
 
 
     //take their turn
-    int takeTurn(const std::vector<Player*>& players, int action);
+    int takeTurn(const std::vector<Player*>& players, int action, Deck* &deck);
 
     void showCollectedResources();
 
     //display options to buy things
     int buyMenu();
 
-    int buyDevCard();
+    void monopoly();
+
 
     // adds vp, return true if player has over 10 vp
     bool addVP(int pVP);
@@ -87,6 +89,8 @@ class Player {
     std::string getName();
 
     std::string getColor() const;
+
+    int getArmy() const;
 };
 
 

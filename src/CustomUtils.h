@@ -58,6 +58,10 @@ inline bool operator<(const Trade& lhs, const Trade& rhs)
     return lhs.receive.num > rhs.receive.num;
 }
 
+inline bool operator==(const Trade& lhs, const Trade& rhs) {
+    return lhs.give.type == rhs.give.type && lhs.give.num == rhs.give.num;
+}
+
 inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
     os << rhs.num << " " << rhs.type;
     return os;
@@ -130,6 +134,10 @@ struct coords {
 inline std::ostream& operator<<(std::ostream& os, coords const &rhs) {
     os << "(" << rhs.x << ", " << rhs.y << ")";
     return os;
+}
+
+inline void pushFunction(std::vector<void (*)()> &vector, void (*func)()) {
+    vector.push_back(func);
 }
 
 inline int getIntFromUser() {

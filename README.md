@@ -3,20 +3,21 @@
 ---
 ## To do list:
 Fixes:
-- copy placement validation from setup to other places
-- change how display works to update and display after a change
+
 
 Next steps:
-- port visuals
 - dev cards
 
 Final steps:
 - clean up
+- - Standardize interactions
+- - Dynamically resize screen
 - documentation
 - testing
 
 If we have time:
 - Fix robber resource check
+- change how display works to update and display after a change
 
 ---
 For Citation Purposes:

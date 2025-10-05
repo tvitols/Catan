@@ -31,11 +31,13 @@ int Game::Play() {
             }
             int action = 200;
             while (action != 0) {
-                action = (player->takeTurn(players, action));
+                action = (player->takeTurn(players, action, deck));
                 switch (action) {
                     case 0: break;
-                    case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action)); break;
-                    case 5: board.printBoard("",true); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0)); break;
+                    case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action),deck); break;
+                    case 4: break;
+                    case 5: break;
+                    case 6: board.printBoard("",true); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0),deck); break;
                     default: action = 0; break;
                 }
             }

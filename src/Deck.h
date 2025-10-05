@@ -12,11 +12,14 @@
 class Deck {
      std::vector<Card*> cards;
 
+
 public:
-     Deck() = default;
+     Deck();
+     explicit Deck (int seed);
      ~Deck() = default;
 
      void shuffle();
+     void shuffle(int seed);
 
      Card* Deal();
 };

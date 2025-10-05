@@ -12,11 +12,6 @@ Card::Card(std::string pName, std::string pDescription) {
     description = pDescription;
 }
 
-void Card::play(void (*func)()) {
-    if (isActive()) {
-        func();
-    }
-}
 
 void Card::print() const {
     std::string top = "__";
@@ -38,4 +33,8 @@ bool Card::isActive() const {
 
 void Card::makeActive() {
     active = true;
+}
+
+std::string Card::getName() {
+    return name;
 }

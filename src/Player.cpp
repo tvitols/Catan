@@ -3,6 +3,8 @@
 //
 
 #include "Player.h"
+
+#include <functional>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -61,7 +63,7 @@ void Player::showResources() {
     std::cout << std::endl;
 }
 
-int Player::takeTurn(const std::vector<Player*>& players, int action) {
+int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &deck) {
     char choice = static_cast<char>(NULL);
     switch (action) {
         case -1: {
@@ -122,7 +124,7 @@ int Player::takeTurn(const std::vector<Player*>& players, int action) {
     choice = static_cast<char>(NULL);
     int result;
     while (!choice) {
-        std::cout << "Select an option to \n- (b)uy something\n- (t)rade\n- (s)how board\n- (d)isplay stats\n- (e)nd turn\n";
+        std::cout << "Select an option to \n- (b)uy something\n- (t)rade\n- (p)lay a dev card\n- (s)how board\n- (d)isplay stats\n- (e)nd turn\n";
         std::cin >> choice;
         checkCin(&choice);
         switch (choice) {
@@ -130,6 +132,9 @@ int Player::takeTurn(const std::vector<Player*>& players, int action) {
                 result = buyMenu();
                 if (result > 0 && result < 4) {
                     return result;
+                }
+                if (result == 4) {
+                    std::cout << devCards.draw(deck) << std::endl;
                 }
                 choice = 0;
                 break;
@@ -142,6 +147,19 @@ int Player::takeTurn(const std::vector<Player*>& players, int action) {
                     std::cout << name + ": Trade Failed!" << std::endl;
                 }
                 break;
+            case 'p': case 'P':
+                if (devCards.isEmpty()) {
+                    std::cout << "You don't have any dev cards, you can buy some from the buy menu!" << std::endl;
+                    choice = 0;
+                    break;
+                }
+                switch (devCards.play(&resources,&vp)) {
+                case 1: army += 1; return 4;
+                case 2: return 5;
+                case 3: monopoly();
+                default: break;
+                }
+
             case 's': case 'S': {
                     return 5;
                 }
@@ -221,7 +239,7 @@ int Player::buyMenu() {
                 return 3;
                                 // std::cout << (city.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
-            case 'd': case 'D': buyDevCard();
+            case 'd': case 'D':
                 if (resources[wheat] < 1 || resources[stone] < 1 || resources[sheep] < 1) {
                     std::cout << "Insufficient resources!" << std::endl;
                     return -4;
@@ -239,7 +257,9 @@ int Player::buyMenu() {
     }
 }
 
-int Player::buyDevCard() {
+
+void Player::monopoly() {
+
 }
 
 //returns true if that puts the player over 10
@@ -277,12 +297,8 @@ bool operator!=(const Player &lhs, const Player &rhs) {
 }
 
 void Player::addTrade(const Trade &t) {
-    if (t.give.type != null) {
+    if (std::count(allowedTrades.begin(),allowedTrades.end(),t) != null) {
         allowedTrades.push_back(t);
-    }
-    else if (!hasA3For1Trade) {
-        allowedTrades.push_back(t);
-        hasA3For1Trade = true;
     }
 }
 
@@ -758,5 +774,9 @@ std::string Player::getColor() const {
         case white: return "w";
         default: return "";
     }
+}
+
+int Player::getArmy() const {
+    return army;
 }
 

@@ -18,12 +18,14 @@ protected:
 
 public:
 
-    void play(void (*func)());
+    virtual int play(void* object) = 0;
     virtual void print() const = 0;
-    virtual int getType() const = 0;
+
 
     bool isActive() const;
     void makeActive();
+
+    std::string getName();
 
 };
 
