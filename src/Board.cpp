@@ -126,7 +126,7 @@ Board Board::generateBoard(const int seed) {
     return Board(seed);
 }
 
-coords Board::printBoard(const std::string &message, const bool wait){
+coords Board::printBoard(const std::string &message){
 
 
     cg::create_window("Catan",800,800);

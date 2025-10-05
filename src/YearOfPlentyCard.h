@@ -12,10 +12,23 @@ class YearOfPlenty : public Card {
     const int type = 3;
 
 public:
+
+    /**
+     * calls Card() with a specific name and description
+     */
     YearOfPlenty();
 
+    /**
+     * gives the player 2 resources
+     * @param object player's resources
+     * @return 0
+     */
     int play(void* object) override;
 
+    /**
+     *
+     * @return type
+     */
     int getType() const override;
 
 };

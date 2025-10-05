@@ -92,15 +92,6 @@ void Tile::setVerticeCoords() {
     vertices[5]->setCoordinates(coordinates.x - 50, coordinates.y - 32);
 }
 
-Vertex* Tile::getVertice(const coords pCoordinates) const {
-    for (Vertex *vertex : vertices) {
-        if (vertex->getVertex(pCoordinates)) {
-            return vertex;
-        }
-    }
-    return nullptr;
-}
-
 void Tile::setEdgeCoords() {
     edges[0]->setCoordinates(coordinates.x + 25, coordinates.y - 51, left);
     edges[1]->setCoordinates(coordinates.x + 50, coordinates.y, upright);
@@ -110,12 +101,19 @@ void Tile::setEdgeCoords() {
     edges[5]->setCoordinates(coordinates.x - 25, coordinates.y - 51, right);
 }
 
-//399, 522
-
 Edge* Tile::getEdge(coords coordinates) {
     for (Edge *edge : edges) {
         if (edge->getEdge(coordinates)) {
             return edge;
+        }
+    }
+    return nullptr;
+}
+
+Vertex* Tile::getVertice(const coords pCoordinates) const {
+    for (Vertex *vertex : vertices) {
+        if (vertex->getVertex(pCoordinates)) {
+            return vertex;
         }
     }
     return nullptr;

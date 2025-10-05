@@ -16,10 +16,20 @@ protected:
     int victoryPoint;
 
 public:
+    /**
+     * default constructor
+     */
     Structure() = default;
 
+    /**
+     * default destructor
+     */
     virtual ~Structure() = default;
 
+    /**
+     *
+     * @return owner
+     */
     Player* getOwner();
 
 };

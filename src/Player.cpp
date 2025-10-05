@@ -734,7 +734,7 @@ bool Player::rolledASeven() {
     for (int num : resources) {
         numberOfResources += num;
     }
-    if (numberOfResources <= 7) {
+    if (numberOfResources < 7) {
         return false;
     }
     return true;
