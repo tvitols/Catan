@@ -498,6 +498,7 @@ bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
     }
+    return false;
 }
 
 bool Player::initiateTrade(std::vector<Player*> players) {
@@ -718,7 +719,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
 bool Player::tradeBank() {
     int choice = 0;
     auto trade = allowedTrades.begin();
-    while (choice < 1 || choice > allowedTrades.size()) {
+    while (choice < 1 || choice > allowedTrades.size() + 1) {
         //Printing out available Trades
         std::cout << "Please select an option from the list below: " << std::endl;
         for (int i = 1; i <= allowedTrades.size(); i++) {
@@ -733,14 +734,15 @@ bool Player::tradeBank() {
     if (choice == allowedTrades.size()+1) {
         return false;
     }
-    trade += choice;
+    trade += choice-1;
     choice = 0;
-    //Trading with the Bank or 3:1 Port
+
     while (!choice) {
+        //Trading with the Bank or 3:1 Port
         if (trade->give.num > 2) {
             std::cout << "What would you like to trade?\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n6. quit: ";
             choice = getIntFromUser();
-        }else {
+        }else { // Trading with a 2:1 port
             choice = trade->give.type + 1;
         }
         //Offering a type of Resource
@@ -786,7 +788,7 @@ bool Player::tradeBank() {
         }
     }
 
-    //Trading with 2:1 Port
+    //Receive resources
     choice = 0;
     while (!choice) {
         std::cout << "What would you like to receive?\n1. wood\n2. sheep\n3. brick\n4. stone\5. wheat\n>>> ";

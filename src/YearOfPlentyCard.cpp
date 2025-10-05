@@ -13,7 +13,7 @@ YearOfPlenty::YearOfPlenty() : Card("Year of Plenty", "Adds two resources of pla
 int YearOfPlenty::play(void* object) {
     int numberChosen = 0;
     int choice;
-    std::vector<int>* resources = static_cast<std::vector<int>*>(object);\\
+    std::vector<int>* resources = static_cast<std::vector<int>*>(object);
     //Prompts the user for a resourceType
     while (numberChosen != 2) {
         std::cout << "Select an option from the list below" << std::endl;

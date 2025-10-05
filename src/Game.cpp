@@ -31,7 +31,7 @@ int Game::Play() {
     // Run loop until game is over
     while (!gameOver) {
         // Loop through all players
-        for (const auto &player : players) {
+        for (const auto player : players) {
 
             //Let them know whose turn it is
             std::cout << player->getName() << ", your turn!" << std::endl;
@@ -115,7 +115,7 @@ int Game::Play() {
                         break;
 
                     // View the board, update action
-                    case 6: board.printBoard("Press anywhere to exit",true); action = player->takeTurn(players,6,deck); break;
+                    case 6: board.printBoard("Press anywhere to exit"); action = player->takeTurn(players,6,deck); break;
 
                     // Errors end turn
                     default: action = 0; break;
@@ -123,7 +123,6 @@ int Game::Play() {
             }
             // If the player has won end the game
             gameOver = player->hasWon();
-            break;
         }
     }
 
@@ -136,7 +135,7 @@ void Game::onA7(Player* player) {
     // Keep track of if we rob other players
     int otherPlayersRobbed = 0;
 
-    // Remove cards for greedy opeople
+    // Remove cards for greedy people
     std:: cout << "The Robber will now steal cards from anyone with over 7 cards!" << std::endl;
     for (const auto &robbed : players) {
         if (robbed != player) {
