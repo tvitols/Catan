@@ -84,8 +84,10 @@ set(LIST_OF_FILES src/main.cpp
         src/AdjacencyGraph.h
         cppgraphics/src/cppgraphics.hpp
         cppgraphics/src/cppgraphics.cpp
-        src/VictoryPoint.h
-        src/VictoryPoint.cpp)
+        src/VictoryPointCard.h
+        src/VictoryPointCard.cpp
+        src/YearOfPlentyCard.cpp
+        src/YearOfPlentyCard.h)
 
 add_executable(${TARGET_NAME} ${LIST_OF_FILES})
 

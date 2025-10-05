@@ -18,6 +18,8 @@ class VictoryPoint : public Card{
     public:
     VictoryPoint(int i);
 
+    int play(void *object) override;
+
     int getType() const override;
 
     void print() const override;

@@ -19,17 +19,7 @@ void Card::play(void (*func)()) {
 }
 
 void Card::print() const {
-    std::string top = "__";
-    const std::string side = "|";
-    for (int i = 0; i < name.length(); i++) {
-        top += "_";
-    }
-    std::cout << top << std::endl;
-    std::cout << side << name << side << std::endl;
-    for (int i = 0; i < description.length()%name.size(); i++) {
-        std::cout << side << description.substr(i*name.size(),name.size()) << side << std::endl;
-    }
-    std::cout << top << std::endl;
+    std::cout << name + ": " + description << std::endl;
 }
 
 bool Card::isActive() const {
