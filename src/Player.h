@@ -58,7 +58,7 @@ class Player {
     //display options to buy things
     int buyMenu();
 
-    void monopoly();
+    void monopoly(const std::vector<Player*>& players);
 
 
     // adds vp, return true if player has over 10 vp

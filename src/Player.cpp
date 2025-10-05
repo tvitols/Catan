@@ -188,7 +188,7 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                 switch (devCards.play(&resources,&vp)) {
                 case 1: army += 1; return 4;
                 case 2: return 5;
-                case 3: monopoly();
+                case 3: monopoly(players);
                 default: break;
                 }
 
@@ -290,7 +290,79 @@ int Player::buyMenu() {
 }
 
 
-void Player::monopoly() {
+void Player::monopoly(const std::vector<Player*>& players) {
+    int choice;
+    std::cout << "Select an option from the list below" << std::endl;
+    std::cout << "1. Wood" << std::endl;
+    std::cout << "2. Stone" << std::endl;
+    std::cout << "3. Brick" << std::endl;
+    std::cout << "4. Sheep" << std::endl;
+    std::cout << "5. Wheat" << std::endl;
+    choice = getIntFromUser();
+    while (choice == -1 || choice == 0 || choice > 5) {
+        std::cout << "Invalid input. Please enter a number between 1 and 5: ";
+        choice = getIntFromUser();
+    }
+    std::vector<Resource> resourcesStolen;
+    int totalResource = 0;
+    switch (choice) {
+        case 1:
+            int numberOfWood;
+            for (Player* player : players) {
+                numberOfWood = (player->getResources())[wood];
+                totalResource += numberOfWood;
+                resourcesStolen.push_back(Resource(wood, numberOfWood));
+                player->removeResource(Resource(wood, numberOfWood));
+            }
+            addResource(resourcesStolen);
+            std::cout << "You stole " << std::to_string(totalResource) << " wood." << std::endl;
+            break;
+        case 2:
+            int numberOfStone;
+            for (Player* player : players) {
+                numberOfStone = (player->getResources())[stone];
+                totalResource += numberOfStone;
+                resourcesStolen.push_back(Resource(stone, numberOfStone));
+                player->removeResource(Resource(stone, numberOfStone));
+            }
+            addResource(resourcesStolen);
+            std::cout << "You stole " << std::to_string(totalResource) << " stone." << std::endl;
+            break;
+        case 3:
+            int numberOfBrick;
+            for (Player* player : players) {
+                numberOfBrick = (player->getResources())[brick];
+                totalResource += numberOfBrick;
+                resourcesStolen.push_back(Resource(brick, numberOfBrick));
+                player->removeResource(Resource(brick, numberOfBrick));
+            }
+            addResource(resourcesStolen);
+            std::cout << "You stole " << std::to_string(totalResource) << " brick." << std::endl;
+            break;
+        case 4:
+            int numberOfSheep;
+            for (Player* player : players) {
+                numberOfSheep = (player->getResources())[sheep];
+                totalResource += numberOfSheep;
+                resourcesStolen.push_back(Resource(sheep, numberOfSheep));
+                player->removeResource(Resource(sheep, numberOfSheep));
+            }
+            addResource(resourcesStolen);
+            std::cout << "You stole " << std::to_string(totalResource) << " sheep." << std::endl;
+            break;
+        case 5:
+            std::cout << "How much wheat do you want: ";
+            int numberOfWheat;
+            for (Player* player : players) {
+                numberOfWheat = player->getResources()[wheat];
+                totalResource += numberOfWheat;
+                resourcesStolen.push_back(Resource(wheat, numberOfWheat));
+                player->removeResource(Resource(wheat, numberOfWheat));
+            }
+            addResource(resourcesStolen);
+            std::cout << "You stole " << std::to_string(totalResource) << " wheat." << std::endl;
+            break;
+    }
 
 }
 
