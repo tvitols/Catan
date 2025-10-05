@@ -28,7 +28,9 @@ Edge* Tile::getEdge(const int index) const {
 }
 
 void Tile::collectResources(const int roll) const {
+    //Makes sure it is not the desert tile, that the key got rolled, and that it isn't robbed
     if (rtype != null && roll == key && !hasRobber) {
+        //Iterates through Vertices
         for (const auto& vertex : vertices) {
             vertex->collectResources(rtype);
         }
@@ -55,8 +57,11 @@ int Tile::getKey() {
 std::vector<std::tuple<std::string, std::vector<int>>> Tile::otherPlayerResources(std::string name) {
     std::vector<std::tuple<std::string, std::vector<int>>> playerResources;
     std::tuple<std::string, std::vector<int>> vertexInfo;
+    //Iterates through Vertices
     for (const auto& vertex : vertices) {
+        //Makes sure the info from getPlayerInfo is valid
         if (get<0>(vertex->getPlayerInfo(name)) != ""){
+            //Adds it to the vector
             vertexInfo = vertex->getPlayerInfo(name);
             playerResources.push_back(vertexInfo);
         }
@@ -74,6 +79,7 @@ coords Tile::getCoordinates() {
 }
 
 bool Tile::getTile(coords pCoordinates) {
+    //Checks if the coordinates are within the BUFFERs
     if (pCoordinates.x >= (coordinates.x -XBUFFER) && pCoordinates.x <= (coordinates.x + XBUFFER)) {
         if (pCoordinates.y >= (coordinates.y -YBUFFER) && pCoordinates.y <= (coordinates.y + YBUFFER)) {
             return true;
@@ -84,6 +90,7 @@ bool Tile::getTile(coords pCoordinates) {
 }
 
 void Tile::setVerticeCoords() {
+    //Setting Vertice coordinates based on Tile coordinates
     vertices[0]->setCoordinates(coordinates.x, coordinates.y - 70);
     vertices[1]->setCoordinates(coordinates.x + 50, coordinates.y - 32);
     vertices[2]->setCoordinates(coordinates.x + 50, coordinates.y + 32);
@@ -93,6 +100,7 @@ void Tile::setVerticeCoords() {
 }
 
 void Tile::setEdgeCoords() {
+    //Setting Edge coordinates based on Tile coordinates
     edges[0]->setCoordinates(coordinates.x + 25, coordinates.y - 51, left);
     edges[1]->setCoordinates(coordinates.x + 50, coordinates.y, upright);
     edges[2]->setCoordinates(coordinates.x + 25, coordinates.y + 51, right);
@@ -102,7 +110,9 @@ void Tile::setEdgeCoords() {
 }
 
 Edge* Tile::getEdge(coords coordinates) {
+    //Iterating through Edges
     for (Edge *edge : edges) {
+        //If the Edge is correct, returning the Edge
         if (edge->getEdge(coordinates)) {
             return edge;
         }
@@ -111,7 +121,9 @@ Edge* Tile::getEdge(coords coordinates) {
 }
 
 Vertex* Tile::getVertice(const coords pCoordinates) const {
+    //Iterating through Vertices
     for (Vertex *vertex : vertices) {
+        //If the Vertex is correct, returning the vertex
         if (vertex->getVertex(pCoordinates)) {
             return vertex;
         }
@@ -121,6 +133,7 @@ Vertex* Tile::getVertice(const coords pCoordinates) const {
 
 Resource Tile::stealResource(std::string name) {
     for (const auto& vertex : vertices) {
+        //Checking if the name of a building on the Vertex is the correct name
         if (vertex->getName() == name) {
             return vertex->stealResources();
         }

@@ -9,6 +9,7 @@
 VictoryPoint::VictoryPoint(int i) : Card(names[i], "Adds 1 Victory Point"){}
 
 int VictoryPoint::play(void* object) {
+    //Incrementing a players vp
     (*(static_cast<int*>(object)))++;
     std::cout << "You got a victory point!" << std::endl;
     return 0;

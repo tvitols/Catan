@@ -8,8 +8,10 @@ Robber::Robber() : currentTile(nullptr) {
 }
 
 void Robber::move(Tile *newTile) {
+    //Changes Tile
     currentTile->rob(false);
     currentTile = newTile;
+    //Stops new currentTile to give resources to players
     currentTile->rob(true);
 }
 

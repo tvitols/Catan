@@ -11,6 +11,7 @@ void Edge::setCoordinates(int x, int y, tilt fTilt) {
 }
 
 bool Edge::getEdge(coords fCoordinates) {
+    //Checks the coordinates against the Buffer depending on tilt type
     if (type != upright && fCoordinates.x >= coordinates.x - XBUFFER && fCoordinates.x <= coordinates.x + XBUFFER && fCoordinates.y >= coordinates.y - YBUFFER && fCoordinates.y <= coordinates.y + YBUFFER) {
         return true;
     }
@@ -22,8 +23,10 @@ bool Edge::getEdge(coords fCoordinates) {
 
 bool Edge::setRoad(Road *pRoad) {
     if (occupied) return false;
+    //Places road
     road = pRoad;
     road->place(type);
+
     occupied = true;
     return true;
 }

@@ -12,6 +12,7 @@
 #include "VictoryPointCard.h"
 
 Deck::Deck() {
+    //Creates Deck of Cards
     for (int i = 0; i < 14; i++) {
         cards.push_back(new KnightCard());
         if (i <2) {
@@ -23,10 +24,12 @@ Deck::Deck() {
             cards.push_back(new VictoryPoint(i));
         }
     }
+    //Shuffles deck
     shuffle();
 }
 
 Deck::Deck(int seed) {
+    //Creates Deck of cards
     for (int i = 0; i < 14; i++) {
         cards.push_back(new KnightCard());
         if (i <2) {
@@ -38,6 +41,7 @@ Deck::Deck(int seed) {
             cards.push_back(new VictoryPoint(i));
         }
     }
+    //Shuffles deck based on a seed
     shuffle(seed);
 }
 
@@ -50,6 +54,8 @@ void Deck::shuffle(const int seed) {
 }
 
 Card * Deck::Deal() {
+    //Removes Card dealt
+    //Returns that Card
     Card *ret = cards[cards.size() - 1];
     cards.pop_back();
     return ret;

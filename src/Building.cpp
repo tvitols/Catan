@@ -35,6 +35,7 @@ void Building::upgradeToCity() {
 
 std::string Building::getImg() const {
     std::string file = "static/";
+    //Checks if it is a city or settlement
     switch (num) {
         case 1: file += "settlement_"; break;
         case 2: file += "city_"; break;
@@ -53,10 +54,13 @@ void Building::setTrade(Trade pTrade) {
 
 Resource Building::stealResources() {
     srand(time(NULL));
+    //Obtains random index of resource
     int randNum = rand() % 5;
+    //Makes sure the owner actually has those resources
     while (getPlayerResources()[randNum] == 0) {
         randNum = rand() % 5;
     }
+    //Removes 1 of that resourceType
     owner->removeResource(Resource(static_cast<resourceType>(randNum),1));
     return Resource(static_cast<resourceType>(randNum),1);
 }

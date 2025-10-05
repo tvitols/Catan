@@ -13,6 +13,8 @@ Card::Card(std::string pName, std::string pDescription) {
 }
 
 void Card::print() const {
+    //Prints name and description
+    //Adds (Unavailable) if it is not available
     if (!active) {
         std::cout << name + " (Unavailable): " + description << std::endl;
     }

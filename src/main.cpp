@@ -32,11 +32,11 @@ int main() {
         checkCin(&choice);
         switch (choice){
             case 'p': case 'P':  break;
-
+            //Printing info
             case 'i': case 'I': choice = 0; Info::print_info(); break;
-
+            //Printing rules
             case 'r': case 'R': choice = 0; Info::print_rules(); break;
-
+            //Ending game
             case 'q': case 'Q': return 0;
 
             default: choice = 0; cout << "Invalid choice" << endl; break;
@@ -46,6 +46,7 @@ int main() {
     cout << "Select number of players (2-4): ";
     cin >> numPlayers;
     checkCin(&numPlayers);
+    //Validation
     while (numPlayers < 2 || numPlayers > 4){
 
         cout << "Invalid number of players. Select number of players (2-4): ";
@@ -53,10 +54,11 @@ int main() {
         checkCin(&numPlayers);
     }
     cout << "Players: " << numPlayers << endl;
-
+    //Creating Players
     vector<Player*> players;
     string name;
     for (int i = 0; i < numPlayers; i++) {
+        //Obtaining player name
         cout << "Player " << i + 1 << ", enter your name: ";
         cin >> name;
         if (name.empty() || name.length() > 50) {
@@ -65,7 +67,7 @@ int main() {
         }
         players.push_back(new Player(&name,static_cast<playerColor>(i)));
     }
-
+    //Playing Game!
     auto game = Game(players);
     game.setUp();
     game.Play();

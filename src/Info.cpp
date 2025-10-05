@@ -12,10 +12,12 @@ const std::filesystem::path Info::infoPath = std::filesystem::current_path() / "
 void Info::print_rules() {
     std::ifstream rules;
     rules.open(rulesPath);
+    //Validation
     if (!rules.is_open()) {
         std::cout << "Error in opening file " << rulesPath << std::endl;
     }
     std::string rule;
+    //Printing out rules.txt
     while (getline(rules,rule)) {
         std::cout << rule << std::endl;
     }
@@ -24,10 +26,12 @@ void Info::print_rules() {
 void Info::print_info() {
     std::ifstream info;
     info.open(infoPath);
+    //Validation
     if (!info.is_open()) {
         std::cout << "Error in opening file " << infoPath << std::endl;
     }
     std::string infoString;
+    //Printing out info.txt
     while (getline(info,infoString)) {
         std::cout << infoString << std::endl;
     }

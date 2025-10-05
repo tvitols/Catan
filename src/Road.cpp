@@ -15,6 +15,7 @@ void Road::place(const tilt orient) {
 }
 
 std::string Road::getImg() const {
+    //Obtaining road image based on tilt type
         std::string file = "static/road_";
         file += owner->getColor();
         switch (orientation) {

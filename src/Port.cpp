@@ -10,8 +10,10 @@ Port::Port(const Trade pTrade, const coords pLocation){
 }
 
 
-bool Port::setBuilding(Building *pBuilding) {
+bool Port::setBuilding(Building *pBuilding) {\
+    //Calling parent function
     bool toReturn = Vertex::setBuilding(pBuilding);
+    //Adding trade to owner of Building
     building->setTrade(trade);
     return toReturn;
 
@@ -22,6 +24,7 @@ Trade Port::getTrade() const {
 }
 
 std::string Port::getShipToken() const {
+    //Obtaining image based on Trade type
     std::string file = "static/";
     switch (trade.give.type) {
         case wood: file += "wood"; break;
