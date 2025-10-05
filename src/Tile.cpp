@@ -127,4 +127,5 @@ Resource Tile::stealResource(std::string name) {
             return vertex->stealResources();
         }
     }
+    return Resource(null, 0);
 }

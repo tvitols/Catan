@@ -37,7 +37,7 @@ bool Player::removeResource(const Resource r) {
 bool Player::removeResource(const std::vector<Resource> &r) {
     bool canRemove = true;
     for (Resource resource : r) {
-        if (resource.num >= resources[resource.type]) {
+        if (resource.num > resources[resource.type]) {
             canRemove = false;
         }
     }
@@ -185,7 +185,7 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                         break;
                     default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
                     }
-                    
+
                 }
                 break;
             case 4:
@@ -238,7 +238,7 @@ int Player::buyMenu() {
     //5 = back
 
 
-    char choice;
+    char choice = static_cast<char>(NULL);
     while (!choice) {
         std::cout << "Select an option to buy\n- road\n- settlement\n- city\n- development card";
         std::cout << std::endl << "Or press b to go back" << std::endl;
@@ -249,35 +249,35 @@ int Player::buyMenu() {
                                 //std::cout << (road.buy()?"Success":"Insufficient resources") << std::endl;
                 if (resources[brick] < 1 || resources[wood] < 1) {
                     std::cout << "Insufficient resources!" << std::endl;
-                    return -1;
+                    return -3;
                 }
 
                 removeResource(Resource(wood, 1));
                 removeResource(Resource(brick, 1));
-                return 1;
+                return 3;
                                 break;
             case 's': case 'S':
                                 // std::cout << (settlement.buy()?"Success":"Insufficient resources") << std::endl;
                 if (resources[sheep] < 1 || resources[wheat] < 1 || resources[wood] < 1 || resources[brick] < 1) {
                     std::cout << "Insufficient resources!" << std::endl;
-                    return -2;
+                    return -1;
                 }
 
                 removeResource(Resource(wood, 1));
                 removeResource(Resource(brick, 1));
                 removeResource(Resource(wheat, 1));
                 removeResource(Resource(sheep, 1));
-                return 2;
+                return 1;
                                 break;
             case 'c': case 'C':
                 if (resources[stone] < 2 || resources[wheat] < 3) {
                     std::cout << "Insufficient resources!" << std::endl;
-                    return -3;
+                    return -2;
                 }
 
                 removeResource(Resource(stone, 3));
                 removeResource(Resource(wheat, 2));
-                return 3;
+                return 2;
                                 // std::cout << (city.buy()?"Success":"Insufficient resources") << std::endl;
                                 break;
             case 'd': case 'D':
@@ -530,6 +530,11 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     }
 
     choice = 0;
+    int numWheat = 0;
+    int numWood = 0;
+    int numSheep = 0;
+    int numStone = 0;
+    int numBrick = 0;
     while (!choice) {
         std::cout << "What would you like to get? (Select finish when done or quit to go back)\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n6. finish\n. quit\n>>> ";
         choice = getIntFromUser();
@@ -541,6 +546,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
+                if (numResource + numWood > resources[wood]) {
+                    std::cout << "You don't have enough wood for that trade!" << std::endl;
+                    break;
+                }
+                numWood += numResource;
+                offer.push_back(Resource(wood, numResource));
                 want.push_back(Resource(wood, numResource));
                 break;
             case sheep+1: choice = 0;
@@ -550,6 +561,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
+                if (numResource + numSheep > resources[sheep]) {
+                    std::cout << "You don't have enough sheep for that trade!" << std::endl;
+                    break;
+                }
+                numSheep += numResource;
+                offer.push_back(Resource(sheep, numResource));
                 want.push_back(Resource(sheep, numResource));
                 break;
             case brick+1: choice = 0;
@@ -559,6 +576,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
+                if (numResource + numStone > resources[stone]) {
+                    std::cout << "You don't have enough stone for that trade!" << std::endl;
+                    break;
+                }
+                numStone += numResource;
+                offer.push_back(Resource(stone, numResource));
                 want.push_back(Resource(brick, numResource));
                 break;
             case stone+1: choice = 0;
@@ -568,6 +591,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
+                if (numResource + numBrick > resources[brick]) {
+                    std::cout << "You don't have enough brick for that trade!" << std::endl;
+                    break;
+                }
+                numBrick += numResource;
+                offer.push_back(Resource(brick, numResource));
                 want.push_back(Resource(stone, numResource));
                 break;
             case wheat+1: choice = 0;
@@ -577,6 +606,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
+                if (numResource + numWheat > resources[wheat]) {
+                    std::cout << "You don't have enough wheat for that trade!" << std::endl;
+                    break;
+                }
+                numWheat += numResource;
+                offer.push_back(Resource(wheat, numResource));
                 want.push_back(Resource(wheat, numResource));
                 break;
             case 6: choice = 6; break;
@@ -795,14 +830,13 @@ void Player::loseHalfOfCards() {
                 break;
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
-        if (removeResource(removed) && gottenRidOf >= numberOfResources / 2) {
-            std::cout << "The robber has taken half of your cards!" << std::endl;
-        }
-        else if (gottenRidOf >= numberOfResources) {
-            std::cout << "Something went wrong with the robber stealing your cards! Let's try again!" << std::endl;
-            gottenRidOf = 0;
-        }
-        removed.clear();
+    }
+    if (removeResource(removed)) {
+        std::cout << "The robber has taken half of your cards!" << std::endl;
+    }
+    else {
+        std::cout << "Something went wrong with the robber stealing your cards! Let's try again!" << std::endl;
+        gottenRidOf = 0;
     }
 }
 
@@ -821,7 +855,7 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
 
             choice = getIntFromUser();
             //Validates that the input is a valid choice
-            while (choice < 0 || choice > stuffToSteal.size()+1) {
+            while (choice <= 0 || choice > stuffToSteal.size()+1) {
                 std::cout << "Invalid input. Please enter a number > 0 and < " << std::to_string(stuffToSteal.size()+2) << ": " << std::endl;
                 choice = getIntFromUser();
             }
@@ -869,4 +903,3 @@ std::string Player::getColor() const {
 int Player::getArmy() const {
     return army;
 }
-

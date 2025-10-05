@@ -32,8 +32,8 @@ int Game::Play() {
             int action = 200;
             coords xy;
             std::string name;
+            action = (player->takeTurn(players, action, deck));
             while (action != 0) {
-                action = (player->takeTurn(players, action, deck));
                 switch (action) {
                     case 0: break;
                     case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action),deck); break;
@@ -48,6 +48,7 @@ int Game::Play() {
                         if (!name.empty()) {
                             player->addResource(board.getRandomResource(name));
                         }
+                        action = (player->takeTurn(players, action, deck));
                         break;
                     case 5:
                         for (int i = 0; i < 2; i++) {
@@ -57,7 +58,7 @@ int Game::Play() {
                         }
                         action = player->takeTurn(players,action,deck);
                         break;
-                    case 6: board.printBoard("",true); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0),deck); break;
+                    case 6: board.printBoard("",true); action = player->takeTurn(players,placeStructure(player, 0),deck); break;
                     default: action = 0; break;
                 }
             }
@@ -95,8 +96,10 @@ void Game::onA7(Player* player) {
     }
     board.moveRobber(board.getTile(xy));
     std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
-    if (!name.empty()) {
-        player->addResource(board.getRandomResource(name));
+    if (name != "") {
+        Resource stolen = board.getRandomResource(name);
+        player->addResource(stolen);
+        std::cout << "You got " << stolen.type << "!" << std::endl;
     }
 }
 

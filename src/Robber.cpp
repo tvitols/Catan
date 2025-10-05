@@ -11,7 +11,6 @@ void Robber::move(Tile *newTile) {
     currentTile->rob(false);
     currentTile = newTile;
     currentTile->rob(true);
-    std::cout << currentTile->getResourceType() << std::endl;
 }
 
 void Robber::setCurrentTile(Tile *newTile) {

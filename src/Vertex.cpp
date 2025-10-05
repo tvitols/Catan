@@ -84,5 +84,5 @@ std::string Vertex::getName() {
     if (building != nullptr) {
         return building->getPlayerName();
     }
-    return NULL;
+    return "";
 }
