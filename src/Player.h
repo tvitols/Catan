@@ -82,6 +82,8 @@ class Player {
 
     bool initiateTrade(std::vector<Player*> players);
 
+    bool tradeBank();
+
     bool rolledASeven();
 
     void loseHalfOfCards();
