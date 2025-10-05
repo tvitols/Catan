@@ -51,6 +51,14 @@ int CardStack::play(std::vector<int>* resources, int* vp) {
 
 }
 
+void CardStack::makeActive() const {
+    if (!isEmpty()) {
+        for (const auto card : cards) {
+            card->makeActive();
+        }
+    }
+}
+
 bool CardStack::isEmpty() const {
     return cards.empty();
 }

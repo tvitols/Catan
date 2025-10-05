@@ -20,6 +20,8 @@ public:
     void show() const;
     int play(std::vector<int>* resources, int* vp);
 
+    void makeActive() const;
+
     bool isEmpty() const;
 
 };

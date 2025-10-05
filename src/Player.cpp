@@ -94,6 +94,8 @@ bool Player::hasLargestArmy() const {
 int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &deck) {
     char choice = static_cast<char>(NULL);
     switch (action) {
+        case 200:
+            devCards.makeActive();
         case -1: {
             std::cout << "Invalid Placement for a settlement. Resources have been refunded." << std::endl;
             while (!choice) {
