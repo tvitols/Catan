@@ -17,6 +17,22 @@ set( CPPGRAPHICS_CPPGRAPHICS_PATH "cppgraphics")
 # Just for possible debugging:
 message("Using CMake ${CMAKE_VERSION}")
 
+find_package(Git QUIET)
+if(GIT_FOUND)
+    message(STATUS "Git found: initializing/updating submodules...")
+    execute_process(
+            COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            RESULT_VARIABLE _git_submodule_result
+            OUTPUT_QUIET ERROR_QUIET
+    )
+    if(NOT _git_submodule_result EQUAL 0)
+        message(WARNING "git submodule update --init --recursive failed with exit code ${_git_submodule_result}")
+    endif()
+else()
+    message(STATUS "Git not found; skipping automatic git submodule initialization")
+endif()
+
 include(GNUInstallDirs)
 
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -31,11 +47,6 @@ foreach (DIR ${PREFIX_PATH_CHECK})
     endif ()
 endforeach ()
 message("CMAKE_PREFIX_PATH:${CMAKE_PREFIX_PATH}")
-
-execute_process(COMMAND "git submodule init")
-execute_process(COMMAND "git submodule update")
-execute_process(COMMAND "echo 'Git submodules updated'")
-
 
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/rules.txt
@@ -95,7 +106,14 @@ set(LIST_OF_FILES src/main.cpp
         src/MonopolyCard.cpp
         src/MonopolyCard.h)
 
-add_executable(${TARGET_NAME} ${LIST_OF_FILES})
+if (WIN32)
+    set(WINDOWS_SLEEP src/overrideSleep.h)
+else()
+    set(WINDOWS_SLEEP)
+endif ()
+
+add_executable(${TARGET_NAME} ${LIST_OF_FILES} ${WINDOWS_SLEEP})
+
 
 if (NOT "${CPPGRAPHICS_CPPGRAPHICS_PATH}" STREQUAL "" )
     # First add cppgraphics include directory.
