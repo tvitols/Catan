@@ -25,7 +25,7 @@ class Player {
     CardStack devCards;
     playerColor color;
     std::vector<Trade> allowedTrades;
-    bool hasA3For1Trade = false;
+    bool largestArmy = false;
     int army = 0;
 
     public:
@@ -45,6 +45,10 @@ class Player {
     //show players resources
     void showResources();
 
+
+    bool checkLargestArmy(const std::vector<Player *> & vector);
+
+    bool hasLargestArmy() const;
 
     //take their turn
     int takeTurn(const std::vector<Player*>& players, int action, Deck* &deck);

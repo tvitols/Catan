@@ -30,13 +30,33 @@ int Game::Play() {
                 player->showCollectedResources();
             }
             int action = 200;
+            coords xy;
+            std::string name;
             while (action != 0) {
                 action = (player->takeTurn(players, action, deck));
                 switch (action) {
                     case 0: break;
                     case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action),deck); break;
-                    case 4: break;
-                    case 5: break;
+                    case 4:
+                        xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
+                        while (board.getTile(xy) == nullptr) {
+                            std::cout << "You didn't chose a tile!" << std::endl;
+                            xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
+                        }
+                        board.moveRobber(board.getTile(xy));
+                        name = player->moveRobber(board.otherPlayerResources(player->getName()));
+                        if (!name.empty()) {
+                            player->addResource(board.getRandomResource(name));
+                        }
+                        break;
+                    case 5:
+                        for (int i = 0; i < 2; i++) {
+                            while (placeStructure(player,3) != -3) {
+                                std::cout << "Invalid Placement" << std::endl;
+                            }
+                        }
+                        action = player->takeTurn(players,action,deck);
+                        break;
                     case 6: board.printBoard("",true); std::cout << "hi" <<std::endl;action = player->takeTurn(players,placeStructure(player, 0),deck); break;
                     default: action = 0; break;
                 }
@@ -75,7 +95,7 @@ void Game::onA7(Player* player) {
     }
     board.moveRobber(board.getTile(xy));
     std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
-    if (name != "") {
+    if (!name.empty()) {
         player->addResource(board.getRandomResource(name));
     }
 }

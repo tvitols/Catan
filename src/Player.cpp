@@ -63,6 +63,34 @@ void Player::showResources() {
     std::cout << std::endl;
 }
 
+bool Player::checkLargestArmy(const std::vector<Player *> &vector) {
+    if (army < 3) {
+        return false;
+    }
+    Player *max = nullptr;
+    for (auto player : vector) {
+        if (player != this) {
+            if (player->hasLargestArmy()) {
+                max = player;
+            }
+            if (player->getArmy() > army) {
+                return false;
+            }
+
+        }
+    }
+    if (max != nullptr) {
+        max->removeVP(2);
+    }
+    largestArmy = true;
+    addVP(2);
+    return true;
+}
+
+bool Player::hasLargestArmy() const {
+    return largestArmy;
+}
+
 int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &deck) {
     char choice = static_cast<char>(NULL);
     switch (action) {
@@ -117,6 +145,10 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                 }
             }
         }
+        case 4:
+            if (checkLargestArmy(players)) {
+                std::cout << "Congratulations! You have the largest army!" << std::endl;
+            }
     default: break;
     }
 
@@ -161,11 +193,11 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                 }
 
             case 's': case 'S': {
-                    return 5;
+                    return 6;
                 }
             case 'd': case 'D': {
-                for (auto player : players) {
-                    std::cout << player->name << ": "  << player->getVP() << " VP" << std::endl;
+                for (const auto player : players) {
+                    std::cout << player->name << ": "  << player->getVP() << " VP" << (player->hasLargestArmy()?"Largest Army: "+std::to_string(player->getArmy()):"") << std::endl;
                 }
             }
             case 'e': case 'E': return 0;
