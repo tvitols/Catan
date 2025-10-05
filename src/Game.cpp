@@ -77,7 +77,7 @@ int Game::Play() {
                     // Place structure and update action
                     case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action),deck); break;
 
-                    // Play a night
+                    // Play a knight
                     case 4: {
                         // Get a tile to move the robber to
                         coords xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
@@ -105,7 +105,7 @@ int Game::Play() {
                     case 5:
                         //Place two roads
                         for (int i = 0; i < 2; i++) {
-                            while (placeStructure(player,3) != -3) {
+                            while (placeStructure(player,3) == -3) {
                                 std::cout << "Invalid Placement" << std::endl;
                             }
                         }

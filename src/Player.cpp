@@ -838,7 +838,6 @@ void Player::loseHalfOfCards() {
     showResources();
     //Number of resources they have gottenRidOf
     int gottenRidOf = 0;
-    std::vector<Resource> removed;
     char choice;
 
     while (gottenRidOf < numberOfResources/2) {
@@ -846,11 +845,6 @@ void Player::loseHalfOfCards() {
         std::cout << "Would you like to get rid of wood, sheep, brick, stone wheat: ";
         std::cin >> choice;
         checkCin(&choice);
-        int numWheat = 0;
-        int numWood = 0;
-        int numSheep = 0;
-        int numStone = 0;
-        int numBrick = 0;
         switch (choice) {
             case 'w': case 'W':
                 std::cout << "How much wood would you like to get rid of? ";
@@ -861,15 +855,12 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource + numWood > resources[wood]) {
+                if (removeResource(Resource(wood, numResource))) {
                     std::cout << "You don't have enough wood!" << std::endl;
                     break;
                 }
-                //Adding number of wood removed to numWood to help with input validation
-                numWood += numResource;
                 //Adding number gotten rid of to gottenRidOf
                 gottenRidOf += numResource;
-                removed.push_back(Resource(wood, numResource));
                 break;
             case 's': case 'S':
                 std::cout << "How many sheep would you like to get rid of? ";
@@ -880,15 +871,12 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Input validation
-                if (numResource + numSheep > resources[sheep]) {
+                if (removeResource(Resource(sheep, numResource))) {
                     std::cout << "You don't have enough sheep!" << std::endl;
                     break;
                 }
-                //Adding number of sheep removed to numSheep to help with input validation
-                numSheep += numResource;
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
-                removed.push_back(Resource(sheep, numResource));
                 break;
             case 't': case 'T': choice = 0;
                 std::cout << "How many stones do you want to get rid of? ";
@@ -899,15 +887,12 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource + numStone > resources[stone]) {
+                if (removeResource(Resource(stone, numResource))) {
                     std::cout << "You don't have enough stone!" << std::endl;
                     break;
                 }
-                //Adding number of stone removed to numStone to help with input validation
-                numStone += numResource;
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
-                removed.push_back(Resource(stone, numResource));
                 break;
             case 'b': case 'B': choice = 0;
                 std::cout << "How many bricks do you want to get rid of? ";
@@ -918,15 +903,12 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource + numBrick > resources[brick]) {
+                if (removeResource(Resource(brick, numResource))) {
                     std::cout << "You don't have enough brick!" << std::endl;
                     break;
                 }
-                //Adding number of bricks removed to numBrick to help with input validation
-                numBrick += numResource;
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
-                removed.push_back(Resource(brick, numResource));
                 break;
             case 'h': case 'H': choice = 0;
                 std::cout << "How much wheat do you want to get rid of? ";
@@ -937,26 +919,15 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Input validation
-                if (numResource + numWheat > resources[wheat]) {
+                if (removeResource(Resource(wheat, numResource))) {
                     std::cout << "You don't have enough wheat!" << std::endl;
                     break;
                 }
-                //Adding number of wheat removed to numWheat to help with input validation
-                numWheat += numResource;
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
-                removed.push_back(Resource(wheat, numResource));
                 break;
             default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
         }
-    }
-    //Removing those cards
-    if (removeResource(removed)) {
-        std::cout << "The robber has taken half of your cards!" << std::endl;
-    }
-    else {
-        std::cout << "Something went wrong with the robber stealing your cards! Let's try again!" << std::endl;
-        gottenRidOf = 0;
     }
 }
 
