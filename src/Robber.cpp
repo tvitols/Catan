@@ -17,6 +17,7 @@ void Robber::move(Tile *newTile) {
 
 void Robber::setCurrentTile(Tile *newTile) {
     currentTile = newTile;
+    currentTile->rob(true);
 }
 
 Tile* Robber::getCurrentTile() {
