@@ -34,15 +34,16 @@ int Game::Play() {
         for (const auto player : players) {
 
             //Let them know whose turn it is
-            std::cout << player->getName() << ", your turn!" << std::endl;
+            std::cout << std::endl << player->getName() << ", your turn!" << std::endl << std::endl;
 
             // Show resources that they collected during other players' turns
             std::cout << "During other players turns, you collected: ";
             player->showCollectedResources();
+            std::cout << std::endl;
 
             // Roll the dice
             const int roll = dice() + dice();
-            std::cout << "You rolled a " << roll << std::endl;
+            std::cout << "You rolled a " << roll << std::endl << std::endl;
 
             // If the roll is a 7, handle it
             if (roll == 7) {
@@ -53,6 +54,7 @@ int Game::Play() {
                 std::cout << "You got ";
                 player->showCollectedResources();
             }
+            std::cout << std::endl;
 
             /* Action holds the code that allows communication between player and board
              *
@@ -94,7 +96,7 @@ int Game::Play() {
                         if (!name.empty()) {
                             Resource stolen = board.getRandomResource(name);
                             player->addResource(stolen);
-                            std::cout << "You got " << stolen.type << "!" << std::endl;
+                            std::cout << "You got " << stolen.type << "!" << std::endl << std::endl;
                         }
 
                         //Update action
@@ -106,7 +108,7 @@ int Game::Play() {
                         //Place two roads
                         for (int i = 0; i < 2; i++) {
                             while (placeStructure(player,3) == -3) {
-                                std::cout << "Invalid Placement" << std::endl;
+                                std::cout << "Invalid Placement" << std::endl << std::endl;
                             }
                         }
 
@@ -136,12 +138,12 @@ void Game::onA7(Player* player) {
     int otherPlayersRobbed = 0;
 
     // Remove cards for greedy people
-    std:: cout << "The Robber will now steal cards from anyone with over 7 cards!" << std::endl;
+    std:: cout << "The Robber will now steal cards from anyone with over 7 cards!" << std::endl << std::endl;
     for (const auto &robbed : players) {
         if (robbed != player) {
             if (robbed->rolledASeven()) {
                 otherPlayersRobbed++;
-                std::cout << "\n";
+                std::cout << std::endl;
                 robbed -> loseHalfOfCards();
             }
         }
@@ -149,7 +151,7 @@ void Game::onA7(Player* player) {
 
     // If other players were robbed, shift back to main player's turn. If no players were robbed this is not necessary
     if (otherPlayersRobbed != 0) {
-        std::cout << "\nOkay " << player->getName() << " back to your turn" << std::endl;
+        std::cout << std::endl << std::endl << std::endl << "\nOkay " << player->getName() << " back to your turn" << std::endl << std::endl;
     }
 
     // Steal half of main player's cards if necessary
@@ -157,7 +159,7 @@ void Game::onA7(Player* player) {
         player -> loseHalfOfCards();
     }
     else {
-        std::cout << "You had less than 7 cards!" << std::endl;
+        std::cout << "You had less than 7 cards!" << std::endl << std::endl;
     }
 
     //Move the Robber
@@ -173,7 +175,7 @@ void Game::onA7(Player* player) {
     if (name != "") {
         Resource stolen = board.getRandomResource(name);
         player->addResource(stolen);
-        std::cout << "You got " << stolen.type << "!" << std::endl;
+        std::cout << "You got " << stolen.type << "!" << std::endl << std::endl;
     }
 }
 

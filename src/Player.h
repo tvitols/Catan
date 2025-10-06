@@ -15,6 +15,27 @@
 
 enum playerColor : int {red = 0, white = 1, blue = 2, green = 3};
 
+inline std::ostream& operator<<(std::ostream& os, const playerColor& pC) {
+    switch (pC) {
+        case red:
+            os << "Red";
+            break;
+        case white:
+            os << "White";
+            break;
+        case blue:
+            os << "Blue";
+            break;
+        case green:
+            os << "Green";
+            break;
+        default:
+            os << "UNKNOWN";
+            break;
+    }
+    return os;
+}
+
 class Player {
 
     std::string name;

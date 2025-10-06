@@ -12,7 +12,7 @@
 Player::Player(const std::string *pname, playerColor pColor) {
     name = *pname;
     color = pColor;
-    //automaticaly can do a 4:1 trade
+    //automatically can do a 4:1 trade
     allowedTrades.push_back(Trade(Resource(null, 4), Resource(null, 1)));
 }
 
@@ -107,7 +107,7 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
             break;
         case -1:
             //Invalid placement of settlement
-            std::cout << "Invalid Placement for a settlement. Resources have been refunded." << std::endl;
+            std::cout << "Invalid Placement for a settlement. Resources have been refunded." << std::endl << std::endl;
             while (!choice) {
                 std::cout << "Would you like to try again?\n1. yes\n2. no\n>>> ";
                 //Validating input
@@ -172,14 +172,15 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
 
 
     while (true) {
-        std::cout << "Select an option to \n1. Show Resources\n2. Buy something\n3. Trade\n4. Play a dev card\n5. Show board\n6. Display stats\n7. End turn\n>>> ";
+        std::cout << std::endl << std::endl << "Select an option to \n1. Show Resources\n2. Buy something\n3. Trade\n4. Play a dev card\n5. Show board\n6. Display stats\n7. End turn\n>>> ";
         choice = getIntFromUser();
         switch (choice) {
-            case 1:
+            case 1: {
                 //Printing resources
                 std::cout << "You have: " << std::endl;
                 showResources();
                 break;
+}
             case 2: {
                 const int result = buyMenu();
                 //Returning number associated with each type of Structure
@@ -203,22 +204,22 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                     case 1:
                             //Trading with the Bank and returning whether that Trade was completed
                             if (tradeBank()) {
-                                std::cout << name + ": Trade Completed!" << std::endl;
+                                std::cout << name + ": Trade Completed!" << std::endl << std::endl;
                             }
                             else {
-                                std::cout << name + ": Trade Failed!" << std::endl;
+                                std::cout << name + ": Trade Failed!" << std::endl << std::endl;
                             }
                             break;
                     case 2:
                         //Trading with Players and returning whether that Trade was completed
                         if (initiateTrade(players)) {
-                            std::cout << name + ": Trade Completed!" << std::endl;
+                            std::cout << name + ": Trade Completed!" << std::endl << std::endl;
                         }
                         else {
-                            std::cout << name + ": Trade Failed!" << std::endl;
+                            std::cout << name + ": Trade Failed!" << std::endl << std::endl;
                         }
                         break;
-                    default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+                    default: choice = 0; std::cout << "Invalid choice" << std::endl <<  std::endl; break;
                     }
 
                 }
@@ -226,7 +227,7 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
             case 4:
                 //Playing DevCard
                 if (devCards.isEmpty()) {
-                    std::cout << "You don't have any dev cards, you can buy some from the buy menu!" << std::endl;
+                    std::cout << "You don't have any dev cards, you can buy some from the buy menu!" << std::endl << std::endl;
                     break;
                 }
                 //Obtains key from devCards play() function
@@ -245,12 +246,14 @@ int Player::takeTurn(const std::vector<Player*>& players, int action, Deck* &dec
                 //Shows Board
                     return 6;
 
-            case 6:
+            case 6: {
                 //Prints the victory points of each player
+                std::cout << std::endl;
                 for (const auto player : players) {
                     std::cout << player->name << ": "  << player->getVP() << " VP" << (player->hasLargestArmy()?"Largest Army: "+std::to_string(player->getArmy()):"") << std::endl;
                 }
                 break;
+}
             //Quits
             case 7: return 0;
             default: std::cout << "Invalid choice" << std::endl; break;
@@ -278,13 +281,13 @@ void Player::showCollectedResources() {
 int Player::buyMenu() {
     int choice = 0;
     while (true) {
-        std::cout << "Select an option to buy\n1. road\n2. settlement\n3. city\n4. development card\4. Go Back\n>>> ";
+        std::cout <<std::endl << std::endl << "Select an option to buy\n1. road\n2. settlement\n3. city\n4. development card\4. Go Back\n>>> ";
         choice = getIntFromUser();
         switch (choice){
             case 1:
                 //Validates resources of road
                 if (resources[brick] < 1 || resources[wood] < 1) {
-                    std::cout << "Insufficient resources!" << std::endl;
+                    std::cout << "Insufficient resources!" << std::endl << std::endl;
                     return -3;
                 }
                 //Removed resources
@@ -295,7 +298,7 @@ int Player::buyMenu() {
             case 2:
                 //Validates resources of settlement
                 if (resources[sheep] < 1 || resources[wheat] < 1 || resources[wood] < 1 || resources[brick] < 1) {
-                    std::cout << "Insufficient resources!" << std::endl;
+                    std::cout << "Insufficient resources!" << std::endl << std::endl;
                     return -1;
                 }
                 //Removes resources
@@ -308,7 +311,7 @@ int Player::buyMenu() {
             case 3:
                 //Validates resources of City
                 if (resources[stone] < 2 || resources[wheat] < 3) {
-                    std::cout << "Insufficient resources!" << std::endl;
+                    std::cout << "Insufficient resources!" << std::endl << std::endl;
                     return -2;
                 }
                 //Removes resources
@@ -319,7 +322,7 @@ int Player::buyMenu() {
             case 4:
                 //Validates resources of DevCard
                 if (resources[wheat] < 1 || resources[stone] < 1 || resources[sheep] < 1) {
-                    std::cout << "Insufficient resources!" << std::endl;
+                    std::cout << "Insufficient resources!" << std::endl << std::endl;
                     return -4;
                 }
                 //Removes resources
@@ -337,8 +340,9 @@ int Player::buyMenu() {
 
 
 void Player::monopoly(const std::vector<Player*>& players) {
-    int choice;
+    int choice = 0;
     //Chooses resource to obtain
+    std::cout << std::endl << std::endl;
     std::cout << "Select an option from the list below" << std::endl;
     std::cout << "1. Wood" << std::endl;
     std::cout << "2. Stone" << std::endl;
@@ -356,8 +360,8 @@ void Player::monopoly(const std::vector<Player*>& players) {
     //Removes all of that resourceType from every other player
     //Adds number of resources stolen to user
     switch (choice) {
-        case 1:
-            int numberOfWood;
+        case 1: {
+            int numberOfWood = 0;
             for (Player* player : players) {
                 numberOfWood = (player->getResources())[wood];
                 totalResource += numberOfWood;
@@ -365,10 +369,11 @@ void Player::monopoly(const std::vector<Player*>& players) {
                 player->removeResource(Resource(wood, numberOfWood));
             }
             addResource(resourcesStolen);
-            std::cout << "You stole " << std::to_string(totalResource) << " wood." << std::endl;
+            std::cout << "You stole " << std::to_string(totalResource) << " wood." << std::endl << std::endl;
             break;
-        case 2:
-            int numberOfStone;
+        }
+        case 2: {
+            int numberOfStone = 0;
             for (Player* player : players) {
                 numberOfStone = (player->getResources())[stone];
                 totalResource += numberOfStone;
@@ -376,10 +381,11 @@ void Player::monopoly(const std::vector<Player*>& players) {
                 player->removeResource(Resource(stone, numberOfStone));
             }
             addResource(resourcesStolen);
-            std::cout << "You stole " << std::to_string(totalResource) << " stone." << std::endl;
+            std::cout << "You stole " << std::to_string(totalResource) << " stone." << std::endl << std::endl;
             break;
-        case 3:
-            int numberOfBrick;
+        }
+        case 3: {
+            int numberOfBrick = 0;
             for (Player* player : players) {
                 numberOfBrick = (player->getResources())[brick];
                 totalResource += numberOfBrick;
@@ -387,10 +393,11 @@ void Player::monopoly(const std::vector<Player*>& players) {
                 player->removeResource(Resource(brick, numberOfBrick));
             }
             addResource(resourcesStolen);
-            std::cout << "You stole " << std::to_string(totalResource) << " brick." << std::endl;
+            std::cout << "You stole " << std::to_string(totalResource) << " brick." << std::endl << std::endl;
             break;
-        case 4:
-            int numberOfSheep;
+        }
+        case 4: {
+            int numberOfSheep = 0;
             for (Player* player : players) {
                 numberOfSheep = (player->getResources())[sheep];
                 totalResource += numberOfSheep;
@@ -398,11 +405,11 @@ void Player::monopoly(const std::vector<Player*>& players) {
                 player->removeResource(Resource(sheep, numberOfSheep));
             }
             addResource(resourcesStolen);
-            std::cout << "You stole " << std::to_string(totalResource) << " sheep." << std::endl;
+            std::cout << "You stole " << std::to_string(totalResource) << " sheep." << std::endl << std::endl;
             break;
-        case 5:
-            std::cout << "How much wheat do you want: ";
-            int numberOfWheat;
+        }
+        case 5: {
+            int numberOfWheat = 0;
             for (Player* player : players) {
                 numberOfWheat = player->getResources()[wheat];
                 totalResource += numberOfWheat;
@@ -410,8 +417,9 @@ void Player::monopoly(const std::vector<Player*>& players) {
                 player->removeResource(Resource(wheat, numberOfWheat));
             }
             addResource(resourcesStolen);
-            std::cout << "You stole " << std::to_string(totalResource) << " wheat." << std::endl;
+            std::cout << "You stole " << std::to_string(totalResource) << " wheat." << std::endl << std::endl;
             break;
+        }
     }
 
 }
@@ -459,31 +467,32 @@ void Player::addTrade(const Trade &t) {
 }
 
 bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
-    char choice = static_cast<char>(NULL);
+    int choice = 0;
     std::cout << "\n" + name + ": Trade Offered! \nYou recieve: " << std::endl;
     //Resources offered to you
     for (Resource resourceGet : get) {
         std::cout << std::to_string(resourceGet.num) << " " << static_cast<resourceType>(resourceGet.type) << std::endl;
     }
+    std::cout << std::endl;
     std::cout << "\nYou give: " << std::endl;
     //Resources would you be losing
     for (Resource resourceGive : give) {
         std::cout << std::to_string(resourceGive.num) << " " << static_cast<resourceType>(resourceGive.type) << std::endl;
     }
+    std::cout << std::endl;
     while (!choice) {
-        std::cout << "Would you like to proceed? (y or n): ";
-        std::cin >> choice;
-        checkCin(&choice);
+        std::cout << "Would you like to proceed?\1. yes\n2. no\n>>> ";
+        choice = getIntFromUser();
         //Validating input
         switch (choice) {
-            case 'y': case 'Y':
+            case 1:
                 //Removing resources
                 if (removeResource(give)) {
-                    std::cout << "Trade done!" << std::endl;
+                    std::cout << "Trade done!" << std::endl << std::endl;
                 }
                 //Validating that you have enough resources for the Trade
                 else {
-                    std::cout << "Trade failed! You don't have enough resources!" << std::endl;
+                    std::cout << "Trade failed! You don't have enough resources!" << std::endl << std::endl;
                     return false;
                 }
                 //Adding the resources offered
@@ -492,10 +501,10 @@ bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
                 }
                 return true;
             //Refusing Trade
-            case 'n': case 'N':
-                std::cout << "Trade rejected!" << std::endl;
+            case 2:
+                std::cout << "Trade rejected!" << std::endl << std::endl;
                 return false;
-            default: choice = 0; std::cout << "Invalid choice" << std::endl; break;
+            default: choice = 0; std::cout << "Invalid choice" << std::endl << std::endl; break;
         }
     }
     return false;
@@ -838,19 +847,22 @@ void Player::loseHalfOfCards() {
     showResources();
     //Number of resources they have gottenRidOf
     int gottenRidOf = 0;
-    char choice;
+    int choice = -1;
+    int numResource = 0;
 
     while (gottenRidOf < numberOfResources/2) {
-        int numResource = 0;
-        std::cout << "Would you like to get rid of wood, sheep, brick, stone wheat: ";
-        std::cin >> choice;
-        checkCin(&choice);
+        if (choice != -1) {
+            std::cout << "You have gotten rid of " << std::to_string(gottenRidOf) << " resources. You still need to get rid of " << std::to_string((numberOfResources / 2)-gottenRidOf) << " more." << std::endl;
+        }
+        numResource = 0;
+        std::cout << std::endl << "What would you like to get rid of?\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n>>> ";
+        choice = getIntFromUser();
         switch (choice) {
-            case 'w': case 'W':
+            case 1: choice = 0;
                 std::cout << "How much wood would you like to get rid of? ";
                 numResource = getIntFromUser();
                 //Validating input
-                while (numResource == -1) {
+                while (numResource <= 0) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
@@ -862,11 +874,11 @@ void Player::loseHalfOfCards() {
                 //Adding number gotten rid of to gottenRidOf
                 gottenRidOf += numResource;
                 break;
-            case 's': case 'S':
+            case 2: choice = 0;
                 std::cout << "How many sheep would you like to get rid of? ";
                 numResource = getIntFromUser();
                 //Input validation
-                while (numResource == -1) {
+                while (numResource <= 0) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
@@ -878,11 +890,11 @@ void Player::loseHalfOfCards() {
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
                 break;
-            case 't': case 'T': choice = 0;
+            case 4: choice = 0;
                 std::cout << "How many stones do you want to get rid of? ";
                 numResource = getIntFromUser();
                 //Validating input
-                while (numResource == -1) {
+                while (numResource <= 0) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
@@ -894,11 +906,11 @@ void Player::loseHalfOfCards() {
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
                 break;
-            case 'b': case 'B': choice = 0;
+            case 3: choice = 0;
                 std::cout << "How many bricks do you want to get rid of? ";
                 numResource = getIntFromUser();
                 //Validating input
-                while (numResource == -1) {
+                while (numResource <= 0) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
@@ -910,11 +922,11 @@ void Player::loseHalfOfCards() {
                 //Increasing gottenRidOf
                 gottenRidOf += numResource;
                 break;
-            case 'h': case 'H': choice = 0;
+            case 5: choice = 0;
                 std::cout << "How much wheat do you want to get rid of? ";
                 numResource = getIntFromUser();
                 //Input validation
-                while (numResource == -1) {
+                while (numResource <= 0) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
@@ -932,10 +944,10 @@ void Player::loseHalfOfCards() {
 }
 
 std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<int>>> stuffToSteal) {
-    int choice = static_cast<int>(NULL);
     resourceType gained;
     //Checking that there were players on that Tile
     if (!stuffToSteal.empty()) {
+        int choice = 0;
         bool canStealFrom = false;
         //Prompting User to steal from a Player, or quit
         while (!canStealFrom) {

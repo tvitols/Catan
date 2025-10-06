@@ -8,64 +8,80 @@
 #include "CustomUtils.h"
 #include "Info.h"
 #include "Player.h"
-#include "Board.h"
 #include "Game.h"
+#include <set>
+
 using namespace std;
 
 int main() {
 
-    string welcome = " ___       __   _______   ___       ________  ________  _____ ______   _______           _________  ________          ________  ________  _________  ________  ________\n"
-"|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\         |\\___   ___\\\\   __  \\        |\\   ____\\|\\   __  \\|\\___   ___\\\\   __  \\|\\   ___  \\    \n"
-"\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|        \\|___ \\  \\_\\ \\  \\|\\  \\       \\ \\  \\___|\\ \\  \\|\\  \\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\\\ \\  \\   \n"
-" \\ \\  \\  __\\ \\  \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\|__| \\  \\ \\  \\_|/__           \\ \\  \\ \\ \\  \\\\\\  \\       \\ \\  \\    \\ \\   __  \\   \\ \\  \\ \\ \\   __  \\ \\  \\\\ \\  \\  \n"
- " \\ \\  \\|\\__\\_\\  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\           \\ \\  \\ \\ \\  \\\\\\  \\       \\ \\  \\____\\ \\  \\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\ \\  \\\\ \\  \\ \n"
-  " \\ \\____________\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\ \\__\\    \\ \\__\\ \\_______\\           \\ \\__\\ \\ \\_______\\       \\ \\_______\\ \\__\\ \\__\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\\\ \\__\\\n"
-   " \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|            \\|__|  \\|_______|        \\|_______|\\|__|\\|__|    \\|__|  \\|__|\\|__|\\|__| \\|__|\n"
-    " \n\n______________________________________________________________________________________________________________________________________________________________________";
+    const string welcome =  " ___       __   _______   ___       ________  ________  _____ ______   _______           _________  ________          ________  ________  _________  ________  ________\n"
+                            "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\         |\\___   ___\\\\   __  \\        |\\   ____\\|\\   __  \\|\\___   ___\\\\   __  \\|\\   ___  \\    \n"
+                            "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|        \\|___ \\  \\_\\ \\  \\|\\  \\       \\ \\  \\___|\\ \\  \\|\\  \\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\\\ \\  \\   \n"
+                            " \\ \\  \\  __\\ \\  \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\|__| \\  \\ \\  \\_|/__           \\ \\  \\ \\ \\  \\\\\\  \\       \\ \\  \\    \\ \\   __  \\   \\ \\  \\ \\ \\   __  \\ \\  \\\\ \\  \\  \n"
+                             " \\ \\  \\|\\__\\_\\  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\           \\ \\  \\ \\ \\  \\\\\\  \\       \\ \\  \\____\\ \\  \\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\ \\  \\\\ \\  \\ \n"
+                              " \\ \\____________\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\ \\__\\    \\ \\__\\ \\_______\\           \\ \\__\\ \\ \\_______\\       \\ \\_______\\ \\__\\ \\__\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\\\ \\__\\\n"
+                               " \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|            \\|__|  \\|_______|        \\|_______|\\|__|\\|__|    \\|__|  \\|__|\\|__|\\|__| \\|__|\n"
+                                " \n\n______________________________________________________________________________________________________________________________________________________________________";
 
-    cout << welcome << endl;
+    cout << welcome << endl << endl << endl;
 
-    char choice;
+    int choice = 0;
     while (!choice) {
-        cout << "Press (p) to play, (r) for the rules, (i) for more info, or (q) to quit: ";
-        cin >> choice;
-        checkCin(&choice);
+        cout << "Select an option to get started:"
+                "\n1. Play"
+                "\n2. Rules of Catan"
+                "\n3. Info"
+                "\n4. Quit"
+                "\n>>> ";
+        choice = getIntFromUser();
         switch (choice){
-            case 'p': case 'P':  break;
+            case 1:  break;
             //Printing info
-            case 'i': case 'I': choice = 0; Info::print_info(); break;
+            case 2: choice = 0; Info::print_info(); break;
             //Printing rules
-            case 'r': case 'R': choice = 0; Info::print_rules(); break;
+            case 3: choice = 0; Info::print_rules(); break;
             //Ending game
-            case 'q': case 'Q': return 0;
+            case 4: return 0;
 
             default: choice = 0; cout << "Invalid choice" << endl; break;
         }
     }
-    int numPlayers;
-    cout << "Select number of players (2-4): ";
-    cin >> numPlayers;
-    checkCin(&numPlayers);
+
+    cout << "Enter the number of players (2-4): ";
+    int numPlayers = getIntFromUser();
     //Validation
     while (numPlayers < 2 || numPlayers > 4){
 
         cout << "Invalid number of players. Select number of players (2-4): ";
-        cin >> numPlayers;
-        checkCin(&numPlayers);
+        numPlayers = getIntFromUser();
     }
-    cout << "Players: " << numPlayers << endl;
     //Creating Players
     vector<Player*> players;
     string name;
+    vector<playerColor> availableColors = {red, white, blue, green};
     for (int i = 0; i < numPlayers; i++) {
+        choice = 0;
         //Obtaining player name
         cout << "Player " << i + 1 << ", enter your name: ";
-        cin >> name;
+        getline(cin, name);
+        cout << endl;
         if (name.empty() || name.length() > 50) {
             cout << "Invalid name." << endl;
-            i --; break;
+            i --;
+        }else {
+            while (choice < 1 || choice > availableColors.size()+1) {
+                cout << "Pick your color:" << endl;
+                for (int j = 0; j < availableColors.size(); j++) {
+                    cout << j+1 << ". " << (availableColors[j]) << endl;
+                }
+                cout << ">>> ";
+                choice = getIntFromUser();
+            }
+            players.push_back(new Player(&name,static_cast<playerColor>(choice)));
+            availableColors.erase(availableColors.begin()+choice-1);
+            cout << endl;
         }
-        players.push_back(new Player(&name,static_cast<playerColor>(i)));
     }
     //Playing Game!
     auto game = Game(players);
