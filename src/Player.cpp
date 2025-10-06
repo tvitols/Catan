@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 
-#define WINNING_VP 5
+#define WINNING_VP 10
 
 Player::Player(const std::string *pname, playerColor pColor) {
     name = *pname;
@@ -430,7 +430,7 @@ bool Player::addVP(int pVP) {
     vp += pVP;
     //returns true if that puts the player over 10
     if (hasWon()) {
-        std::cout << "Congratulations! You have reached 10 VP, other players will now get one final turn once yuo end yours." << std::endl;
+        std::cout << "Congratulations! You have reached 10 VP, other players will now get one final turn once you end yours." << std::endl;
     }
     return hasWon();
 }
@@ -775,7 +775,7 @@ bool Player::tradeBank() {
     //Receive resources
     choice = 0;
     while (!choice) {
-        std::cout << "What would you like to receive?\n1. wood\n2. sheep\n3. brick\n4. stone\5. wheat\n>>> ";
+        std::cout << "What would you like to receive?\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n>>> ";
         choice = getIntFromUser();
         switch (choice) {
             case wood+1:
@@ -928,7 +928,7 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
         while (!canStealFrom) {
             std::cout << "Who would you like to steal from?" << std::endl;
             for (int i = 0; i < stuffToSteal.size(); i++) {
-                std::cout << std::to_string(i+1) << "1. " << get<0>(stuffToSteal[i]) << std::endl;
+                std::cout << std::to_string(i+1) << ". " << get<0>(stuffToSteal[i]) << std::endl;
             }
             std::cout << std::to_string(stuffToSteal.size()+1) << ". quit\n>>> ";
 

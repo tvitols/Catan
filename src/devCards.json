@@ -1,8 +1,0 @@
-{
-  "deck": [
-    {"type": "knight"},
-    {"type": "vp",
-    "name": "Palace"},
-    {"type":"roadBuilding"}
-  ]
-}
