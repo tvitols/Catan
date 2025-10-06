@@ -33,7 +33,9 @@ up the graphics and gameplay, and also looking into some of the Catan expansions
 Cities and Knights, Traders and Barbarians, and Explorers and Pirates
 
 ### **Known Bugs**
-None! We're super excited for you to go through and find some!
+If you X out of the Board graphics it ends the game.
+Occasionally there's a random extra resource displayed in collectedResources
+Note: Any additional bugs shown in Demo video have been fixed
 
 ### **Citations**
 Graphics (forked and lightly modified): https://github.com/lukasmatena/cppgraphics
