@@ -188,7 +188,7 @@ class Player {
      * @param give vector of Resources to
      * @return if accepted trade, false otherwise
      */
-    bool trade(std::vector<Resource>get, std::vector<Resource>give);
+    bool trade(const std::vector<Resource>&get, const std::vector<Resource> &give);
 
     /**
      * Asks user to input how many Resources they want to offer and obtain

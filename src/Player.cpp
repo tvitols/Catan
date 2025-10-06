@@ -471,7 +471,7 @@ void Player::addTrade(const Trade &t) {
     }
 }
 
-bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
+bool Player::trade(const std::vector<Resource>& get, const std::vector<Resource> &give) {
     int choice = 0;
     std::cout << "\n" + name + ": Trade Offered! \nYou recieve: " << std::endl;
     //Resources offered to you
@@ -486,7 +486,7 @@ bool Player::trade(std::vector<Resource> get, std::vector<Resource> give) {
     }
     std::cout << std::endl;
     while (!choice) {
-        std::cout << "Would you like to proceed?\1. yes\n2. no\n>>> ";
+        std::cout << "Would you like to proceed?\n1. yes\n2. no\n>>> ";
         choice = getIntFromUser();
         //Validating input
         switch (choice) {
@@ -521,12 +521,14 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     int numResource;
     int choice = 0;
 
+    std::vector<int> tradeNums = {0,0,0,0,0};
+
     while (!choice) {
         //Creating vector of Resources they would offer in the Trade
         std::cout << "What would you like to offer? (Select finish when done or quit to go back)\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n6. finish\n7. quit\n>>> ";
         choice = getIntFromUser();
         switch (choice) {
-            case wood+1: choice = 0;
+            case 1: choice = 0;
                 std::cout << "How much wood do you want to trade? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -535,13 +537,14 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource > resources[wood]) {
+                if (tradeNums[wood] + numResource > resources[wood]) {
                     std::cout << "You don't have enough wood for that trade!" << std::endl;
                     break;
                 }
+                tradeNums[wood] += numResource;
                 offer.push_back(Resource(wood, numResource));
                 break;
-            case sheep+1: choice = 0;
+            case 2: choice = 0;
                 std::cout << "How many sheep do you want to trade? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -550,13 +553,14 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource > resources[sheep]) {
+                if (tradeNums[sheep] + numResource > resources[sheep]) {
                     std::cout << "You don't have enough sheep for that trade!" << std::endl;
                     break;
                 }
+                tradeNums[sheep] += numResource;
                 offer.push_back(Resource(sheep, numResource));
                 break;
-            case stone+1: choice = 0;
+            case 4: choice = 0;
                 std::cout << "How many stones do you want to trade? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -565,13 +569,14 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource > resources[stone]) {
+                if (tradeNums[stone] + numResource > resources[stone]) {
                     std::cout << "You don't have enough stone for that trade!" << std::endl;
                     break;
                 }
+                tradeNums[stone] += numResource;
                 offer.push_back(Resource(stone, numResource));
                 break;
-            case brick+1: choice = 0;
+            case 3: choice = 0;
                 std::cout << "How many bricks do you want to trade? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -580,13 +585,14 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource > resources[brick]) {
+                if (tradeNums[brick] + numResource > resources[brick]) {
                     std::cout << "You don't have enough brick for that trade!" << std::endl;
                     break;
                 }
+                tradeNums[brick] += numResource;
                 offer.push_back(Resource(brick, numResource));
                 break;
-            case wheat+1: choice = 0;
+            case 5: choice = 0;
                 std::cout << "How much wheat do you want to trade? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -595,10 +601,11 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (numResource > resources[wheat]) {
+                if (tradeNums[wheat] + numResource > resources[wheat]) {
                     std::cout << "You don't have enough wheat for that trade!" << std::endl;
                     break;
                 }
+                tradeNums[wheat] += numResource;
                 offer.push_back(Resource(wheat, numResource));
                 break;
             case 6: choice = 1; break;
@@ -609,17 +616,12 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     }
 
     choice = 0;
-    int numWheat = 0;
-    int numWood = 0;
-    int numSheep = 0;
-    int numStone = 0;
-    int numBrick = 0;
     //Creating a vector of Resources you would like to recieve
     while (!choice) {
-        std::cout << "What would you like to get? (Select finish when done or quit to go back)\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n6. finish\n. quit\n>>> ";
+        std::cout << "What would you like to get? (Select finish when done or quit to go back)\n1. wood\n2. sheep\n3. brick\n4. stone\n5. wheat\n6. finish\n7. quit\n>>> ";
         choice = getIntFromUser();
         switch (choice) {
-            case wood+1: choice = 0;
+            case 1: choice = 0;
                 std::cout << "How much wood do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -627,16 +629,9 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
-                //Validating input
-                if (numResource + numWood > resources[wood]) {
-                    std::cout << "You don't have enough wood for that trade!" << std::endl;
-                    break;
-                }
-                //Adds number of woods previously removed to help validate resources
-                numWood += numResource;
                 want.push_back(Resource(wood, numResource));
                 break;
-            case sheep+1: choice = 0;
+            case 2: choice = 0;
                 std::cout << "How many sheep do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -644,16 +639,9 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
-                //Validating input
-                if (numResource + numSheep > resources[sheep]) {
-                    std::cout << "You don't have enough sheep for that trade!" << std::endl;
-                    break;
-                }
-                //Adds number of sheep previously removed to help validate resources
-                numSheep += numResource;
                 want.push_back(Resource(sheep, numResource));
                 break;
-            case brick+1: choice = 0;
+            case 3: choice = 0;
                 std::cout << "How many bricks do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -661,16 +649,9 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
-                //Validating input
-                if (numResource + numStone > resources[stone]) {
-                    std::cout << "You don't have enough stone for that trade!" << std::endl;
-                    break;
-                }
-                //Adds number of stone previously removed to help validate resources
-                numStone += numResource;
                 want.push_back(Resource(brick, numResource));
                 break;
-            case stone+1: choice = 0;
+            case 4: choice = 0;
                 std::cout << "How many stones do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -678,16 +659,9 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
-                //Validating input
-                if (numResource + numBrick > resources[brick]) {
-                    std::cout << "You don't have enough brick for that trade!" << std::endl;
-                    break;
-                }
-                //Adds number of brick previously removed to help validate resources
-                numBrick += numResource;
                 want.push_back(Resource(stone, numResource));
                 break;
-            case wheat+1: choice = 0;
+            case 5: choice = 0;
                 std::cout << "How much wheat do you want? Minimum 0: ";
                 numResource = getIntFromUser();
                 //Validating input
@@ -695,13 +669,6 @@ bool Player::initiateTrade(std::vector<Player*> players) {
                     std::cout << "Invalid input. Please enter a number > 0: ";
                     numResource = getIntFromUser();
                 }
-                //Validating input
-                if (numResource + numWheat > resources[wheat]) {
-                    std::cout << "You don't have enough wheat for that trade!" << std::endl;
-                    break;
-                }
-                //Adds number of wheat previously removed to help validate resources
-                numWheat += numResource;
                 want.push_back(Resource(wheat, numResource));
                 break;
             case 6: choice = 6; break;
@@ -724,9 +691,7 @@ bool Player::initiateTrade(std::vector<Player*> players) {
     }
     //Removes resources offered
     removeResource(offer);
-    for (const Resource resource : want) {
-        addResource(resource);
-    }
+    addResource(want);
     return true;
 }
 
