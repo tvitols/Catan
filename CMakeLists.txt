@@ -165,4 +165,15 @@ if (UNIX AND NOT APPLE)
     target_link_libraries( ${TARGET_NAME} Threads::Threads)
 endif()
 
-add_executable(Tests test/testing.cpp)
+add_executable(Tests test/testing.cpp
+        src/Player.cpp
+        src/Deck.cpp
+        src/Card.cpp
+        src/CardStack.cpp
+        src/VictoryPointCard.cpp
+        src/KnightCard.cpp
+        src/MonopolyCard.cpp
+        src/RoadBuilding.cpp
+        src/YearOfPlentyCard.cpp
+        src/Player.cpp)
+

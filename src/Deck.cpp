@@ -15,7 +15,7 @@ Deck::Deck() {
     //Creates Deck of Cards
     for (int i = 0; i < 14; i++) {
         cards.push_back(new KnightCard());
-        if (i <2) {
+        if (i < 2) {
             cards.push_back(new MonopolyCard());
             cards.push_back(new RoadBuilding());
             cards.push_back(new YearOfPlenty());

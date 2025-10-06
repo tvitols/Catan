@@ -78,6 +78,16 @@ inline bool operator==(const Trade& lhs, const Trade& rhs) {
     return lhs.give.type == rhs.give.type && lhs.give.num == rhs.give.num;
 }
 
+/** Compares two Trades
+ *
+ * @param lhs The left hand side Trade
+ * @param rhs The right hand side Trade
+ * @return Inverse of above
+ */
+inline bool operator!=(const Trade& lhs, const Trade& rhs) {
+    return !(lhs == rhs);
+}
+
 inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
     os << rhs.num << " " << rhs.type;
     return os;
