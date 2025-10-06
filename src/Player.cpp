@@ -867,7 +867,7 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (removeResource(Resource(wood, numResource))) {
+                if (!removeResource(Resource(wood, numResource))) {
                     std::cout << "You don't have enough wood!" << std::endl;
                     break;
                 }
@@ -883,7 +883,7 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Input validation
-                if (removeResource(Resource(sheep, numResource))) {
+                if (!removeResource(Resource(sheep, numResource))) {
                     std::cout << "You don't have enough sheep!" << std::endl;
                     break;
                 }
@@ -899,7 +899,7 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (removeResource(Resource(stone, numResource))) {
+                if (!removeResource(Resource(stone, numResource))) {
                     std::cout << "You don't have enough stone!" << std::endl;
                     break;
                 }
@@ -915,7 +915,7 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Validating input
-                if (removeResource(Resource(brick, numResource))) {
+                if (!removeResource(Resource(brick, numResource))) {
                     std::cout << "You don't have enough brick!" << std::endl;
                     break;
                 }
@@ -931,7 +931,7 @@ void Player::loseHalfOfCards() {
                     numResource = getIntFromUser();
                 }
                 //Input validation
-                if (removeResource(Resource(wheat, numResource))) {
+                if (!removeResource(Resource(wheat, numResource))) {
                     std::cout << "You don't have enough wheat!" << std::endl;
                     break;
                 }
