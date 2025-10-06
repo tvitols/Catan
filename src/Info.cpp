@@ -21,6 +21,7 @@ void Info::print_rules() {
     while (getline(rules,rule)) {
         std::cout << rule << std::endl;
     }
+    std:: cout << std::endl << std::endl << std::endl;
 }
 
 void Info::print_info() {
@@ -35,4 +36,5 @@ void Info::print_info() {
     while (getline(info,infoString)) {
         std::cout << infoString << std::endl;
     }
+    std:: cout << std::endl << std::endl << std::endl;
 }

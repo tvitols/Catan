@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 
+#define WINNING_VP 5
+
 Player::Player(const std::string *pname, playerColor pColor) {
     name = *pname;
     color = pColor;
@@ -281,7 +283,7 @@ void Player::showCollectedResources() {
 int Player::buyMenu() {
     int choice = 0;
     while (true) {
-        std::cout <<std::endl << std::endl << "Select an option to buy\n1. road\n2. settlement\n3. city\n4. development card\4. Go Back\n>>> ";
+        std::cout <<std::endl << std::endl << "Select an option to buy\n1. road\n2. settlement\n3. city\n4. development card\n5. Go Back\n>>> ";
         choice = getIntFromUser();
         switch (choice){
             case 1:
@@ -348,7 +350,7 @@ void Player::monopoly(const std::vector<Player*>& players) {
     std::cout << "2. Stone" << std::endl;
     std::cout << "3. Brick" << std::endl;
     std::cout << "4. Sheep" << std::endl;
-    std::cout << "5. Wheat" << std::endl;
+    std::cout << "5. Wheat\n>>> ";
     choice = getIntFromUser();
     //Validates input
     while (choice == -1 || choice == 0 || choice > 5) {
@@ -427,6 +429,9 @@ void Player::monopoly(const std::vector<Player*>& players) {
 bool Player::addVP(int pVP) {
     vp += pVP;
     //returns true if that puts the player over 10
+    if (hasWon()) {
+        std::cout << "Congratulations! You have reached 10 VP, other players will now get one final turn once yuo end yours." << std::endl;
+    }
     return hasWon();
 }
 
@@ -443,7 +448,7 @@ std::string Player::getName() const {
 }
 
 bool Player::hasWon() {
-    return vp>=10;
+    return vp>=WINNING_VP;
 }
 
 bool operator==(const Player &lhs, const Player &rhs) {
@@ -760,6 +765,7 @@ bool Player::tradeBank() {
                 //Validating input
                 if (!removeResource(Resource(wood, trade->give.num))) {
                     std::cout << "Insufficient resources!" << std::endl;
+                    if (trade->give.num == 2) return false;
                     choice = 0;
                 }
                 break;
@@ -767,6 +773,7 @@ bool Player::tradeBank() {
                 //Validating input
                 if (!removeResource(Resource(sheep, trade->give.num))) {
                     std::cout << "Insufficient resources!" << std::endl;
+                    if (trade->give.num == 2) return false;
                     choice = 0;
                 }
                 break;
@@ -774,6 +781,7 @@ bool Player::tradeBank() {
                 //Validating input
                 if (!removeResource(Resource(brick, trade->give.num))) {
                     std::cout << "Insufficient resources!" << std::endl;
+                    if (trade->give.num == 2) return false;
                     choice = 0;
                 }
                 break;
@@ -781,6 +789,7 @@ bool Player::tradeBank() {
                 //Validating input
                 if (!removeResource(Resource(stone, trade->give.num))) {
                     std::cout << "Insufficient resources!" << std::endl;
+                    if (trade->give.num == 2) return false;
                     choice = 0;
                 }
                 break;
@@ -788,6 +797,7 @@ bool Player::tradeBank() {
                 //Validating input
                 if (!removeResource(Resource(wheat, trade->give.num))) {
                     std::cout << "Insufficient resources!" << std::endl;
+                    if (trade->give.num == 2) return false;
                     choice = 0;
                 }
                 break;
@@ -953,9 +963,9 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
         while (!canStealFrom) {
             std::cout << "Who would you like to steal from?" << std::endl;
             for (int i = 0; i < stuffToSteal.size(); i++) {
-                std::cout << "(" << std::to_string(i+1) << ") " << get<0>(stuffToSteal[i]) << std::endl;
+                std::cout << std::to_string(i+1) << "1. " << get<0>(stuffToSteal[i]) << std::endl;
             }
-            std::cout << "(" << std::to_string(stuffToSteal.size()+1) << ")  quit" << std::endl;
+            std::cout << std::to_string(stuffToSteal.size()+1) << ". quit\n>>> ";
 
             choice = getIntFromUser();
             //Validates that the input is a valid choice
@@ -964,6 +974,7 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
                 choice = getIntFromUser();
             }
             if (choice == stuffToSteal.size()+1) {
+                stuffToSteal.clear();
                 return "";
             }
             //Steals from the player if they have resources
@@ -973,7 +984,9 @@ std::string Player::moveRobber(std::vector<std::tuple<std::string, std::vector<i
             }
             if (numberOfResources > 0) {
                 canStealFrom = true;
-                return get<0>(stuffToSteal[choice-1]);
+                auto ret = get<0>(stuffToSteal[choice-1]);
+                stuffToSteal.clear();
+                return ret;
             }
             else {
                 std::cout << "They don't have any resources to steal!" << std::endl;

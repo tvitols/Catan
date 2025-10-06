@@ -38,9 +38,9 @@ int main() {
         switch (choice){
             case 1:  break;
             //Printing info
-            case 2: choice = 0; Info::print_info(); break;
+            case 3: choice = 0; Info::print_info(); break;
             //Printing rules
-            case 3: choice = 0; Info::print_rules(); break;
+            case 2: choice = 0; Info::print_rules(); break;
             //Ending game
             case 4: return 0;
 
@@ -78,8 +78,8 @@ int main() {
                 cout << ">>> ";
                 choice = getIntFromUser();
             }
-            players.push_back(new Player(&name,static_cast<playerColor>(choice)));
-            availableColors.erase(availableColors.begin()+choice-1);
+            players.push_back(new Player(&name,availableColors[choice-1]));
+            availableColors.erase(availableColors.begin()+(choice-1));
             cout << endl;
         }
     }
@@ -87,4 +87,5 @@ int main() {
     auto game = Game(players);
     game.setUp();
     game.Play();
+
 }

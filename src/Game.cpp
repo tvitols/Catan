@@ -23,10 +23,10 @@ Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)), 
 }
 
 int Game::Play() {
-    // Clear the input before starting game
-    std::cin.clear();
-    std::string junk;
-    std::getline(std::cin,junk);
+    // // Clear the input before starting game
+    // std::cin.clear();
+    // std::string junk;
+    // std::getline(std::cin,junk);
 
     // Run loop until game is over
     while (!gameOver) {
@@ -125,8 +125,123 @@ int Game::Play() {
             }
             // If the player has won end the game
             gameOver = player->hasWon();
+            winners.push_back(player);
+            if (gameOver) {
+                break;
+            }
         }
     }
+
+    // Give every other player their last turn
+    for (const auto player : players) {
+
+        if (player == winners[0]) {
+            continue;
+        }
+
+        //Let them know whose turn it is
+        std::cout << std::endl << player->getName() << ", this is your final turn!" << std::endl << std::endl;
+
+        // Show resources that they collected during other players' turns
+        std::cout << "During other players turns, you collected: ";
+        player->showCollectedResources();
+        std::cout << std::endl;
+
+        // Roll the dice
+        const int roll = dice() + dice();
+        std::cout << "You rolled a " << roll << std::endl << std::endl;
+
+        // If the roll is a 7, handle it
+        if (roll == 7) {
+            onA7(player);
+        }else { // Collect Resources
+            std::cout << "Collecting Resources..." << std::endl;
+            board.collectResources(roll);
+            std::cout << "You got ";
+            player->showCollectedResources();
+        }
+        std::cout << std::endl;
+
+        /* Action holds the code that allows communication between player and board
+         *
+         * Codes as follows:
+         *
+         * 200 - start of turn (input only)
+         * 0 - end of turn (return only)
+         *
+         * The following indicate an attempt as a return and are passed as is for a success or negative for a failure
+         * 1 - Place a settlement
+         * 2 - Place a city
+         * 3 - Place a road
+         * 4 - Play a "Knight" Dev Card
+         * 5 - Play a "Road Building" Dev Card
+         * 6 - View Board
+         *
+         * Invalid codes will end turn
+         */
+        int action = (player->takeTurn(players, 200, deck));
+        while (action != 0) {
+            switch (action) {
+                // Place structure and update action
+                case 1: case 2: case 3: action = player->takeTurn(players,placeStructure(player, action),deck); break;
+
+                // Play a knight
+                case 4: {
+                    // Get a tile to move the robber to
+                    coords xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
+                    while (board.getTile(xy) == nullptr) {
+                        std::cout << "You didn't chose a tile!" << std::endl;
+                        xy = board.printBoard((player)->getName().append(", where would you like to move the robber?"));
+                    }
+
+                    // Move the robber
+                    board.moveRobber(board.getTile(xy));
+
+                    // Steal a resource from a player
+                    std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
+                    if (!name.empty()) {
+                        Resource stolen = board.getRandomResource(name);
+                        player->addResource(stolen);
+                        std::cout << "You got " << stolen.type << "!" << std::endl << std::endl;
+                    }
+
+                    //Update action
+                    action = (player->takeTurn(players, action, deck));
+                    break;
+                }
+                // Play Road Building
+                case 5:
+                    //Place two roads
+                    for (int i = 0; i < 2; i++) {
+                        while (placeStructure(player,3) == -3) {
+                            std::cout << "Invalid Placement" << std::endl << std::endl;
+                        }
+                    }
+
+                    //update action
+                    action = player->takeTurn(players,action,deck);
+                    break;
+
+                // View the board, update action
+                case 6: board.printBoard("Press anywhere to exit"); action = player->takeTurn(players,6,deck); break;
+
+                // Errors end turn
+                default: action = 0; break;
+            }
+        }
+        // If the player has won end the game
+        if (player->hasWon()) {
+            winners.push_back(player);
+        }
+    }
+
+    std::cout << "Congratulations ";
+    auto player = winners.begin();
+    while (player != winners.end()) {
+        std::cout << (*player)->getName() << (player+1 == winners.end()?"":", ");
+        ++player;
+    }
+    std::cout << (winners.size()==1?" you win!":" you all tie!");
 
     // return 0 to end game
     return 0;
@@ -172,7 +287,7 @@ void Game::onA7(Player* player) {
 
     // Steal from a player
     std::string name = player->moveRobber(board.otherPlayerResources(player->getName()));
-    if (name != "") {
+    if (!name.empty()) {
         Resource stolen = board.getRandomResource(name);
         player->addResource(stolen);
         std::cout << "You got " << stolen.type << "!" << std::endl << std::endl;

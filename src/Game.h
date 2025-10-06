@@ -34,6 +34,11 @@ class Game {
      */
     Deck* deck;
 
+    /**
+     * Holds the winning player(s)
+     */
+    std::vector<Player*> winners;
+
     public:
 
     /**

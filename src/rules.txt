@@ -82,3 +82,5 @@ You get:
 1 Victory Point for every road
 2 Victory Points for every city
 and additional other possible VPs through dev cards.
+
+

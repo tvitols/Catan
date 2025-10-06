@@ -78,6 +78,11 @@ inline bool operator==(const Trade& lhs, const Trade& rhs) {
     return lhs.give.type == rhs.give.type && lhs.give.num == rhs.give.num;
 }
 
+inline std::ostream& operator<<(std::ostream& os, Resource const &rhs) {
+    os << rhs.num << " " << rhs.type;
+    return os;
+}
+
 /**Converts a Resource into a std::string representation
  *
  * @param rhs The resource to convert
@@ -95,6 +100,33 @@ inline std::string to_string(Resource const &rhs) {
         case null: res += ("anything"); break;
     }
     return res;
+}
+
+inline std::ostream& operator<<(std::ostream& os, resourceType const &rhs){
+    switch (rhs) {
+        case wood: os << "wood"; break;
+        case sheep: os << "sheep"; break;
+        case brick: os << "brick"; break;
+        case stone: os << "stone"; break;
+        case wheat: os << "wheat"; break;
+        case null: os << "null"; break;
+        default: os << "unknown"; break;
+    }
+    return os;
+}
+
+
+inline std::stringstream& operator<<(std::stringstream& os, resourceType const &rhs){
+    switch (rhs) {
+        case wood: os << "wood"; break;
+        case sheep: os << "sheep"; break;
+        case brick: os << "brick"; break;
+        case stone: os << "stone"; break;
+        case wheat: os << "wheat"; break;
+        case null: os << "desert"; break;
+        default: os << "unknown"; break;
+    }
+    return os;
 }
 
 /**Returns the path to the image for a given resource tile
