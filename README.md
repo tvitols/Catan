@@ -33,6 +33,7 @@ up the graphics and gameplay, and also looking into some of the Catan expansions
 Cities and Knights, Traders and Barbarians, and Explorers and Pirates
 
 ### **Known Bugs**
+None! We're super excited for you to go through and find some!
 
 ### **Citations**
 Graphics (forked and lightly modified): https://github.com/lukasmatena/cppgraphics

@@ -54,6 +54,10 @@ void Deck::shuffle(const int seed) {
 }
 
 Card * Deck::Deal() {
+    //Validates input
+    if (cards.empty()) {
+        return nullptr;
+    }
     //Removes Card dealt
     //Returns that Card
     Card *ret = cards[cards.size() - 1];
