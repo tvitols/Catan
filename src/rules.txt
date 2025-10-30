@@ -1,0 +1,86 @@
+Rules of Catan:
+
+Resources:
+There are 5 different types of resources that are available in Catan
+Wood
+Wheat
+Sheep
+Brick
+Stone
+You can use these resources to buy different items such as roads, settlements,
+cities, and development cards.
+
+Tiles:
+Each tile has a different resources as shown by the design of the tile.
+Each tile also has a roll as shown by the number on the tile.
+Each tile also has 6 vertices and 6 edges.
+When that number is rolled, players who have settlements on a vertex of the tile
+receive the resource of the tile.
+
+Settlement/City:
+You can place settlements/cities on a vertex. That gives you access to each of the
+(up to) three tiles that share that vertex. However, you cannot place settlements/cities
+on two adjacent vertices. Settlements/cities, other than during set-up, also cannot
+be placed without a road leading up to them.
+Settlements give you 1 of the resource you rolled. They cost 1 sheep, 1 wood, 1 brick, and 1 wheat
+Cities give you 2 of the resource you rolled. You can only place a city at a place
+where a settlement already exists, replacing that settlement. Cities cost 2 wheat and 3 stone
+
+Road:
+You can place a road on an edge. This gives you access to an additional vertice
+that you can place a settlement/city on, as well as an additional edge you can place
+a road on. All roads need to be adjacent to either a settlement/city, or another road.
+Roads cost 1 brick and 1 wood.
+
+Development Cards:
+Development cards are special cards that each have a different action associated with them.
+Some are very simple, like getting a victory point, while others are more complex,
+like moving the Robber. Each development card that you buy will detail its specific
+operation. Development cards cost 1 sheep, 1 stone, and 1 wheat.
+
+Robber:
+The robber is located on the desert tile, AKA the one without any resources.
+When a 7 is rolled, all player with 7 or more cards have to get rid of half
+(rounding down) of their cards. The player who rolled a 7 then gets to move the robber.
+Once the robber is moved to a new tile, the player who rolled it gets to steal
+a random resource from any one player who has a settlement/city associated with
+that tile. Furthermore, that tile is now unable to give resources when it is rolled
+until the robber is moved off of it.
+
+Set-Up:
+Each player will get to place 2 settlements and 2 roads, alternating player after
+each settlement and road.
+
+Turn:
+During your turn, you will roll 2 dice. Every player who has a settlement/city on
+a tile with that number will receive that resource. Multiple tiles will have the
+same number. After rolling, you will be asked if you want to buy, trade, or end turn.
+
+Buying Something:
+You can buy a settlement, city, road, or development card during your turn. You
+will only be able to buy it if you have enough resources, and those resources will
+then be removed from your "hand". If you buy a settlement, city, or road, you will
+then be asked to place that structure on the board.
+
+Trading:
+There are two types of trading: exchanging resources and trading with other players.
+If you want to exchange a resource, you automatically are able to trade 4 of any
+given resource for 1 of any other resource. However, if you have a port, that number
+can change. There are 9 ports located throughout the board, denoted with the ship
+icon, with the 2 vertices next to it linked to that port. These ports give the player,
+if they have a settlement/city a linked vertex, the ability to either trade 2
+of a specific resource for 1 of any other resource, or 3 of anything for 1 of anything.
+You can tell the type of ability you gain based on the port tile.
+The other type of trading is with the other players. During this, you can list the
+resources you want, as well as what you're willing to trade for them, and other
+players will decide if they want to take you up on that trade (first come first served).
+
+Ending the Game:
+The game ends when a player gets 10 Victory Points.
+You get:
+1 Victory Point for every settlement
+1 Victory Point for every road
+2 Victory Points for every city
+and additional other possible VPs through dev cards.
+
+

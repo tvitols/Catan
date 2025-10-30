@@ -1,0 +1,25 @@
+Welcome to Lila Sargent and Tovahn Vitol's Open Ended Project for Module 2
+
+While the rules of this project are the same as the rules for the normal board game,
+there are some key differences that should be noted:
+
+When you need to interact with the board, such as during the set-up or placing newly
+bought houses/cities/roads, an interactable board will pop up as a separate window
+where you will be able to click where you want to place your structure.
+This same mechanism will also occur if you need to move the robber.
+
+Similarly, in terms of structures, each player gets assigned a color. You will
+be able to tell your color after playing the first settlement during game set-up
+so make sure to look out for that!
+
+This game is also a multiplayer game, but only using one computer. Please make sure
+to keep track whose turn it is (typically displayed via player name). Player names can
+be the same, but it will work a lot better for you if they are not. Furthermore,
+there are occasions where players will have to interact with the game while it is
+not their turn, such as trading and getting robbed. For these actions, the player
+will be prompted to preform them, so again, be sure to check the name of the player
+being prompted to ensure the right person is taking action.
+
+We hope you enjoy!
+
+
