@@ -8,13 +8,9 @@
 
 
 // Allow cross platform sleep
-#ifndef CATAN_OVERRIDESLEEP_H
-#include <windows.h>
-#endif
-#ifdef CATAN_OVERRIDESLEEP_H
+
+
 #include <unistd.h>
-#define Sleep sleep
-#endif
 
 Game::Game() : board(Board::generateBoard()), adjGraph(AdjacencyGraph(&board)), deck(new Deck()) {
     players = {
@@ -347,7 +343,7 @@ void Game::setUp() {
                 break;
             }
             std::cout << "INVALID PLACEMENT" << std::endl;
-            Sleep(500);
+            sleep(500);
 
         }
 
@@ -360,7 +356,7 @@ void Game::setUp() {
                 break;
             }
             std::cout << "INVALID PLACEMENT" << std::endl;
-            Sleep(500);
+            sleep(500);
         }
 
         ++iter;
@@ -381,7 +377,7 @@ void Game::setUp() {
                     break;
             }
             std::cout << "INVALID PLACEMENT" << std::endl;
-            Sleep(500);
+            sleep(500);
         }
 
         // Place a second road
@@ -393,7 +389,7 @@ void Game::setUp() {
                 break;
             }
             std::cout << "INVALID PLACEMENT" << std::endl;
-            Sleep(500);
+            sleep(500);
         }
 
         --iter;

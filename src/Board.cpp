@@ -10,7 +10,7 @@
 #include "Edge.h"
 #include "Port.h"
 #include "Vertex.h"
-#include "customUtils.h"
+#include "CustomUtils.h"
 #include "cppgraphics.hpp"
 
 Board::Board() {

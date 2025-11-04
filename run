@@ -1,0 +1,4 @@
+#!/bin/bash
+
+(cmake -S ./ -B ./build &>> log.txt; cd build; make &>> ../log.txt)
+./build/Catan 2>> log.txt

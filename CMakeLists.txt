@@ -57,7 +57,6 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/info.txt
 
 file(COPY src/static/ DESTINATION static/)
 
-
 set(TARGET_NAME "Catan")
 set(LIST_OF_FILES src/main.cpp
         src/Player.cpp
@@ -106,14 +105,9 @@ set(LIST_OF_FILES src/main.cpp
         src/MonopolyCard.cpp
         src/MonopolyCard.h)
 
-if (WIN32)
-    set(WINDOWS_SLEEP src/overrideSleep.h)
-else()
-    set(WINDOWS_SLEEP)
-endif ()
-
 add_executable(${TARGET_NAME} ${LIST_OF_FILES} ${WINDOWS_SLEEP})
 
+include_directories(src)
 
 if (NOT "${CPPGRAPHICS_CPPGRAPHICS_PATH}" STREQUAL "" )
     # First add cppgraphics include directory.
@@ -126,22 +120,15 @@ if (NOT "${CPPGRAPHICS_CPPGRAPHICS_PATH}" STREQUAL "" )
     target_link_libraries(${TARGET_NAME} "${OPENGL_LIBRARIES}")
     message("OpenGL found: ${OPENGL_LIBRARIES}")
 
-    # Build deps
-    if (WIN32)
-        execute_process(COMMAND "${CPPGRAPHICS_CPPGRAPHICS_PATH}/deps/build_deps.bat" ${CMAKE_GENERATOR} ${CMAKE_C_COMPILER} ${CMAKE_CXX_COMPILER} WORKING_DIRECTORY "${CPPGRAPHICS_CPPGRAPHICS_PATH}/deps/")
-    else()
-        execute_process(COMMAND "sh" "${CPPGRAPHICS_CPPGRAPHICS_PATH}/deps/build_deps.sh" ${CMAKE_GENERATOR} ${CMAKE_C_COMPILER} ${CMAKE_CXX_COMPILER} WORKING_DIRECTORY "${CPPGRAPHICS_CPPGRAPHICS_PATH}/deps/")
-    endif()
+
+    execute_process(COMMAND "sh" "${CPPGRAPHICS_CPPGRAPHICS_PATH}/deps/build_deps.sh" ${CMAKE_GENERATOR} ${CMAKE_C_COMPILER} ${CMAKE_CXX_COMPILER} WORKING_DIRECTORY "${CPPGRAPHICS_CPPGRAPHICS_PATH}/deps/")
+
 
     # Find SDL2
     find_package(SDL2 2 CONFIG REQUIRED)
     target_link_libraries(${TARGET_NAME} SDL2::SDL2 )
 
 
-    if (WIN32)
-        # Add SDL2 dependencies (needed because it is statically linked)
-        target_link_libraries(${TARGET_NAME} winmm setupapi version imm32)
-    endif()
 endif()
 
 # Tell MSVC we don't want its Release/Debug folders.
@@ -164,16 +151,3 @@ if (UNIX AND NOT APPLE)
     find_package(Threads REQUIRED)
     target_link_libraries( ${TARGET_NAME} Threads::Threads)
 endif()
-
-add_executable(Tests test/testing.cpp
-        src/Player.cpp
-        src/Deck.cpp
-        src/Card.cpp
-        src/CardStack.cpp
-        src/VictoryPointCard.cpp
-        src/KnightCard.cpp
-        src/MonopolyCard.cpp
-        src/RoadBuilding.cpp
-        src/YearOfPlentyCard.cpp
-        src/Player.cpp)
-

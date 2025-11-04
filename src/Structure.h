@@ -4,7 +4,7 @@
 
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
-#include "player.h"
+#include "Player.h"
 
 
 class Structure {

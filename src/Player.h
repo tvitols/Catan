@@ -11,7 +11,7 @@
 
 #include "Deck.h"
 #include "CardStack.h"
-#include "customUtils.h"
+#include "CustomUtils.h"
 
 enum playerColor : int {red = 0, white = 1, blue = 2, green = 3};
 
