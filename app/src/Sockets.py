@@ -67,8 +67,8 @@ class Admin(Namespace):
     def on_start_game(self):
         global game
         print("starting game")
-        game = Game(players, gameRoom)
-        game.start()
+        game = Game()
+        print(game.readGame())
         send("started", namespace="/admin")
         return "ok"
     

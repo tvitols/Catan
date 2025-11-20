@@ -25,8 +25,8 @@ from google.auth.transport import requests
 import os
 import json
 
-import subprocess
-import sys
+import asyncio
+from gameio import read, write, interact_with_process, kill
 
 from db import init_db_command, db_error
 from User import User
@@ -130,6 +130,7 @@ def logout():
 socketio.on_namespace(Playing('/play'))
 socketio.on_namespace(Admin("/admin"))
 
+
 if __name__ == '__main__':
     try:
         init_db_command()
@@ -139,11 +140,4 @@ if __name__ == '__main__':
         print(e)
         pass
 
-    catan_process = subprocess.Popen(["../../build/Catan"], stdout=subprocess.PIPE, text=True)
-
-    output, error = catan_process.communicate()
-
-    print(f"Output: {output}")
-    print(f"Error: {error}")
-
-    #socketio.run(app,host="0.0.0.0",ssl_context='adhoc')
+    socketio.run(app,host="0.0.0.0",ssl_context='adhoc')

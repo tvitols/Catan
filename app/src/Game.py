@@ -3,11 +3,19 @@ Main code for integrating different components and running the game itself
 '''
 
 from flask_socketio import emit
-from os import subprocess
+from gameio import read, write, interact_with_process, kill
+import asyncio
 
+class Game:
 
-def new_game():
-    subprocess.run(["python", "app.py"], capture_output=True)
+    def __init__(self):
+        self.loop = asyncio.new_event_loop()
+        self.run = self.loop.run_until_complete
+        self.process = self.run(interact_with_process())
+        
+    def kill(self):
+        self.run(kill(self.process))
+        self.loop.close()
 
-def load_game(save_data):
-    subprocess.run(["./src/catan", save_data], capture_output=True)
+    def readGame(self):
+        self.run(read(self.process.stdin))
